@@ -7,15 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "qortexapi.h"
 
 int main(int argc, const char * argv[])
 {
 
     @autoreleasepool {
-        
-        // insert code here...
-        NSLog(@"Hello, World!");
-        
+
+        AuthUserService* serv = [AuthUserService alloc];
+        AuthUserServiceOrganizationInfoResults* r = [serv OrganizationInfo:@"Hello"];
+        if (r == nil) {
+            NSLog(@"nil");
+        }
     }
     return 0;
 }
