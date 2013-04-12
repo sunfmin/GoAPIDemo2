@@ -144,8 +144,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B59BAC3F17155F8B001B0DDE /* main.m in Sources */,
 				B59BAC4B17156168001B0DDE /* qortexapi.m in Sources */,
+				B59BAC3F17155F8B001B0DDE /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +248,7 @@
 				B59BAC4817155F8B001B0DDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
