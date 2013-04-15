@@ -5,7 +5,9 @@
 
 @interface Qortexapi : NSObject
 @property (nonatomic, strong) NSString * BaseURL;
+@property (nonatomic, assign) BOOL Verbose;
 + (Qortexapi *) get;
++ (NSDictionary *) request:(NSURL*)url req:(NSDictionary *)req error:(NSError **)error;
 @end
 
 @interface Error : NSObject
@@ -1254,6 +1256,8 @@
 
 
 @interface NoAuthUserService : NSObject
+- (NSDictionary*) dictionary;
+
 
 - (NoAuthUserServiceCancelChangingEmailResults *) CancelChangingEmail:(NSString *)token;
 
@@ -1391,6 +1395,8 @@
 
 
 @interface AuthMemberService : NSObject
+- (NSDictionary*) dictionary;
+
 
 - (AuthMemberServiceGetAbandonUserInfoResults *) GetAbandonUserInfo:(NSString *)organizationId memberId:(NSString *)memberId;
 
@@ -3622,6 +3628,8 @@
 
 
 @interface Global : NSObject
+- (NSDictionary*) dictionary;
+
 
 - (GlobalGetSessionResults *) GetSession:(NSString *)email password:(NSString *)password;
 
