@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B58D9315171BE873004CFB43 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = B58D9314171BE873004CFB43 /* Utils.m */; };
 		B59BAC3C17155F8B001B0DDE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B59BAC3B17155F8B001B0DDE /* Foundation.framework */; };
 		B59BAC3F17155F8B001B0DDE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B59BAC3E17155F8B001B0DDE /* main.m */; };
 		B59BAC4317155F8B001B0DDE /* GoAPIDemo2.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = B59BAC4217155F8B001B0DDE /* GoAPIDemo2.1 */; };
@@ -27,6 +28,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B58D9313171BE873004CFB43 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		B58D9314171BE873004CFB43 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		B59BAC3817155F8B001B0DDE /* GoAPIDemo2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GoAPIDemo2; sourceTree = BUILT_PRODUCTS_DIR; };
 		B59BAC3B17155F8B001B0DDE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B59BAC3E17155F8B001B0DDE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -81,6 +84,8 @@
 				B59BAC4017155F8B001B0DDE /* Supporting Files */,
 				B59BAC4917156168001B0DDE /* qortexapi.h */,
 				B59BAC4A17156168001B0DDE /* qortexapi.m */,
+				B58D9313171BE873004CFB43 /* Utils.h */,
+				B58D9314171BE873004CFB43 /* Utils.m */,
 			);
 			path = GoAPIDemo2;
 			sourceTree = "<group>";
@@ -146,6 +151,7 @@
 			files = (
 				B59BAC4B17156168001B0DDE /* qortexapi.m in Sources */,
 				B59BAC3F17155F8B001B0DDE /* main.m in Sources */,
+				B58D9315171BE873004CFB43 /* Utils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

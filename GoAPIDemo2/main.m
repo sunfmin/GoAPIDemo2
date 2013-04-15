@@ -8,17 +8,43 @@
 
 #import <Foundation/Foundation.h>
 #import "qortexapi.h"
+#import "Utils.h"
 
 int main(int argc, const char * argv[])
 {
 
     @autoreleasepool {
+        
+        Organization * org = [Organization alloc];
+        [org setSummary:@"Really cool org"];
+        [org setQortexURL:@"theplant"];
+        
 
-        AuthUserService* serv = [AuthUserService alloc];
+        [Utils Though:[[Organization alloc] initWithDictionary:[Utils Though:org]]];
+
+        Entry * entry = [Entry alloc];
+        [entry setId:@"234234234234"];
+        EmbedUser *author = [EmbedUser alloc];
+        [author setEmail:@"felix@theplant.jp"];
+        [author setIsShare:YES];
+        [entry setAuthor:author];
+        
+        EntryVersion *v1 = [EntryVersion alloc];
+        [v1 setId:@"111111"];
+        EntryVersion *v2 = [EntryVersion alloc];
+        [v2 setId:@"222222"];
+        [entry setVersions:[NSArray arrayWithObjects:v1, v2, nil]];
+        
+        
+        [Utils Though:[[Entry alloc] initWithDictionary:[Utils Though:entry]]];
+        
+        [[Qortexapi get] setBaseURL:@"http://qortex.net/api"];
+        Global * g = [Global alloc];
+        AuthUserService * serv = [g GetAuthUserService:@"sessionstring"];
+        [[Qortexapi get] setBaseURL:@"http://qortex.net/apiv2"];
         AuthUserServiceOrganizationInfoResults* r = [serv OrganizationInfo:@"Hello"];
-        if (r == nil) {
-            NSLog(@"nil");
-        }
+
+
     }
     return 0;
 }

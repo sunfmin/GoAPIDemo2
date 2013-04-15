@@ -2,28 +2,11495 @@
 // DO NOT EDIT
 #import "qortexapi.h"
 
+static Qortexapi * _qortexapi;
+@implementation Qortexapi : NSObject
++ (Qortexapi *)get {
+	if(!_qortexapi) {
+		_qortexapi = [[Qortexapi alloc] init];
+	}
+	return _qortexapi;
+}
+@end
+
+
+// --- UserProfileInput ---
+@implementation UserProfileInput
+
+@synthesize Summary;
+@synthesize Title;
+@synthesize Department;
+@synthesize Location;
+@synthesize Expertise;
+@synthesize Interests;
+@synthesize BirthMonth;
+@synthesize BirthDay;
+@synthesize WorkPhone;
+@synthesize Mobile;
+@synthesize Twitter;
+@synthesize Skype;
+@synthesize Facebook;
+@synthesize OtherWebsites;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setSummary:[dict valueForKey:@"Summary"]];
+	[self setTitle:[dict valueForKey:@"Title"]];
+	[self setDepartment:[dict valueForKey:@"Department"]];
+	[self setLocation:[dict valueForKey:@"Location"]];
+	[self setExpertise:[dict valueForKey:@"Expertise"]];
+	[self setInterests:[dict valueForKey:@"Interests"]];
+	[self setBirthMonth:[dict valueForKey:@"BirthMonth"]];
+	[self setBirthDay:[dict valueForKey:@"BirthDay"]];
+	[self setWorkPhone:[dict valueForKey:@"WorkPhone"]];
+	[self setMobile:[dict valueForKey:@"Mobile"]];
+	[self setTwitter:[dict valueForKey:@"Twitter"]];
+	[self setSkype:[dict valueForKey:@"Skype"]];
+	[self setFacebook:[dict valueForKey:@"Facebook"]];
+	[self setOtherWebsites:[dict valueForKey:@"OtherWebsites"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Summary forKey:@"Summary"];
+	[dict setValue:self.Title forKey:@"Title"];
+	[dict setValue:self.Department forKey:@"Department"];
+	[dict setValue:self.Location forKey:@"Location"];
+	[dict setValue:self.Expertise forKey:@"Expertise"];
+	[dict setValue:self.Interests forKey:@"Interests"];
+	[dict setValue:self.BirthMonth forKey:@"BirthMonth"];
+	[dict setValue:self.BirthDay forKey:@"BirthDay"];
+	[dict setValue:self.WorkPhone forKey:@"WorkPhone"];
+	[dict setValue:self.Mobile forKey:@"Mobile"];
+	[dict setValue:self.Twitter forKey:@"Twitter"];
+	[dict setValue:self.Skype forKey:@"Skype"];
+	[dict setValue:self.Facebook forKey:@"Facebook"];
+	[dict setValue:self.OtherWebsites forKey:@"OtherWebsites"];
+
+	return dict;
+}
+
+@end
+
 // --- Organization ---
 @implementation Organization
-@synthesize Id = _Id;
-@synthesize Name = _Name;
-@synthesize QortexURL = _QortexURL;
-@synthesize Summary = _Summary;
-@synthesize LogoURL = _LogoURL;
-@synthesize Address = _Address;
-@synthesize Phone = _Phone;
-@synthesize Website = _Website;
-@synthesize Domains = _Domains;
-@synthesize RestrictSubscriptionMail = _RestrictSubscriptionMail;
+
+@synthesize Id;
+@synthesize Name;
+@synthesize QortexURL;
+@synthesize Summary;
+@synthesize LogoURL;
+@synthesize Address;
+@synthesize Phone;
+@synthesize Website;
+@synthesize Domains;
+@synthesize RestrictSubscriptionMail;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setName:[dict valueForKey:@"Name"]];
+	[self setQortexURL:[dict valueForKey:@"QortexURL"]];
+	[self setSummary:[dict valueForKey:@"Summary"]];
+	[self setLogoURL:[dict valueForKey:@"LogoURL"]];
+	[self setAddress:[dict valueForKey:@"Address"]];
+	[self setPhone:[dict valueForKey:@"Phone"]];
+	[self setWebsite:[dict valueForKey:@"Website"]];
+	[self setDomains:[dict valueForKey:@"Domains"]];
+	[self setRestrictSubscriptionMail:[[dict valueForKey:@"RestrictSubscriptionMail"] boolValue]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.Name forKey:@"Name"];
+	[dict setValue:self.QortexURL forKey:@"QortexURL"];
+	[dict setValue:self.Summary forKey:@"Summary"];
+	[dict setValue:self.LogoURL forKey:@"LogoURL"];
+	[dict setValue:self.Address forKey:@"Address"];
+	[dict setValue:self.Phone forKey:@"Phone"];
+	[dict setValue:self.Website forKey:@"Website"];
+	[dict setValue:self.Domains forKey:@"Domains"];
+	[dict setValue:[NSNumber numberWithBool:self.RestrictSubscriptionMail] forKey:@"RestrictSubscriptionMail"];
+
+	return dict;
+}
+
+@end
+
+// --- Blog ---
+@implementation Blog
+
+@synthesize Title;
+@synthesize Description;
+@synthesize SideContent;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setTitle:[dict valueForKey:@"Title"]];
+	[self setDescription:[dict valueForKey:@"Description"]];
+	[self setSideContent:[dict valueForKey:@"SideContent"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Title forKey:@"Title"];
+	[dict setValue:self.Description forKey:@"Description"];
+	[dict setValue:self.SideContent forKey:@"SideContent"];
+
+	return dict;
+}
+
+@end
+
+// --- EmbedOrg ---
+@implementation EmbedOrg
+
+@synthesize Id;
+@synthesize Name;
+@synthesize LogoURL;
+@synthesize NoNeedToShare;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setName:[dict valueForKey:@"Name"]];
+	[self setLogoURL:[dict valueForKey:@"LogoURL"]];
+	[self setNoNeedToShare:[[dict valueForKey:@"NoNeedToShare"] boolValue]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.Name forKey:@"Name"];
+	[dict setValue:self.LogoURL forKey:@"LogoURL"];
+	[dict setValue:[NSNumber numberWithBool:self.NoNeedToShare] forKey:@"NoNeedToShare"];
+
+	return dict;
+}
+
+@end
+
+// --- EmbedUser ---
+@implementation EmbedUser
+
+@synthesize Id;
+@synthesize Email;
+@synthesize Name;
+@synthesize Title;
+@synthesize Avatar16;
+@synthesize Avatar32;
+@synthesize JID;
+@synthesize Timezone;
+@synthesize IsSuperUser;
+@synthesize IsShare;
+@synthesize OrganizationId;
+@synthesize OriginalOrgId;
+@synthesize ProfileURL;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setEmail:[dict valueForKey:@"Email"]];
+	[self setName:[dict valueForKey:@"Name"]];
+	[self setTitle:[dict valueForKey:@"Title"]];
+	[self setAvatar16:[dict valueForKey:@"Avatar16"]];
+	[self setAvatar32:[dict valueForKey:@"Avatar32"]];
+	[self setJID:[dict valueForKey:@"JID"]];
+	[self setTimezone:[dict valueForKey:@"Timezone"]];
+	[self setIsSuperUser:[[dict valueForKey:@"IsSuperUser"] boolValue]];
+	[self setIsShare:[[dict valueForKey:@"IsShare"] boolValue]];
+	[self setOrganizationId:[dict valueForKey:@"OrganizationId"]];
+	[self setOriginalOrgId:[dict valueForKey:@"OriginalOrgId"]];
+	[self setProfileURL:[dict valueForKey:@"ProfileURL"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.Email forKey:@"Email"];
+	[dict setValue:self.Name forKey:@"Name"];
+	[dict setValue:self.Title forKey:@"Title"];
+	[dict setValue:self.Avatar16 forKey:@"Avatar16"];
+	[dict setValue:self.Avatar32 forKey:@"Avatar32"];
+	[dict setValue:self.JID forKey:@"JID"];
+	[dict setValue:self.Timezone forKey:@"Timezone"];
+	[dict setValue:[NSNumber numberWithBool:self.IsSuperUser] forKey:@"IsSuperUser"];
+	[dict setValue:[NSNumber numberWithBool:self.IsShare] forKey:@"IsShare"];
+	[dict setValue:self.OrganizationId forKey:@"OrganizationId"];
+	[dict setValue:self.OriginalOrgId forKey:@"OriginalOrgId"];
+	[dict setValue:self.ProfileURL forKey:@"ProfileURL"];
+
+	return dict;
+}
+
+@end
+
+// --- PanelStatus ---
+@implementation PanelStatus
+
+@synthesize AsideGroupsCollapse;
+@synthesize AsideOtherGroupsCollapse;
+@synthesize HasToDo;
+@synthesize HasDraft;
+@synthesize HasWatchList;
+@synthesize HasChat;
+@synthesize ShowMarkUnreadThreshold;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setAsideGroupsCollapse:[[dict valueForKey:@"AsideGroupsCollapse"] boolValue]];
+	[self setAsideOtherGroupsCollapse:[[dict valueForKey:@"AsideOtherGroupsCollapse"] boolValue]];
+	[self setHasToDo:[[dict valueForKey:@"HasToDo"] boolValue]];
+	[self setHasDraft:[[dict valueForKey:@"HasDraft"] boolValue]];
+	[self setHasWatchList:[[dict valueForKey:@"HasWatchList"] boolValue]];
+	[self setHasChat:[[dict valueForKey:@"HasChat"] boolValue]];
+	[self setShowMarkUnreadThreshold:[dict valueForKey:@"ShowMarkUnreadThreshold"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[NSNumber numberWithBool:self.AsideGroupsCollapse] forKey:@"AsideGroupsCollapse"];
+	[dict setValue:[NSNumber numberWithBool:self.AsideOtherGroupsCollapse] forKey:@"AsideOtherGroupsCollapse"];
+	[dict setValue:[NSNumber numberWithBool:self.HasToDo] forKey:@"HasToDo"];
+	[dict setValue:[NSNumber numberWithBool:self.HasDraft] forKey:@"HasDraft"];
+	[dict setValue:[NSNumber numberWithBool:self.HasWatchList] forKey:@"HasWatchList"];
+	[dict setValue:[NSNumber numberWithBool:self.HasChat] forKey:@"HasChat"];
+	[dict setValue:self.ShowMarkUnreadThreshold forKey:@"ShowMarkUnreadThreshold"];
+
+	return dict;
+}
+
+@end
+
+// --- Attachment ---
+@implementation Attachment
+
+@synthesize Id;
+@synthesize OwnerId;
+@synthesize Category;
+@synthesize Filename;
+@synthesize ShortFilename;
+@synthesize ContentType;
+@synthesize ContentId;
+@synthesize MD5;
+@synthesize ContentLength;
+@synthesize Error;
+@synthesize GroupId;
+@synthesize UploadTime;
+@synthesize Width;
+@synthesize Height;
+@synthesize URL;
+@synthesize ImageIconURL;
+@synthesize FileIconURL;
+@synthesize HumanSize;
+@synthesize IsImage;
+@synthesize FileKind;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setOwnerId:[dict valueForKey:@"OwnerId"]];
+	[self setCategory:[dict valueForKey:@"Category"]];
+	[self setFilename:[dict valueForKey:@"Filename"]];
+	[self setShortFilename:[dict valueForKey:@"ShortFilename"]];
+	[self setContentType:[dict valueForKey:@"ContentType"]];
+	[self setContentId:[dict valueForKey:@"ContentId"]];
+	[self setMD5:[dict valueForKey:@"MD5"]];
+	[self setContentLength:[dict valueForKey:@"ContentLength"]];
+	[self setError:[dict valueForKey:@"Error"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setUploadTime:[NSDate dateWithString:[dict valueForKey:@"UploadTime"]]];
+	[self setWidth:[dict valueForKey:@"Width"]];
+	[self setHeight:[dict valueForKey:@"Height"]];
+	[self setURL:[dict valueForKey:@"URL"]];
+	[self setImageIconURL:[dict valueForKey:@"ImageIconURL"]];
+	[self setFileIconURL:[dict valueForKey:@"FileIconURL"]];
+	[self setHumanSize:[dict valueForKey:@"HumanSize"]];
+	[self setIsImage:[[dict valueForKey:@"IsImage"] boolValue]];
+	[self setFileKind:[dict valueForKey:@"FileKind"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.OwnerId forKey:@"OwnerId"];
+	[dict setValue:self.Category forKey:@"Category"];
+	[dict setValue:self.Filename forKey:@"Filename"];
+	[dict setValue:self.ShortFilename forKey:@"ShortFilename"];
+	[dict setValue:self.ContentType forKey:@"ContentType"];
+	[dict setValue:self.ContentId forKey:@"ContentId"];
+	[dict setValue:self.MD5 forKey:@"MD5"];
+	[dict setValue:self.ContentLength forKey:@"ContentLength"];
+	[dict setValue:self.Error forKey:@"Error"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.UploadTime forKey:@"UploadTime"];
+	[dict setValue:self.Width forKey:@"Width"];
+	[dict setValue:self.Height forKey:@"Height"];
+	[dict setValue:self.URL forKey:@"URL"];
+	[dict setValue:self.ImageIconURL forKey:@"ImageIconURL"];
+	[dict setValue:self.FileIconURL forKey:@"FileIconURL"];
+	[dict setValue:self.HumanSize forKey:@"HumanSize"];
+	[dict setValue:[NSNumber numberWithBool:self.IsImage] forKey:@"IsImage"];
+	[dict setValue:self.FileKind forKey:@"FileKind"];
+
+	return dict;
+}
+
+@end
+
+// --- LinkedEntry ---
+@implementation LinkedEntry
+
+@synthesize Id;
+@synthesize EType;
+@synthesize Title;
+@synthesize GroupId;
+@synthesize AuthorId;
+@synthesize IsRoot;
+@synthesize RootId;
+@synthesize RootEntryTitle;
+@synthesize Link;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setEType:[dict valueForKey:@"EType"]];
+	[self setTitle:[dict valueForKey:@"Title"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setAuthorId:[dict valueForKey:@"AuthorId"]];
+	[self setIsRoot:[[dict valueForKey:@"IsRoot"] boolValue]];
+	[self setRootId:[dict valueForKey:@"RootId"]];
+	[self setRootEntryTitle:[dict valueForKey:@"RootEntryTitle"]];
+	[self setLink:[dict valueForKey:@"Link"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.EType forKey:@"EType"];
+	[dict setValue:self.Title forKey:@"Title"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.AuthorId forKey:@"AuthorId"];
+	[dict setValue:[NSNumber numberWithBool:self.IsRoot] forKey:@"IsRoot"];
+	[dict setValue:self.RootId forKey:@"RootId"];
+	[dict setValue:self.RootEntryTitle forKey:@"RootEntryTitle"];
+	[dict setValue:self.Link forKey:@"Link"];
+
+	return dict;
+}
+
+@end
+
+// --- GroupCount ---
+@implementation GroupCount
+
+@synthesize GroupId;
+@synthesize UnreadCount;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setUnreadCount:[dict valueForKey:@"UnreadCount"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.UnreadCount forKey:@"UnreadCount"];
+
+	return dict;
+}
+
+@end
+
+// --- GroupSelectorItem ---
+@implementation GroupSelectorItem
+
+@synthesize Id;
+@synthesize Name;
+@synthesize IsSelected;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setName:[dict valueForKey:@"Name"]];
+	[self setIsSelected:[[dict valueForKey:@"IsSelected"] boolValue]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.Name forKey:@"Name"];
+	[dict setValue:[NSNumber numberWithBool:self.IsSelected] forKey:@"IsSelected"];
+
+	return dict;
+}
+
+@end
+
+// --- GroupHeaderItem ---
+@implementation GroupHeaderItem
+
+@synthesize HasToFollow;
+@synthesize IsFollowing;
+@synthesize IsManaging;
+@synthesize HasFileTab;
+@synthesize HasToDoTab;
+@synthesize IsSystemMessage;
+@synthesize SelectedGroup;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setHasToFollow:[[dict valueForKey:@"HasToFollow"] boolValue]];
+	[self setIsFollowing:[[dict valueForKey:@"IsFollowing"] boolValue]];
+	[self setIsManaging:[[dict valueForKey:@"IsManaging"] boolValue]];
+	[self setHasFileTab:[[dict valueForKey:@"HasFileTab"] boolValue]];
+	[self setHasToDoTab:[[dict valueForKey:@"HasToDoTab"] boolValue]];
+	[self setIsSystemMessage:[[dict valueForKey:@"IsSystemMessage"] boolValue]];
+	[self setSelectedGroup:[[dict valueForKey:@"SelectedGroup"] boolValue]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[NSNumber numberWithBool:self.HasToFollow] forKey:@"HasToFollow"];
+	[dict setValue:[NSNumber numberWithBool:self.IsFollowing] forKey:@"IsFollowing"];
+	[dict setValue:[NSNumber numberWithBool:self.IsManaging] forKey:@"IsManaging"];
+	[dict setValue:[NSNumber numberWithBool:self.HasFileTab] forKey:@"HasFileTab"];
+	[dict setValue:[NSNumber numberWithBool:self.HasToDoTab] forKey:@"HasToDoTab"];
+	[dict setValue:[NSNumber numberWithBool:self.IsSystemMessage] forKey:@"IsSystemMessage"];
+	[dict setValue:[NSNumber numberWithBool:self.SelectedGroup] forKey:@"SelectedGroup"];
+
+	return dict;
+}
+
+@end
+
+// --- InlineHelp ---
+@implementation InlineHelp
+
+@synthesize WhatFeed;
+@synthesize WhatGroup;
+@synthesize WhatNext;
+@synthesize WhatChats;
+@synthesize WhatWatchList;
+@synthesize AboutTodos;
+@synthesize GettingOut;
+@synthesize InviteOthersURL;
+@synthesize WhatNextURL;
+@synthesize WhatChatsURL;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setWhatFeed:[[dict valueForKey:@"WhatFeed"] boolValue]];
+	[self setWhatGroup:[[dict valueForKey:@"WhatGroup"] boolValue]];
+	[self setWhatNext:[[dict valueForKey:@"WhatNext"] boolValue]];
+	[self setWhatChats:[[dict valueForKey:@"WhatChats"] boolValue]];
+	[self setWhatWatchList:[[dict valueForKey:@"WhatWatchList"] boolValue]];
+	[self setAboutTodos:[[dict valueForKey:@"AboutTodos"] boolValue]];
+	[self setGettingOut:[[dict valueForKey:@"GettingOut"] boolValue]];
+	[self setInviteOthersURL:[dict valueForKey:@"InviteOthersURL"]];
+	[self setWhatNextURL:[dict valueForKey:@"WhatNextURL"]];
+	[self setWhatChatsURL:[dict valueForKey:@"WhatChatsURL"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[NSNumber numberWithBool:self.WhatFeed] forKey:@"WhatFeed"];
+	[dict setValue:[NSNumber numberWithBool:self.WhatGroup] forKey:@"WhatGroup"];
+	[dict setValue:[NSNumber numberWithBool:self.WhatNext] forKey:@"WhatNext"];
+	[dict setValue:[NSNumber numberWithBool:self.WhatChats] forKey:@"WhatChats"];
+	[dict setValue:[NSNumber numberWithBool:self.WhatWatchList] forKey:@"WhatWatchList"];
+	[dict setValue:[NSNumber numberWithBool:self.AboutTodos] forKey:@"AboutTodos"];
+	[dict setValue:[NSNumber numberWithBool:self.GettingOut] forKey:@"GettingOut"];
+	[dict setValue:self.InviteOthersURL forKey:@"InviteOthersURL"];
+	[dict setValue:self.WhatNextURL forKey:@"WhatNextURL"];
+	[dict setValue:self.WhatChatsURL forKey:@"WhatChatsURL"];
+
+	return dict;
+}
+
+@end
+
+// --- EmailChanger ---
+@implementation EmailChanger
+
+@synthesize Token;
+@synthesize Email;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setToken:[dict valueForKey:@"Token"]];
+	[self setEmail:[dict valueForKey:@"Email"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Token forKey:@"Token"];
+	[dict setValue:self.Email forKey:@"Email"];
+
+	return dict;
+}
+
+@end
+
+// --- Newsletter ---
+@implementation Newsletter
+
+@synthesize Email;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEmail:[dict valueForKey:@"Email"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Email forKey:@"Email"];
+
+	return dict;
+}
+
+@end
+
+// --- HelpInfo ---
+@implementation HelpInfo
+
+@synthesize FirstName;
+@synthesize LastName;
+@synthesize CompanyName;
+@synthesize CompanySize;
+@synthesize Email;
+@synthesize Phone;
+@synthesize Country;
+@synthesize City;
+@synthesize HelpContent;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setFirstName:[dict valueForKey:@"FirstName"]];
+	[self setLastName:[dict valueForKey:@"LastName"]];
+	[self setCompanyName:[dict valueForKey:@"CompanyName"]];
+	[self setCompanySize:[dict valueForKey:@"CompanySize"]];
+	[self setEmail:[dict valueForKey:@"Email"]];
+	[self setPhone:[dict valueForKey:@"Phone"]];
+	[self setCountry:[dict valueForKey:@"Country"]];
+	[self setCity:[dict valueForKey:@"City"]];
+	[self setHelpContent:[dict valueForKey:@"HelpContent"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.FirstName forKey:@"FirstName"];
+	[dict setValue:self.LastName forKey:@"LastName"];
+	[dict setValue:self.CompanyName forKey:@"CompanyName"];
+	[dict setValue:self.CompanySize forKey:@"CompanySize"];
+	[dict setValue:self.Email forKey:@"Email"];
+	[dict setValue:self.Phone forKey:@"Phone"];
+	[dict setValue:self.Country forKey:@"Country"];
+	[dict setValue:self.City forKey:@"City"];
+	[dict setValue:self.HelpContent forKey:@"HelpContent"];
+
+	return dict;
+}
+
+@end
+
+// --- EntryInput ---
+@implementation EntryInput
+
+@synthesize Id;
+@synthesize EType;
+@synthesize Title;
+@synthesize Slug;
+@synthesize Content;
+@synthesize GroupId;
+@synthesize IsToGroup;
+@synthesize ToUserIds;
+@synthesize MentionedUserIds;
+@synthesize IsPublished;
+@synthesize IsAcknowledgement;
+@synthesize TaskRequireType;
+@synthesize TaskDue;
+@synthesize RootId;
+@synthesize IsCommentAcknowledgement;
+@synthesize BaseOnEntryId;
+@synthesize NewVersion;
+@synthesize OldGroupId;
+@synthesize KnowledgeBase;
+@synthesize AnyoneCanEdit;
+@synthesize Presentation;
+@synthesize IsFromEmail;
+@synthesize Email;
+@synthesize Name;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setEType:[dict valueForKey:@"EType"]];
+	[self setTitle:[dict valueForKey:@"Title"]];
+	[self setSlug:[dict valueForKey:@"Slug"]];
+	[self setContent:[dict valueForKey:@"Content"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setIsToGroup:[dict valueForKey:@"IsToGroup"]];
+	[self setToUserIds:[dict valueForKey:@"ToUserIds"]];
+	[self setMentionedUserIds:[dict valueForKey:@"MentionedUserIds"]];
+	[self setIsPublished:[dict valueForKey:@"IsPublished"]];
+	[self setIsAcknowledgement:[dict valueForKey:@"IsAcknowledgement"]];
+	[self setTaskRequireType:[dict valueForKey:@"TaskRequireType"]];
+	[self setTaskDue:[dict valueForKey:@"TaskDue"]];
+	[self setRootId:[dict valueForKey:@"RootId"]];
+	[self setIsCommentAcknowledgement:[dict valueForKey:@"IsCommentAcknowledgement"]];
+	[self setBaseOnEntryId:[dict valueForKey:@"BaseOnEntryId"]];
+	[self setNewVersion:[dict valueForKey:@"NewVersion"]];
+	[self setOldGroupId:[dict valueForKey:@"OldGroupId"]];
+	[self setKnowledgeBase:[[dict valueForKey:@"KnowledgeBase"] boolValue]];
+	[self setAnyoneCanEdit:[[dict valueForKey:@"AnyoneCanEdit"] boolValue]];
+	[self setPresentation:[[dict valueForKey:@"Presentation"] boolValue]];
+	[self setIsFromEmail:[[dict valueForKey:@"IsFromEmail"] boolValue]];
+	[self setEmail:[dict valueForKey:@"Email"]];
+	[self setName:[dict valueForKey:@"Name"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.EType forKey:@"EType"];
+	[dict setValue:self.Title forKey:@"Title"];
+	[dict setValue:self.Slug forKey:@"Slug"];
+	[dict setValue:self.Content forKey:@"Content"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.IsToGroup forKey:@"IsToGroup"];
+	[dict setValue:self.ToUserIds forKey:@"ToUserIds"];
+	[dict setValue:self.MentionedUserIds forKey:@"MentionedUserIds"];
+	[dict setValue:self.IsPublished forKey:@"IsPublished"];
+	[dict setValue:self.IsAcknowledgement forKey:@"IsAcknowledgement"];
+	[dict setValue:self.TaskRequireType forKey:@"TaskRequireType"];
+	[dict setValue:self.TaskDue forKey:@"TaskDue"];
+	[dict setValue:self.RootId forKey:@"RootId"];
+	[dict setValue:self.IsCommentAcknowledgement forKey:@"IsCommentAcknowledgement"];
+	[dict setValue:self.BaseOnEntryId forKey:@"BaseOnEntryId"];
+	[dict setValue:self.NewVersion forKey:@"NewVersion"];
+	[dict setValue:self.OldGroupId forKey:@"OldGroupId"];
+	[dict setValue:[NSNumber numberWithBool:self.KnowledgeBase] forKey:@"KnowledgeBase"];
+	[dict setValue:[NSNumber numberWithBool:self.AnyoneCanEdit] forKey:@"AnyoneCanEdit"];
+	[dict setValue:[NSNumber numberWithBool:self.Presentation] forKey:@"Presentation"];
+	[dict setValue:[NSNumber numberWithBool:self.IsFromEmail] forKey:@"IsFromEmail"];
+	[dict setValue:self.Email forKey:@"Email"];
+	[dict setValue:self.Name forKey:@"Name"];
+
+	return dict;
+}
+
+@end
+
+// --- BroadcastInput ---
+@implementation BroadcastInput
+
+@synthesize Id;
+@synthesize Title;
+@synthesize Content;
+@synthesize ToOrgIds;
+@synthesize BroadcastType;
+@synthesize RootId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setTitle:[dict valueForKey:@"Title"]];
+	[self setContent:[dict valueForKey:@"Content"]];
+	[self setToOrgIds:[dict valueForKey:@"ToOrgIds"]];
+	[self setBroadcastType:[dict valueForKey:@"BroadcastType"]];
+	[self setRootId:[dict valueForKey:@"RootId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.Title forKey:@"Title"];
+	[dict setValue:self.Content forKey:@"Content"];
+	[dict setValue:self.ToOrgIds forKey:@"ToOrgIds"];
+	[dict setValue:self.BroadcastType forKey:@"BroadcastType"];
+	[dict setValue:self.RootId forKey:@"RootId"];
+
+	return dict;
+}
+
+@end
+
+// --- GroupInput ---
+@implementation GroupInput
+
+@synthesize Id;
+@synthesize Name;
+@synthesize Description;
+@synthesize Type;
+@synthesize LogoURL;
+@synthesize IconName;
+@synthesize Slug;
+@synthesize IsPrivate;
+@synthesize IsShared;
+@synthesize GroupOwners;
+@synthesize InvitedOrgIds;
+@synthesize ActionOrgId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setName:[dict valueForKey:@"Name"]];
+	[self setDescription:[dict valueForKey:@"Description"]];
+	[self setType:[dict valueForKey:@"Type"]];
+	[self setLogoURL:[dict valueForKey:@"LogoURL"]];
+	[self setIconName:[dict valueForKey:@"IconName"]];
+	[self setSlug:[dict valueForKey:@"Slug"]];
+	[self setIsPrivate:[[dict valueForKey:@"IsPrivate"] boolValue]];
+	[self setIsShared:[[dict valueForKey:@"IsShared"] boolValue]];
+	[self setGroupOwners:[dict valueForKey:@"GroupOwners"]];
+	[self setInvitedOrgIds:[dict valueForKey:@"InvitedOrgIds"]];
+	[self setActionOrgId:[dict valueForKey:@"ActionOrgId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.Name forKey:@"Name"];
+	[dict setValue:self.Description forKey:@"Description"];
+	[dict setValue:self.Type forKey:@"Type"];
+	[dict setValue:self.LogoURL forKey:@"LogoURL"];
+	[dict setValue:self.IconName forKey:@"IconName"];
+	[dict setValue:self.Slug forKey:@"Slug"];
+	[dict setValue:[NSNumber numberWithBool:self.IsPrivate] forKey:@"IsPrivate"];
+	[dict setValue:[NSNumber numberWithBool:self.IsShared] forKey:@"IsShared"];
+	[dict setValue:self.GroupOwners forKey:@"GroupOwners"];
+	[dict setValue:self.InvitedOrgIds forKey:@"InvitedOrgIds"];
+	[dict setValue:self.ActionOrgId forKey:@"ActionOrgId"];
+
+	return dict;
+}
+
+@end
+
+// --- OrgSettingsInput ---
+@implementation OrgSettingsInput
+
+@synthesize AllowUsersCreateGroups;
+@synthesize AllowUsersInvitePeople;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setAllowUsersCreateGroups:[[dict valueForKey:@"AllowUsersCreateGroups"] boolValue]];
+	[self setAllowUsersInvitePeople:[[dict valueForKey:@"AllowUsersInvitePeople"] boolValue]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[NSNumber numberWithBool:self.AllowUsersCreateGroups] forKey:@"AllowUsersCreateGroups"];
+	[dict setValue:[NSNumber numberWithBool:self.AllowUsersInvitePeople] forKey:@"AllowUsersInvitePeople"];
+
+	return dict;
+}
+
+@end
+
+// --- OrganizationInput ---
+@implementation OrganizationInput
+
+@synthesize Id;
+@synthesize OType;
+@synthesize Name;
+@synthesize Summary;
+@synthesize Address;
+@synthesize Phone;
+@synthesize Website;
+@synthesize Domain;
+@synthesize Domains;
+@synthesize RestrictSubscriptionMail;
+@synthesize AuthorId;
+@synthesize MemberIds;
+@synthesize GroupIds;
+@synthesize QortexURL;
+@synthesize LogoURL;
+@synthesize ChatToken;
+@synthesize RegistrationMode;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setOType:[dict valueForKey:@"OType"]];
+	[self setName:[dict valueForKey:@"Name"]];
+	[self setSummary:[dict valueForKey:@"Summary"]];
+	[self setAddress:[dict valueForKey:@"Address"]];
+	[self setPhone:[dict valueForKey:@"Phone"]];
+	[self setWebsite:[dict valueForKey:@"Website"]];
+	[self setDomain:[dict valueForKey:@"Domain"]];
+	[self setDomains:[dict valueForKey:@"Domains"]];
+	[self setRestrictSubscriptionMail:[[dict valueForKey:@"RestrictSubscriptionMail"] boolValue]];
+	[self setAuthorId:[dict valueForKey:@"AuthorId"]];
+	[self setMemberIds:[dict valueForKey:@"MemberIds"]];
+	[self setGroupIds:[dict valueForKey:@"GroupIds"]];
+	[self setQortexURL:[dict valueForKey:@"QortexURL"]];
+	[self setLogoURL:[dict valueForKey:@"LogoURL"]];
+	[self setChatToken:[dict valueForKey:@"ChatToken"]];
+	[self setRegistrationMode:[dict valueForKey:@"RegistrationMode"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.OType forKey:@"OType"];
+	[dict setValue:self.Name forKey:@"Name"];
+	[dict setValue:self.Summary forKey:@"Summary"];
+	[dict setValue:self.Address forKey:@"Address"];
+	[dict setValue:self.Phone forKey:@"Phone"];
+	[dict setValue:self.Website forKey:@"Website"];
+	[dict setValue:self.Domain forKey:@"Domain"];
+	[dict setValue:self.Domains forKey:@"Domains"];
+	[dict setValue:[NSNumber numberWithBool:self.RestrictSubscriptionMail] forKey:@"RestrictSubscriptionMail"];
+	[dict setValue:self.AuthorId forKey:@"AuthorId"];
+	[dict setValue:self.MemberIds forKey:@"MemberIds"];
+	[dict setValue:self.GroupIds forKey:@"GroupIds"];
+	[dict setValue:self.QortexURL forKey:@"QortexURL"];
+	[dict setValue:self.LogoURL forKey:@"LogoURL"];
+	[dict setValue:self.ChatToken forKey:@"ChatToken"];
+	[dict setValue:self.RegistrationMode forKey:@"RegistrationMode"];
+
+	return dict;
+}
+
+@end
+
+// --- LikeInput ---
+@implementation LikeInput
+
+@synthesize EntryId;
+@synthesize GroupId;
+@synthesize Like;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntryId:[dict valueForKey:@"EntryId"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setLike:[dict valueForKey:@"Like"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.EntryId forKey:@"EntryId"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.Like forKey:@"Like"];
+
+	return dict;
+}
+
+@end
+
+// --- PreferencesInput ---
+@implementation PreferencesInput
+
+@synthesize Timezone;
+@synthesize TimezoneOffset;
+@synthesize PreferFullName;
+@synthesize EnterForNewLine;
+@synthesize AsideGroupsCollapse;
+@synthesize AsideOtherGroupsCollapse;
+@synthesize ShowMarkUnreadThreshold;
+@synthesize AdminModeOn;
+@synthesize PreferMarkdown;
+@synthesize AutoFollowPublicGroup;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setTimezone:[dict valueForKey:@"Timezone"]];
+	[self setTimezoneOffset:[dict valueForKey:@"TimezoneOffset"]];
+	[self setPreferFullName:[dict valueForKey:@"PreferFullName"]];
+	[self setEnterForNewLine:[dict valueForKey:@"EnterForNewLine"]];
+	[self setAsideGroupsCollapse:[dict valueForKey:@"AsideGroupsCollapse"]];
+	[self setAsideOtherGroupsCollapse:[dict valueForKey:@"AsideOtherGroupsCollapse"]];
+	[self setShowMarkUnreadThreshold:[dict valueForKey:@"ShowMarkUnreadThreshold"]];
+	[self setAdminModeOn:[dict valueForKey:@"AdminModeOn"]];
+	[self setPreferMarkdown:[dict valueForKey:@"PreferMarkdown"]];
+	[self setAutoFollowPublicGroup:[dict valueForKey:@"AutoFollowPublicGroup"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Timezone forKey:@"Timezone"];
+	[dict setValue:self.TimezoneOffset forKey:@"TimezoneOffset"];
+	[dict setValue:self.PreferFullName forKey:@"PreferFullName"];
+	[dict setValue:self.EnterForNewLine forKey:@"EnterForNewLine"];
+	[dict setValue:self.AsideGroupsCollapse forKey:@"AsideGroupsCollapse"];
+	[dict setValue:self.AsideOtherGroupsCollapse forKey:@"AsideOtherGroupsCollapse"];
+	[dict setValue:self.ShowMarkUnreadThreshold forKey:@"ShowMarkUnreadThreshold"];
+	[dict setValue:self.AdminModeOn forKey:@"AdminModeOn"];
+	[dict setValue:self.PreferMarkdown forKey:@"PreferMarkdown"];
+	[dict setValue:self.AutoFollowPublicGroup forKey:@"AutoFollowPublicGroup"];
+
+	return dict;
+}
+
+@end
+
+// --- MemberAccountInput ---
+@implementation MemberAccountInput
+
+@synthesize FirstName;
+@synthesize LastName;
+@synthesize AvatarURL;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setFirstName:[dict valueForKey:@"FirstName"]];
+	[self setLastName:[dict valueForKey:@"LastName"]];
+	[self setAvatarURL:[dict valueForKey:@"AvatarURL"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.FirstName forKey:@"FirstName"];
+	[dict setValue:self.LastName forKey:@"LastName"];
+	[dict setValue:self.AvatarURL forKey:@"AvatarURL"];
+
+	return dict;
+}
+
+@end
+
+// --- NewsletterInput ---
+@implementation NewsletterInput
+
+@synthesize Email;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEmail:[dict valueForKey:@"Email"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Email forKey:@"Email"];
+
+	return dict;
+}
+
+@end
+
+// --- ShareChatInput ---
+@implementation ShareChatInput
+
+@synthesize Title;
+@synthesize Content;
+@synthesize BasedConvId;
+@synthesize BaseOnEntryId;
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setTitle:[dict valueForKey:@"Title"]];
+	[self setContent:[dict valueForKey:@"Content"]];
+	[self setBasedConvId:[dict valueForKey:@"BasedConvId"]];
+	[self setBaseOnEntryId:[dict valueForKey:@"BaseOnEntryId"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Title forKey:@"Title"];
+	[dict setValue:self.Content forKey:@"Content"];
+	[dict setValue:self.BasedConvId forKey:@"BasedConvId"];
+	[dict setValue:self.BaseOnEntryId forKey:@"BaseOnEntryId"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- HelpInput ---
+@implementation HelpInput
+
+@synthesize FirstName;
+@synthesize LastName;
+@synthesize CompanyName;
+@synthesize CompanySize;
+@synthesize Email;
+@synthesize Phone;
+@synthesize Country;
+@synthesize City;
+@synthesize HelpContent;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setFirstName:[dict valueForKey:@"FirstName"]];
+	[self setLastName:[dict valueForKey:@"LastName"]];
+	[self setCompanyName:[dict valueForKey:@"CompanyName"]];
+	[self setCompanySize:[dict valueForKey:@"CompanySize"]];
+	[self setEmail:[dict valueForKey:@"Email"]];
+	[self setPhone:[dict valueForKey:@"Phone"]];
+	[self setCountry:[dict valueForKey:@"Country"]];
+	[self setCity:[dict valueForKey:@"City"]];
+	[self setHelpContent:[dict valueForKey:@"HelpContent"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.FirstName forKey:@"FirstName"];
+	[dict setValue:self.LastName forKey:@"LastName"];
+	[dict setValue:self.CompanyName forKey:@"CompanyName"];
+	[dict setValue:self.CompanySize forKey:@"CompanySize"];
+	[dict setValue:self.Email forKey:@"Email"];
+	[dict setValue:self.Phone forKey:@"Phone"];
+	[dict setValue:self.Country forKey:@"Country"];
+	[dict setValue:self.City forKey:@"City"];
+	[dict setValue:self.HelpContent forKey:@"HelpContent"];
+
+	return dict;
+}
+
+@end
+
+// --- OrgSettings ---
+@implementation OrgSettings
+
+@synthesize AllowUsersCreateGroups;
+@synthesize AllowUsersInvitePeople;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setAllowUsersCreateGroups:[[dict valueForKey:@"AllowUsersCreateGroups"] boolValue]];
+	[self setAllowUsersInvitePeople:[[dict valueForKey:@"AllowUsersInvitePeople"] boolValue]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[NSNumber numberWithBool:self.AllowUsersCreateGroups] forKey:@"AllowUsersCreateGroups"];
+	[dict setValue:[NSNumber numberWithBool:self.AllowUsersInvitePeople] forKey:@"AllowUsersInvitePeople"];
+
+	return dict;
+}
+
+@end
+
+// --- Preferences ---
+@implementation Preferences
+
+@synthesize Timezone;
+@synthesize TimezoneOffset;
+@synthesize PreferFullName;
+@synthesize EnterForNewLine;
+@synthesize AsideGroupsCollapse;
+@synthesize AsideOtherGroupsCollapse;
+@synthesize ShowMarkUnreadThreshold;
+@synthesize AdminModeOn;
+@synthesize PreferMarkdown;
+@synthesize AutoFollowPublicGroup;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setTimezone:[dict valueForKey:@"Timezone"]];
+	[self setTimezoneOffset:[dict valueForKey:@"TimezoneOffset"]];
+	[self setPreferFullName:[[dict valueForKey:@"PreferFullName"] boolValue]];
+	[self setEnterForNewLine:[[dict valueForKey:@"EnterForNewLine"] boolValue]];
+	[self setAsideGroupsCollapse:[[dict valueForKey:@"AsideGroupsCollapse"] boolValue]];
+	[self setAsideOtherGroupsCollapse:[[dict valueForKey:@"AsideOtherGroupsCollapse"] boolValue]];
+	[self setShowMarkUnreadThreshold:[dict valueForKey:@"ShowMarkUnreadThreshold"]];
+	[self setAdminModeOn:[[dict valueForKey:@"AdminModeOn"] boolValue]];
+	[self setPreferMarkdown:[[dict valueForKey:@"PreferMarkdown"] boolValue]];
+	[self setAutoFollowPublicGroup:[[dict valueForKey:@"AutoFollowPublicGroup"] boolValue]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Timezone forKey:@"Timezone"];
+	[dict setValue:self.TimezoneOffset forKey:@"TimezoneOffset"];
+	[dict setValue:[NSNumber numberWithBool:self.PreferFullName] forKey:@"PreferFullName"];
+	[dict setValue:[NSNumber numberWithBool:self.EnterForNewLine] forKey:@"EnterForNewLine"];
+	[dict setValue:[NSNumber numberWithBool:self.AsideGroupsCollapse] forKey:@"AsideGroupsCollapse"];
+	[dict setValue:[NSNumber numberWithBool:self.AsideOtherGroupsCollapse] forKey:@"AsideOtherGroupsCollapse"];
+	[dict setValue:self.ShowMarkUnreadThreshold forKey:@"ShowMarkUnreadThreshold"];
+	[dict setValue:[NSNumber numberWithBool:self.AdminModeOn] forKey:@"AdminModeOn"];
+	[dict setValue:[NSNumber numberWithBool:self.PreferMarkdown] forKey:@"PreferMarkdown"];
+	[dict setValue:[NSNumber numberWithBool:self.AutoFollowPublicGroup] forKey:@"AutoFollowPublicGroup"];
+
+	return dict;
+}
+
+@end
+
+// --- AbandonUserInfo ---
+@implementation AbandonUserInfo
+
+@synthesize CurrentDisabledFromOrg;
+@synthesize CurrentDeletedFromOrg;
+@synthesize AvailableOrgs;
+@synthesize DisabledFromOrgs;
+@synthesize DeletedFromOrgs;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setCurrentDisabledFromOrg:[[EmbedOrg alloc] initWithDictionary:[dict valueForKey:@"CurrentDisabledFromOrg"]]];
+	
+	[self setCurrentDeletedFromOrg:[[EmbedOrg alloc] initWithDictionary:[dict valueForKey:@"CurrentDeletedFromOrg"]]];
+	
+
+	NSMutableArray * mAvailableOrgs = [[NSMutableArray alloc] init];
+	NSArray * lAvailableOrgs = [dict valueForKey:@"AvailableOrgs"];
+	for (NSDictionary * d in lAvailableOrgs) {
+		[mAvailableOrgs addObject: [[EmbedOrg alloc] initWithDictionary:d]];
+	}
+	[self setAvailableOrgs:mAvailableOrgs];
+	
+
+	NSMutableArray * mDisabledFromOrgs = [[NSMutableArray alloc] init];
+	NSArray * lDisabledFromOrgs = [dict valueForKey:@"DisabledFromOrgs"];
+	for (NSDictionary * d in lDisabledFromOrgs) {
+		[mDisabledFromOrgs addObject: [[EmbedOrg alloc] initWithDictionary:d]];
+	}
+	[self setDisabledFromOrgs:mDisabledFromOrgs];
+	
+
+	NSMutableArray * mDeletedFromOrgs = [[NSMutableArray alloc] init];
+	NSArray * lDeletedFromOrgs = [dict valueForKey:@"DeletedFromOrgs"];
+	for (NSDictionary * d in lDeletedFromOrgs) {
+		[mDeletedFromOrgs addObject: [[EmbedOrg alloc] initWithDictionary:d]];
+	}
+	[self setDeletedFromOrgs:mDeletedFromOrgs];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.CurrentDisabledFromOrg dictionary] forKey:@"CurrentDisabledFromOrg"];
+	
+	[dict setValue:[self.CurrentDeletedFromOrg dictionary] forKey:@"CurrentDeletedFromOrg"];
+	
+
+	NSMutableArray * mAvailableOrgs = [[NSMutableArray alloc] init];
+	for (EmbedOrg * p in AvailableOrgs) {
+		[mAvailableOrgs addObject:[p dictionary]];
+	}
+	[dict setValue:mAvailableOrgs forKey:@"AvailableOrgs"];
+	
+
+	NSMutableArray * mDisabledFromOrgs = [[NSMutableArray alloc] init];
+	for (EmbedOrg * p in DisabledFromOrgs) {
+		[mDisabledFromOrgs addObject:[p dictionary]];
+	}
+	[dict setValue:mDisabledFromOrgs forKey:@"DisabledFromOrgs"];
+	
+
+	NSMutableArray * mDeletedFromOrgs = [[NSMutableArray alloc] init];
+	for (EmbedOrg * p in DeletedFromOrgs) {
+		[mDeletedFromOrgs addObject:[p dictionary]];
+	}
+	[dict setValue:mDeletedFromOrgs forKey:@"DeletedFromOrgs"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- MyCount ---
+@implementation MyCount
+
+@synthesize UserId;
+@synthesize FollowedUnreadCount;
+@synthesize NotificationUnreadCount;
+@synthesize ActiveTasksCount;
+@synthesize GroupCounts;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setUserId:[dict valueForKey:@"UserId"]];
+	[self setFollowedUnreadCount:[dict valueForKey:@"FollowedUnreadCount"]];
+	[self setNotificationUnreadCount:[dict valueForKey:@"NotificationUnreadCount"]];
+	[self setActiveTasksCount:[dict valueForKey:@"ActiveTasksCount"]];
+
+	NSMutableArray * mGroupCounts = [[NSMutableArray alloc] init];
+	NSArray * lGroupCounts = [dict valueForKey:@"GroupCounts"];
+	for (NSDictionary * d in lGroupCounts) {
+		[mGroupCounts addObject: [[GroupCount alloc] initWithDictionary:d]];
+	}
+	[self setGroupCounts:mGroupCounts];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.UserId forKey:@"UserId"];
+	[dict setValue:self.FollowedUnreadCount forKey:@"FollowedUnreadCount"];
+	[dict setValue:self.NotificationUnreadCount forKey:@"NotificationUnreadCount"];
+	[dict setValue:self.ActiveTasksCount forKey:@"ActiveTasksCount"];
+
+	NSMutableArray * mGroupCounts = [[NSMutableArray alloc] init];
+	for (GroupCount * p in GroupCounts) {
+		[mGroupCounts addObject:[p dictionary]];
+	}
+	[dict setValue:mGroupCounts forKey:@"GroupCounts"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- Group ---
+@implementation Group
+
+@synthesize Id;
+@synthesize Name;
+@synthesize Description;
+@synthesize GType;
+@synthesize LogoURL;
+@synthesize IconName;
+@synthesize Link;
+@synthesize Slug;
+@synthesize Author;
+@synthesize IsAdmin;
+@synthesize IsPrivate;
+@synthesize Editable;
+@synthesize Managable;
+@synthesize FollowedByMe;
+@synthesize AdministratedByMe;
+@synthesize IsShared;
+@synthesize IsDefaultLogoURL;
+@synthesize HostOrgName;
+@synthesize IsDispayHostOrgName;
+@synthesize EntriesCount;
+@synthesize FollowersCount;
+@synthesize IsAnnoucement;
+@synthesize GroupOwners;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setName:[dict valueForKey:@"Name"]];
+	[self setDescription:[dict valueForKey:@"Description"]];
+	[self setGType:[dict valueForKey:@"GType"]];
+	[self setLogoURL:[dict valueForKey:@"LogoURL"]];
+	[self setIconName:[dict valueForKey:@"IconName"]];
+	[self setLink:[dict valueForKey:@"Link"]];
+	[self setSlug:[dict valueForKey:@"Slug"]];
+	[self setAuthor:[[EmbedUser alloc] initWithDictionary:[dict valueForKey:@"Author"]]];
+	
+	[self setIsAdmin:[[dict valueForKey:@"IsAdmin"] boolValue]];
+	[self setIsPrivate:[[dict valueForKey:@"IsPrivate"] boolValue]];
+	[self setEditable:[[dict valueForKey:@"Editable"] boolValue]];
+	[self setManagable:[[dict valueForKey:@"Managable"] boolValue]];
+	[self setFollowedByMe:[[dict valueForKey:@"FollowedByMe"] boolValue]];
+	[self setAdministratedByMe:[[dict valueForKey:@"AdministratedByMe"] boolValue]];
+	[self setIsShared:[[dict valueForKey:@"IsShared"] boolValue]];
+	[self setIsDefaultLogoURL:[[dict valueForKey:@"IsDefaultLogoURL"] boolValue]];
+	[self setHostOrgName:[dict valueForKey:@"HostOrgName"]];
+	[self setIsDispayHostOrgName:[[dict valueForKey:@"IsDispayHostOrgName"] boolValue]];
+	[self setEntriesCount:[dict valueForKey:@"EntriesCount"]];
+	[self setFollowersCount:[dict valueForKey:@"FollowersCount"]];
+	[self setIsAnnoucement:[[dict valueForKey:@"IsAnnoucement"] boolValue]];
+
+	NSMutableArray * mGroupOwners = [[NSMutableArray alloc] init];
+	NSArray * lGroupOwners = [dict valueForKey:@"GroupOwners"];
+	for (NSDictionary * d in lGroupOwners) {
+		[mGroupOwners addObject: [[EmbedUser alloc] initWithDictionary:d]];
+	}
+	[self setGroupOwners:mGroupOwners];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.Name forKey:@"Name"];
+	[dict setValue:self.Description forKey:@"Description"];
+	[dict setValue:self.GType forKey:@"GType"];
+	[dict setValue:self.LogoURL forKey:@"LogoURL"];
+	[dict setValue:self.IconName forKey:@"IconName"];
+	[dict setValue:self.Link forKey:@"Link"];
+	[dict setValue:self.Slug forKey:@"Slug"];
+	[dict setValue:[self.Author dictionary] forKey:@"Author"];
+	
+	[dict setValue:[NSNumber numberWithBool:self.IsAdmin] forKey:@"IsAdmin"];
+	[dict setValue:[NSNumber numberWithBool:self.IsPrivate] forKey:@"IsPrivate"];
+	[dict setValue:[NSNumber numberWithBool:self.Editable] forKey:@"Editable"];
+	[dict setValue:[NSNumber numberWithBool:self.Managable] forKey:@"Managable"];
+	[dict setValue:[NSNumber numberWithBool:self.FollowedByMe] forKey:@"FollowedByMe"];
+	[dict setValue:[NSNumber numberWithBool:self.AdministratedByMe] forKey:@"AdministratedByMe"];
+	[dict setValue:[NSNumber numberWithBool:self.IsShared] forKey:@"IsShared"];
+	[dict setValue:[NSNumber numberWithBool:self.IsDefaultLogoURL] forKey:@"IsDefaultLogoURL"];
+	[dict setValue:self.HostOrgName forKey:@"HostOrgName"];
+	[dict setValue:[NSNumber numberWithBool:self.IsDispayHostOrgName] forKey:@"IsDispayHostOrgName"];
+	[dict setValue:self.EntriesCount forKey:@"EntriesCount"];
+	[dict setValue:self.FollowersCount forKey:@"FollowersCount"];
+	[dict setValue:[NSNumber numberWithBool:self.IsAnnoucement] forKey:@"IsAnnoucement"];
+
+	NSMutableArray * mGroupOwners = [[NSMutableArray alloc] init];
+	for (EmbedUser * p in GroupOwners) {
+		[mGroupOwners addObject:[p dictionary]];
+	}
+	[dict setValue:mGroupOwners forKey:@"GroupOwners"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- GroupUsers ---
+@implementation GroupUsers
+
+@synthesize GroupId;
+@synthesize EmbedUsers;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	NSMutableArray * mEmbedUsers = [[NSMutableArray alloc] init];
+	NSArray * lEmbedUsers = [dict valueForKey:@"EmbedUsers"];
+	for (NSDictionary * d in lEmbedUsers) {
+		[mEmbedUsers addObject: [[EmbedUser alloc] initWithDictionary:d]];
+	}
+	[self setEmbedUsers:mEmbedUsers];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	NSMutableArray * mEmbedUsers = [[NSMutableArray alloc] init];
+	for (EmbedUser * p in EmbedUsers) {
+		[mEmbedUsers addObject:[p dictionary]];
+	}
+	[dict setValue:mEmbedUsers forKey:@"EmbedUsers"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- GroupSelector ---
+@implementation GroupSelector
+
+@synthesize Header;
+@synthesize SelectedGroupId;
+@synthesize SysMessage;
+@synthesize FollowingGroups;
+@synthesize UnFollowingGroups;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setHeader:[dict valueForKey:@"Header"]];
+	[self setSelectedGroupId:[dict valueForKey:@"SelectedGroupId"]];
+	[self setSysMessage:[[GroupSelectorItem alloc] initWithDictionary:[dict valueForKey:@"SysMessage"]]];
+	
+
+	NSMutableArray * mFollowingGroups = [[NSMutableArray alloc] init];
+	NSArray * lFollowingGroups = [dict valueForKey:@"FollowingGroups"];
+	for (NSDictionary * d in lFollowingGroups) {
+		[mFollowingGroups addObject: [[GroupSelectorItem alloc] initWithDictionary:d]];
+	}
+	[self setFollowingGroups:mFollowingGroups];
+	
+
+	NSMutableArray * mUnFollowingGroups = [[NSMutableArray alloc] init];
+	NSArray * lUnFollowingGroups = [dict valueForKey:@"UnFollowingGroups"];
+	for (NSDictionary * d in lUnFollowingGroups) {
+		[mUnFollowingGroups addObject: [[GroupSelectorItem alloc] initWithDictionary:d]];
+	}
+	[self setUnFollowingGroups:mUnFollowingGroups];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Header forKey:@"Header"];
+	[dict setValue:self.SelectedGroupId forKey:@"SelectedGroupId"];
+	[dict setValue:[self.SysMessage dictionary] forKey:@"SysMessage"];
+	
+
+	NSMutableArray * mFollowingGroups = [[NSMutableArray alloc] init];
+	for (GroupSelectorItem * p in FollowingGroups) {
+		[mFollowingGroups addObject:[p dictionary]];
+	}
+	[dict setValue:mFollowingGroups forKey:@"FollowingGroups"];
+	
+
+	NSMutableArray * mUnFollowingGroups = [[NSMutableArray alloc] init];
+	for (GroupSelectorItem * p in UnFollowingGroups) {
+		[mUnFollowingGroups addObject:[p dictionary]];
+	}
+	[dict setValue:mUnFollowingGroups forKey:@"UnFollowingGroups"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- BlogEntry ---
+@implementation BlogEntry
+
+@synthesize Id;
+@synthesize Title;
+@synthesize Slug;
+@synthesize CreatedAt;
+@synthesize UpdatedAt;
+@synthesize Permalink;
+@synthesize CreateCommentURL;
+@synthesize HtmlContent;
+@synthesize Author;
+@synthesize Comments;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setTitle:[dict valueForKey:@"Title"]];
+	[self setSlug:[dict valueForKey:@"Slug"]];
+	[self setCreatedAt:[NSDate dateWithString:[dict valueForKey:@"CreatedAt"]]];
+	[self setUpdatedAt:[NSDate dateWithString:[dict valueForKey:@"UpdatedAt"]]];
+	[self setPermalink:[dict valueForKey:@"Permalink"]];
+	[self setCreateCommentURL:[dict valueForKey:@"CreateCommentURL"]];
+	[self setHtmlContent:[dict valueForKey:@"HtmlContent"]];
+	[self setAuthor:[[EmbedUser alloc] initWithDictionary:[dict valueForKey:@"Author"]]];
+	
+
+	NSMutableArray * mComments = [[NSMutableArray alloc] init];
+	NSArray * lComments = [dict valueForKey:@"Comments"];
+	for (NSDictionary * d in lComments) {
+		[mComments addObject: [[BlogEntry alloc] initWithDictionary:d]];
+	}
+	[self setComments:mComments];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.Title forKey:@"Title"];
+	[dict setValue:self.Slug forKey:@"Slug"];
+	[dict setValue:self.CreatedAt forKey:@"CreatedAt"];
+	[dict setValue:self.UpdatedAt forKey:@"UpdatedAt"];
+	[dict setValue:self.Permalink forKey:@"Permalink"];
+	[dict setValue:self.CreateCommentURL forKey:@"CreateCommentURL"];
+	[dict setValue:self.HtmlContent forKey:@"HtmlContent"];
+	[dict setValue:[self.Author dictionary] forKey:@"Author"];
+	
+
+	NSMutableArray * mComments = [[NSMutableArray alloc] init];
+	for (BlogEntry * p in Comments) {
+		[mComments addObject:[p dictionary]];
+	}
+	[dict setValue:mComments forKey:@"Comments"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- Task ---
+@implementation Task
+
+@synthesize IsTaskOwner;
+@synthesize IsTaskAssignee;
+@synthesize IsOthers;
+@synthesize IsCurrentUserDone;
+@synthesize IsAcknowledgement;
+@synthesize IsTodoForOne;
+@synthesize IsTodoForAll;
+@synthesize IsCompleted;
+@synthesize IsClosed;
+@synthesize IsDueToday;
+@synthesize IsOverDue;
+@synthesize CreatedAt;
+@synthesize Due;
+@synthesize CompletedAt;
+@synthesize LocalCreatedDate;
+@synthesize LocalDue;
+@synthesize LocalDueShortDate;
+@synthesize DueInputValue;
+@synthesize TotalUsersCount;
+@synthesize CompletedUsersCount;
+@synthesize PendingUsersCount;
+@synthesize Owner;
+@synthesize ToUsers;
+@synthesize PendingUsers;
+@synthesize CompletedUsers;
+@synthesize ColorCssClass;
+@synthesize TaskBarHtml;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setIsTaskOwner:[[dict valueForKey:@"IsTaskOwner"] boolValue]];
+	[self setIsTaskAssignee:[[dict valueForKey:@"IsTaskAssignee"] boolValue]];
+	[self setIsOthers:[[dict valueForKey:@"IsOthers"] boolValue]];
+	[self setIsCurrentUserDone:[[dict valueForKey:@"IsCurrentUserDone"] boolValue]];
+	[self setIsAcknowledgement:[[dict valueForKey:@"IsAcknowledgement"] boolValue]];
+	[self setIsTodoForOne:[[dict valueForKey:@"IsTodoForOne"] boolValue]];
+	[self setIsTodoForAll:[[dict valueForKey:@"IsTodoForAll"] boolValue]];
+	[self setIsCompleted:[[dict valueForKey:@"IsCompleted"] boolValue]];
+	[self setIsClosed:[[dict valueForKey:@"IsClosed"] boolValue]];
+	[self setIsDueToday:[[dict valueForKey:@"IsDueToday"] boolValue]];
+	[self setIsOverDue:[[dict valueForKey:@"IsOverDue"] boolValue]];
+	[self setCreatedAt:[NSDate dateWithString:[dict valueForKey:@"CreatedAt"]]];
+	[self setDue:[NSDate dateWithString:[dict valueForKey:@"Due"]]];
+	[self setCompletedAt:[NSDate dateWithString:[dict valueForKey:@"CompletedAt"]]];
+	[self setLocalCreatedDate:[dict valueForKey:@"LocalCreatedDate"]];
+	[self setLocalDue:[dict valueForKey:@"LocalDue"]];
+	[self setLocalDueShortDate:[dict valueForKey:@"LocalDueShortDate"]];
+	[self setDueInputValue:[dict valueForKey:@"DueInputValue"]];
+	[self setTotalUsersCount:[dict valueForKey:@"TotalUsersCount"]];
+	[self setCompletedUsersCount:[dict valueForKey:@"CompletedUsersCount"]];
+	[self setPendingUsersCount:[dict valueForKey:@"PendingUsersCount"]];
+	[self setOwner:[[EmbedUser alloc] initWithDictionary:[dict valueForKey:@"Owner"]]];
+	
+
+	NSMutableArray * mToUsers = [[NSMutableArray alloc] init];
+	NSArray * lToUsers = [dict valueForKey:@"ToUsers"];
+	for (NSDictionary * d in lToUsers) {
+		[mToUsers addObject: [[EmbedUser alloc] initWithDictionary:d]];
+	}
+	[self setToUsers:mToUsers];
+	
+
+	NSMutableArray * mPendingUsers = [[NSMutableArray alloc] init];
+	NSArray * lPendingUsers = [dict valueForKey:@"PendingUsers"];
+	for (NSDictionary * d in lPendingUsers) {
+		[mPendingUsers addObject: [[EmbedUser alloc] initWithDictionary:d]];
+	}
+	[self setPendingUsers:mPendingUsers];
+	
+
+	NSMutableArray * mCompletedUsers = [[NSMutableArray alloc] init];
+	NSArray * lCompletedUsers = [dict valueForKey:@"CompletedUsers"];
+	for (NSDictionary * d in lCompletedUsers) {
+		[mCompletedUsers addObject: [[EmbedUser alloc] initWithDictionary:d]];
+	}
+	[self setCompletedUsers:mCompletedUsers];
+	
+	[self setColorCssClass:[dict valueForKey:@"ColorCssClass"]];
+	[self setTaskBarHtml:[dict valueForKey:@"TaskBarHtml"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[NSNumber numberWithBool:self.IsTaskOwner] forKey:@"IsTaskOwner"];
+	[dict setValue:[NSNumber numberWithBool:self.IsTaskAssignee] forKey:@"IsTaskAssignee"];
+	[dict setValue:[NSNumber numberWithBool:self.IsOthers] forKey:@"IsOthers"];
+	[dict setValue:[NSNumber numberWithBool:self.IsCurrentUserDone] forKey:@"IsCurrentUserDone"];
+	[dict setValue:[NSNumber numberWithBool:self.IsAcknowledgement] forKey:@"IsAcknowledgement"];
+	[dict setValue:[NSNumber numberWithBool:self.IsTodoForOne] forKey:@"IsTodoForOne"];
+	[dict setValue:[NSNumber numberWithBool:self.IsTodoForAll] forKey:@"IsTodoForAll"];
+	[dict setValue:[NSNumber numberWithBool:self.IsCompleted] forKey:@"IsCompleted"];
+	[dict setValue:[NSNumber numberWithBool:self.IsClosed] forKey:@"IsClosed"];
+	[dict setValue:[NSNumber numberWithBool:self.IsDueToday] forKey:@"IsDueToday"];
+	[dict setValue:[NSNumber numberWithBool:self.IsOverDue] forKey:@"IsOverDue"];
+	[dict setValue:self.CreatedAt forKey:@"CreatedAt"];
+	[dict setValue:self.Due forKey:@"Due"];
+	[dict setValue:self.CompletedAt forKey:@"CompletedAt"];
+	[dict setValue:self.LocalCreatedDate forKey:@"LocalCreatedDate"];
+	[dict setValue:self.LocalDue forKey:@"LocalDue"];
+	[dict setValue:self.LocalDueShortDate forKey:@"LocalDueShortDate"];
+	[dict setValue:self.DueInputValue forKey:@"DueInputValue"];
+	[dict setValue:self.TotalUsersCount forKey:@"TotalUsersCount"];
+	[dict setValue:self.CompletedUsersCount forKey:@"CompletedUsersCount"];
+	[dict setValue:self.PendingUsersCount forKey:@"PendingUsersCount"];
+	[dict setValue:[self.Owner dictionary] forKey:@"Owner"];
+	
+
+	NSMutableArray * mToUsers = [[NSMutableArray alloc] init];
+	for (EmbedUser * p in ToUsers) {
+		[mToUsers addObject:[p dictionary]];
+	}
+	[dict setValue:mToUsers forKey:@"ToUsers"];
+	
+
+	NSMutableArray * mPendingUsers = [[NSMutableArray alloc] init];
+	for (EmbedUser * p in PendingUsers) {
+		[mPendingUsers addObject:[p dictionary]];
+	}
+	[dict setValue:mPendingUsers forKey:@"PendingUsers"];
+	
+
+	NSMutableArray * mCompletedUsers = [[NSMutableArray alloc] init];
+	for (EmbedUser * p in CompletedUsers) {
+		[mCompletedUsers addObject:[p dictionary]];
+	}
+	[dict setValue:mCompletedUsers forKey:@"CompletedUsers"];
+	
+	[dict setValue:self.ColorCssClass forKey:@"ColorCssClass"];
+	[dict setValue:self.TaskBarHtml forKey:@"TaskBarHtml"];
+
+	return dict;
+}
+
+@end
+
+// --- EntryVersion ---
+@implementation EntryVersion
+
+@synthesize Id;
+@synthesize GroupId;
+@synthesize UpdatedAt;
+@synthesize LocalUpdatedAt;
+@synthesize UpdatedAtUnixNano;
+@synthesize CurrentVersionEditor;
+@synthesize IsNewVersion;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setUpdatedAt:[NSDate dateWithString:[dict valueForKey:@"UpdatedAt"]]];
+	[self setLocalUpdatedAt:[dict valueForKey:@"LocalUpdatedAt"]];
+	[self setUpdatedAtUnixNano:[dict valueForKey:@"UpdatedAtUnixNano"]];
+	[self setCurrentVersionEditor:[[EmbedUser alloc] initWithDictionary:[dict valueForKey:@"CurrentVersionEditor"]]];
+	
+	[self setIsNewVersion:[[dict valueForKey:@"IsNewVersion"] boolValue]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.UpdatedAt forKey:@"UpdatedAt"];
+	[dict setValue:self.LocalUpdatedAt forKey:@"LocalUpdatedAt"];
+	[dict setValue:self.UpdatedAtUnixNano forKey:@"UpdatedAtUnixNano"];
+	[dict setValue:[self.CurrentVersionEditor dictionary] forKey:@"CurrentVersionEditor"];
+	
+	[dict setValue:[NSNumber numberWithBool:self.IsNewVersion] forKey:@"IsNewVersion"];
+
+	return dict;
+}
+
+@end
+
+// --- Invitation ---
+@implementation Invitation
+
+@synthesize Email;
+@synthesize Token;
+@synthesize SentAgo;
+@synthesize ByUser;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEmail:[dict valueForKey:@"Email"]];
+	[self setToken:[dict valueForKey:@"Token"]];
+	[self setSentAgo:[dict valueForKey:@"SentAgo"]];
+	[self setByUser:[[EmbedUser alloc] initWithDictionary:[dict valueForKey:@"ByUser"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Email forKey:@"Email"];
+	[dict setValue:self.Token forKey:@"Token"];
+	[dict setValue:self.SentAgo forKey:@"SentAgo"];
+	[dict setValue:[self.ByUser dictionary] forKey:@"ByUser"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- Message ---
+@implementation Message
+
+@synthesize Id;
+@synthesize ConversationId;
+@synthesize UserId;
+@synthesize Content;
+@synthesize HtmlContent;
+@synthesize CreatedAt;
+@synthesize EmbedUser;
+@synthesize ShowUser;
+@synthesize HighlightedContent;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setConversationId:[dict valueForKey:@"ConversationId"]];
+	[self setUserId:[dict valueForKey:@"UserId"]];
+	[self setContent:[dict valueForKey:@"Content"]];
+	[self setHtmlContent:[dict valueForKey:@"HtmlContent"]];
+	[self setCreatedAt:[NSDate dateWithString:[dict valueForKey:@"CreatedAt"]]];
+	[self setEmbedUser:[[EmbedUser alloc] initWithDictionary:[dict valueForKey:@"EmbedUser"]]];
+	
+	[self setShowUser:[[dict valueForKey:@"ShowUser"] boolValue]];
+	[self setHighlightedContent:[dict valueForKey:@"HighlightedContent"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.ConversationId forKey:@"ConversationId"];
+	[dict setValue:self.UserId forKey:@"UserId"];
+	[dict setValue:self.Content forKey:@"Content"];
+	[dict setValue:self.HtmlContent forKey:@"HtmlContent"];
+	[dict setValue:self.CreatedAt forKey:@"CreatedAt"];
+	[dict setValue:[self.EmbedUser dictionary] forKey:@"EmbedUser"];
+	
+	[dict setValue:[NSNumber numberWithBool:self.ShowUser] forKey:@"ShowUser"];
+	[dict setValue:self.HighlightedContent forKey:@"HighlightedContent"];
+
+	return dict;
+}
+
+@end
+
+// --- EmbedEntry ---
+@implementation EmbedEntry
+
+@synthesize Id;
+@synthesize GroupId;
+@synthesize Title;
+@synthesize HtmlTitle;
+@synthesize EType;
+@synthesize Author;
+@synthesize ToUsers;
+@synthesize Link;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setTitle:[dict valueForKey:@"Title"]];
+	[self setHtmlTitle:[dict valueForKey:@"HtmlTitle"]];
+	[self setEType:[dict valueForKey:@"EType"]];
+	[self setAuthor:[[EmbedUser alloc] initWithDictionary:[dict valueForKey:@"Author"]]];
+	
+
+	NSMutableArray * mToUsers = [[NSMutableArray alloc] init];
+	NSArray * lToUsers = [dict valueForKey:@"ToUsers"];
+	for (NSDictionary * d in lToUsers) {
+		[mToUsers addObject: [[EmbedUser alloc] initWithDictionary:d]];
+	}
+	[self setToUsers:mToUsers];
+	
+	[self setLink:[dict valueForKey:@"Link"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.Title forKey:@"Title"];
+	[dict setValue:self.HtmlTitle forKey:@"HtmlTitle"];
+	[dict setValue:self.EType forKey:@"EType"];
+	[dict setValue:[self.Author dictionary] forKey:@"Author"];
+	
+
+	NSMutableArray * mToUsers = [[NSMutableArray alloc] init];
+	for (EmbedUser * p in ToUsers) {
+		[mToUsers addObject:[p dictionary]];
+	}
+	[dict setValue:mToUsers forKey:@"ToUsers"];
+	
+	[dict setValue:self.Link forKey:@"Link"];
+
+	return dict;
+}
+
+@end
+
+// --- SharingInvitationItem ---
+@implementation SharingInvitationItem
+
+@synthesize FromOrg;
+@synthesize FromUserId;
+@synthesize SharedGroup;
+@synthesize IsNewAccount;
+@synthesize Email;
+@synthesize Token;
+@synthesize JoinedOrgs;
+@synthesize IsAccepted;
+@synthesize IsRejected;
+@synthesize IsPending;
+@synthesize IsForwarded;
+@synthesize IsCanceled;
+@synthesize IsStopped;
+@synthesize PendingDuration;
+@synthesize ToOrgName;
+@synthesize ToOrgId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setFromOrg:[[EmbedOrg alloc] initWithDictionary:[dict valueForKey:@"FromOrg"]]];
+	
+	[self setFromUserId:[dict valueForKey:@"FromUserId"]];
+	[self setSharedGroup:[[Group alloc] initWithDictionary:[dict valueForKey:@"SharedGroup"]]];
+	
+	[self setIsNewAccount:[[dict valueForKey:@"IsNewAccount"] boolValue]];
+	[self setEmail:[dict valueForKey:@"Email"]];
+	[self setToken:[dict valueForKey:@"Token"]];
+
+	NSMutableArray * mJoinedOrgs = [[NSMutableArray alloc] init];
+	NSArray * lJoinedOrgs = [dict valueForKey:@"JoinedOrgs"];
+	for (NSDictionary * d in lJoinedOrgs) {
+		[mJoinedOrgs addObject: [[EmbedOrg alloc] initWithDictionary:d]];
+	}
+	[self setJoinedOrgs:mJoinedOrgs];
+	
+	[self setIsAccepted:[[dict valueForKey:@"IsAccepted"] boolValue]];
+	[self setIsRejected:[[dict valueForKey:@"IsRejected"] boolValue]];
+	[self setIsPending:[[dict valueForKey:@"IsPending"] boolValue]];
+	[self setIsForwarded:[[dict valueForKey:@"IsForwarded"] boolValue]];
+	[self setIsCanceled:[[dict valueForKey:@"IsCanceled"] boolValue]];
+	[self setIsStopped:[[dict valueForKey:@"IsStopped"] boolValue]];
+	[self setPendingDuration:[dict valueForKey:@"PendingDuration"]];
+	[self setToOrgName:[dict valueForKey:@"ToOrgName"]];
+	[self setToOrgId:[dict valueForKey:@"ToOrgId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.FromOrg dictionary] forKey:@"FromOrg"];
+	
+	[dict setValue:self.FromUserId forKey:@"FromUserId"];
+	[dict setValue:[self.SharedGroup dictionary] forKey:@"SharedGroup"];
+	
+	[dict setValue:[NSNumber numberWithBool:self.IsNewAccount] forKey:@"IsNewAccount"];
+	[dict setValue:self.Email forKey:@"Email"];
+	[dict setValue:self.Token forKey:@"Token"];
+
+	NSMutableArray * mJoinedOrgs = [[NSMutableArray alloc] init];
+	for (EmbedOrg * p in JoinedOrgs) {
+		[mJoinedOrgs addObject:[p dictionary]];
+	}
+	[dict setValue:mJoinedOrgs forKey:@"JoinedOrgs"];
+	
+	[dict setValue:[NSNumber numberWithBool:self.IsAccepted] forKey:@"IsAccepted"];
+	[dict setValue:[NSNumber numberWithBool:self.IsRejected] forKey:@"IsRejected"];
+	[dict setValue:[NSNumber numberWithBool:self.IsPending] forKey:@"IsPending"];
+	[dict setValue:[NSNumber numberWithBool:self.IsForwarded] forKey:@"IsForwarded"];
+	[dict setValue:[NSNumber numberWithBool:self.IsCanceled] forKey:@"IsCanceled"];
+	[dict setValue:[NSNumber numberWithBool:self.IsStopped] forKey:@"IsStopped"];
+	[dict setValue:self.PendingDuration forKey:@"PendingDuration"];
+	[dict setValue:self.ToOrgName forKey:@"ToOrgName"];
+	[dict setValue:self.ToOrgId forKey:@"ToOrgId"];
+
+	return dict;
+}
+
+@end
+
+// --- User ---
+@implementation User
+
+@synthesize Id;
+@synthesize Email;
+@synthesize Firstame;
+@synthesize LastName;
+@synthesize Name;
+@synthesize Title;
+@synthesize Avatar;
+@synthesize JID;
+@synthesize Timezone;
+@synthesize IsSuperUser;
+@synthesize IsSharedUser;
+@synthesize OrgId;
+@synthesize OriginalOrgId;
+@synthesize PrefixURL;
+@synthesize ProfileURL;
+@synthesize IsLoggedInUser;
+@synthesize IsAvailable;
+@synthesize IsDisabled;
+@synthesize IsDeleted;
+@synthesize FromSharedGroup;
+@synthesize FromOrganizationName;
+@synthesize Editable;
+@synthesize Followable;
+@synthesize FollowedByMe;
+@synthesize FollowingTheGroup;
+@synthesize Department;
+@synthesize Location;
+@synthesize FollowingGroups;
+@synthesize Preferences;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setEmail:[dict valueForKey:@"Email"]];
+	[self setFirstame:[dict valueForKey:@"Firstame"]];
+	[self setLastName:[dict valueForKey:@"LastName"]];
+	[self setName:[dict valueForKey:@"Name"]];
+	[self setTitle:[dict valueForKey:@"Title"]];
+	[self setAvatar:[dict valueForKey:@"Avatar"]];
+	[self setJID:[dict valueForKey:@"JID"]];
+	[self setTimezone:[dict valueForKey:@"Timezone"]];
+	[self setIsSuperUser:[[dict valueForKey:@"IsSuperUser"] boolValue]];
+	[self setIsSharedUser:[[dict valueForKey:@"IsSharedUser"] boolValue]];
+	[self setOrgId:[dict valueForKey:@"OrgId"]];
+	[self setOriginalOrgId:[dict valueForKey:@"OriginalOrgId"]];
+	[self setPrefixURL:[dict valueForKey:@"PrefixURL"]];
+	[self setProfileURL:[dict valueForKey:@"ProfileURL"]];
+	[self setIsLoggedInUser:[[dict valueForKey:@"IsLoggedInUser"] boolValue]];
+	[self setIsAvailable:[[dict valueForKey:@"IsAvailable"] boolValue]];
+	[self setIsDisabled:[[dict valueForKey:@"IsDisabled"] boolValue]];
+	[self setIsDeleted:[[dict valueForKey:@"IsDeleted"] boolValue]];
+	[self setFromSharedGroup:[[dict valueForKey:@"FromSharedGroup"] boolValue]];
+	[self setFromOrganizationName:[dict valueForKey:@"FromOrganizationName"]];
+	[self setEditable:[[dict valueForKey:@"Editable"] boolValue]];
+	[self setFollowable:[[dict valueForKey:@"Followable"] boolValue]];
+	[self setFollowedByMe:[[dict valueForKey:@"FollowedByMe"] boolValue]];
+	[self setFollowingTheGroup:[[dict valueForKey:@"FollowingTheGroup"] boolValue]];
+	[self setDepartment:[dict valueForKey:@"Department"]];
+	[self setLocation:[dict valueForKey:@"Location"]];
+
+	NSMutableArray * mFollowingGroups = [[NSMutableArray alloc] init];
+	NSArray * lFollowingGroups = [dict valueForKey:@"FollowingGroups"];
+	for (NSDictionary * d in lFollowingGroups) {
+		[mFollowingGroups addObject: [[Group alloc] initWithDictionary:d]];
+	}
+	[self setFollowingGroups:mFollowingGroups];
+	
+	[self setPreferences:[[Preferences alloc] initWithDictionary:[dict valueForKey:@"Preferences"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.Email forKey:@"Email"];
+	[dict setValue:self.Firstame forKey:@"Firstame"];
+	[dict setValue:self.LastName forKey:@"LastName"];
+	[dict setValue:self.Name forKey:@"Name"];
+	[dict setValue:self.Title forKey:@"Title"];
+	[dict setValue:self.Avatar forKey:@"Avatar"];
+	[dict setValue:self.JID forKey:@"JID"];
+	[dict setValue:self.Timezone forKey:@"Timezone"];
+	[dict setValue:[NSNumber numberWithBool:self.IsSuperUser] forKey:@"IsSuperUser"];
+	[dict setValue:[NSNumber numberWithBool:self.IsSharedUser] forKey:@"IsSharedUser"];
+	[dict setValue:self.OrgId forKey:@"OrgId"];
+	[dict setValue:self.OriginalOrgId forKey:@"OriginalOrgId"];
+	[dict setValue:self.PrefixURL forKey:@"PrefixURL"];
+	[dict setValue:self.ProfileURL forKey:@"ProfileURL"];
+	[dict setValue:[NSNumber numberWithBool:self.IsLoggedInUser] forKey:@"IsLoggedInUser"];
+	[dict setValue:[NSNumber numberWithBool:self.IsAvailable] forKey:@"IsAvailable"];
+	[dict setValue:[NSNumber numberWithBool:self.IsDisabled] forKey:@"IsDisabled"];
+	[dict setValue:[NSNumber numberWithBool:self.IsDeleted] forKey:@"IsDeleted"];
+	[dict setValue:[NSNumber numberWithBool:self.FromSharedGroup] forKey:@"FromSharedGroup"];
+	[dict setValue:self.FromOrganizationName forKey:@"FromOrganizationName"];
+	[dict setValue:[NSNumber numberWithBool:self.Editable] forKey:@"Editable"];
+	[dict setValue:[NSNumber numberWithBool:self.Followable] forKey:@"Followable"];
+	[dict setValue:[NSNumber numberWithBool:self.FollowedByMe] forKey:@"FollowedByMe"];
+	[dict setValue:[NSNumber numberWithBool:self.FollowingTheGroup] forKey:@"FollowingTheGroup"];
+	[dict setValue:self.Department forKey:@"Department"];
+	[dict setValue:self.Location forKey:@"Location"];
+
+	NSMutableArray * mFollowingGroups = [[NSMutableArray alloc] init];
+	for (Group * p in FollowingGroups) {
+		[mFollowingGroups addObject:[p dictionary]];
+	}
+	[dict setValue:mFollowingGroups forKey:@"FollowingGroups"];
+	
+	[dict setValue:[self.Preferences dictionary] forKey:@"Preferences"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- Conversation ---
+@implementation Conversation
+
+@synthesize Id;
+@synthesize Title;
+@synthesize UserIds;
+@synthesize Participants;
+@synthesize CreatedAt;
+@synthesize EndedAt;
+@synthesize LocalHumanCreatedAt;
+@synthesize Topic;
+@synthesize Private;
+@synthesize IsClose;
+@synthesize IsShared;
+@synthesize SharedMessageIds;
+@synthesize MessagesCount;
+@synthesize Messages;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setTitle:[dict valueForKey:@"Title"]];
+	[self setUserIds:[dict valueForKey:@"UserIds"]];
+
+	NSMutableArray * mParticipants = [[NSMutableArray alloc] init];
+	NSArray * lParticipants = [dict valueForKey:@"Participants"];
+	for (NSDictionary * d in lParticipants) {
+		[mParticipants addObject: [[EmbedUser alloc] initWithDictionary:d]];
+	}
+	[self setParticipants:mParticipants];
+	
+	[self setCreatedAt:[NSDate dateWithString:[dict valueForKey:@"CreatedAt"]]];
+	[self setEndedAt:[NSDate dateWithString:[dict valueForKey:@"EndedAt"]]];
+	[self setLocalHumanCreatedAt:[dict valueForKey:@"LocalHumanCreatedAt"]];
+	[self setTopic:[dict valueForKey:@"Topic"]];
+	[self setPrivate:[[dict valueForKey:@"Private"] boolValue]];
+	[self setIsClose:[[dict valueForKey:@"IsClose"] boolValue]];
+	[self setIsShared:[[dict valueForKey:@"IsShared"] boolValue]];
+	[self setSharedMessageIds:[dict valueForKey:@"SharedMessageIds"]];
+	[self setMessagesCount:[dict valueForKey:@"MessagesCount"]];
+
+	NSMutableArray * mMessages = [[NSMutableArray alloc] init];
+	NSArray * lMessages = [dict valueForKey:@"Messages"];
+	for (NSDictionary * d in lMessages) {
+		[mMessages addObject: [[Message alloc] initWithDictionary:d]];
+	}
+	[self setMessages:mMessages];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.Title forKey:@"Title"];
+	[dict setValue:self.UserIds forKey:@"UserIds"];
+
+	NSMutableArray * mParticipants = [[NSMutableArray alloc] init];
+	for (EmbedUser * p in Participants) {
+		[mParticipants addObject:[p dictionary]];
+	}
+	[dict setValue:mParticipants forKey:@"Participants"];
+	
+	[dict setValue:self.CreatedAt forKey:@"CreatedAt"];
+	[dict setValue:self.EndedAt forKey:@"EndedAt"];
+	[dict setValue:self.LocalHumanCreatedAt forKey:@"LocalHumanCreatedAt"];
+	[dict setValue:self.Topic forKey:@"Topic"];
+	[dict setValue:[NSNumber numberWithBool:self.Private] forKey:@"Private"];
+	[dict setValue:[NSNumber numberWithBool:self.IsClose] forKey:@"IsClose"];
+	[dict setValue:[NSNumber numberWithBool:self.IsShared] forKey:@"IsShared"];
+	[dict setValue:self.SharedMessageIds forKey:@"SharedMessageIds"];
+	[dict setValue:self.MessagesCount forKey:@"MessagesCount"];
+
+	NSMutableArray * mMessages = [[NSMutableArray alloc] init];
+	for (Message * p in Messages) {
+		[mMessages addObject:[p dictionary]];
+	}
+	[dict setValue:mMessages forKey:@"Messages"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- Request ---
+@implementation Request
+
+@synthesize CurrentPrefixURL;
+@synthesize Info;
+@synthesize ActionButton;
+@synthesize FromOrg;
+@synthesize ToOrg;
+@synthesize SharedGroup;
+@synthesize SharedOrgIdHex;
+@synthesize FromUserIdHex;
+@synthesize SharedInvitee;
+@synthesize SharedInviter;
+@synthesize SharedResponsor;
+@synthesize ToEmail;
+@synthesize State;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setCurrentPrefixURL:[dict valueForKey:@"CurrentPrefixURL"]];
+	[self setInfo:[dict valueForKey:@"Info"]];
+	[self setActionButton:[dict valueForKey:@"ActionButton"]];
+	[self setFromOrg:[[EmbedOrg alloc] initWithDictionary:[dict valueForKey:@"FromOrg"]]];
+	
+	[self setToOrg:[[EmbedOrg alloc] initWithDictionary:[dict valueForKey:@"ToOrg"]]];
+	
+	[self setSharedGroup:[[Group alloc] initWithDictionary:[dict valueForKey:@"SharedGroup"]]];
+	
+	[self setSharedOrgIdHex:[dict valueForKey:@"SharedOrgIdHex"]];
+	[self setFromUserIdHex:[dict valueForKey:@"FromUserIdHex"]];
+	[self setSharedInvitee:[[EmbedUser alloc] initWithDictionary:[dict valueForKey:@"SharedInvitee"]]];
+	
+	[self setSharedInviter:[[EmbedUser alloc] initWithDictionary:[dict valueForKey:@"SharedInviter"]]];
+	
+	[self setSharedResponsor:[[EmbedUser alloc] initWithDictionary:[dict valueForKey:@"SharedResponsor"]]];
+	
+	[self setToEmail:[dict valueForKey:@"ToEmail"]];
+	[self setState:[dict valueForKey:@"State"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.CurrentPrefixURL forKey:@"CurrentPrefixURL"];
+	[dict setValue:self.Info forKey:@"Info"];
+	[dict setValue:self.ActionButton forKey:@"ActionButton"];
+	[dict setValue:[self.FromOrg dictionary] forKey:@"FromOrg"];
+	
+	[dict setValue:[self.ToOrg dictionary] forKey:@"ToOrg"];
+	
+	[dict setValue:[self.SharedGroup dictionary] forKey:@"SharedGroup"];
+	
+	[dict setValue:self.SharedOrgIdHex forKey:@"SharedOrgIdHex"];
+	[dict setValue:self.FromUserIdHex forKey:@"FromUserIdHex"];
+	[dict setValue:[self.SharedInvitee dictionary] forKey:@"SharedInvitee"];
+	
+	[dict setValue:[self.SharedInviter dictionary] forKey:@"SharedInviter"];
+	
+	[dict setValue:[self.SharedResponsor dictionary] forKey:@"SharedResponsor"];
+	
+	[dict setValue:self.ToEmail forKey:@"ToEmail"];
+	[dict setValue:self.State forKey:@"State"];
+
+	return dict;
+}
+
+@end
+
+// --- NotificationItem ---
+@implementation NotificationItem
+
+@synthesize Id;
+@synthesize GroupId;
+@synthesize ToUser;
+@synthesize ForEntry;
+@synthesize FromUser;
+@synthesize FromOrg;
+@synthesize CausedByEntry;
+@synthesize NotifiedAt;
+@synthesize ReadAt;
+@synthesize Readed;
+@synthesize Type;
+@synthesize Link;
+@synthesize SharingRequestToEmail;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setToUser:[[EmbedUser alloc] initWithDictionary:[dict valueForKey:@"ToUser"]]];
+	
+	[self setForEntry:[[EmbedEntry alloc] initWithDictionary:[dict valueForKey:@"ForEntry"]]];
+	
+	[self setFromUser:[[EmbedUser alloc] initWithDictionary:[dict valueForKey:@"FromUser"]]];
+	
+	[self setFromOrg:[[EmbedOrg alloc] initWithDictionary:[dict valueForKey:@"FromOrg"]]];
+	
+	[self setCausedByEntry:[[EmbedEntry alloc] initWithDictionary:[dict valueForKey:@"CausedByEntry"]]];
+	
+	[self setNotifiedAt:[NSDate dateWithString:[dict valueForKey:@"NotifiedAt"]]];
+	[self setReadAt:[NSDate dateWithString:[dict valueForKey:@"ReadAt"]]];
+	[self setReaded:[[dict valueForKey:@"Readed"] boolValue]];
+	[self setType:[dict valueForKey:@"Type"]];
+	[self setLink:[dict valueForKey:@"Link"]];
+	[self setSharingRequestToEmail:[dict valueForKey:@"SharingRequestToEmail"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:[self.ToUser dictionary] forKey:@"ToUser"];
+	
+	[dict setValue:[self.ForEntry dictionary] forKey:@"ForEntry"];
+	
+	[dict setValue:[self.FromUser dictionary] forKey:@"FromUser"];
+	
+	[dict setValue:[self.FromOrg dictionary] forKey:@"FromOrg"];
+	
+	[dict setValue:[self.CausedByEntry dictionary] forKey:@"CausedByEntry"];
+	
+	[dict setValue:self.NotifiedAt forKey:@"NotifiedAt"];
+	[dict setValue:self.ReadAt forKey:@"ReadAt"];
+	[dict setValue:[NSNumber numberWithBool:self.Readed] forKey:@"Readed"];
+	[dict setValue:self.Type forKey:@"Type"];
+	[dict setValue:self.Link forKey:@"Link"];
+	[dict setValue:self.SharingRequestToEmail forKey:@"SharingRequestToEmail"];
+
+	return dict;
+}
+
+@end
+
+// --- MyNotifications ---
+@implementation MyNotifications
+
+@synthesize NotificationItems;
+@synthesize HasMore;
+@synthesize LatestNotifyTime;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mNotificationItems = [[NSMutableArray alloc] init];
+	NSArray * lNotificationItems = [dict valueForKey:@"NotificationItems"];
+	for (NSDictionary * d in lNotificationItems) {
+		[mNotificationItems addObject: [[NotificationItem alloc] initWithDictionary:d]];
+	}
+	[self setNotificationItems:mNotificationItems];
+	
+	[self setHasMore:[[dict valueForKey:@"HasMore"] boolValue]];
+	[self setLatestNotifyTime:[dict valueForKey:@"LatestNotifyTime"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mNotificationItems = [[NSMutableArray alloc] init];
+	for (NotificationItem * p in NotificationItems) {
+		[mNotificationItems addObject:[p dictionary]];
+	}
+	[dict setValue:mNotificationItems forKey:@"NotificationItems"];
+	
+	[dict setValue:[NSNumber numberWithBool:self.HasMore] forKey:@"HasMore"];
+	[dict setValue:self.LatestNotifyTime forKey:@"LatestNotifyTime"];
+
+	return dict;
+}
+
+@end
+
+// --- Entry ---
+@implementation Entry
+
+@synthesize Id;
+@synthesize EType;
+@synthesize Title;
+@synthesize Slug;
+@synthesize Content;
+@synthesize TypeTitle;
+@synthesize RootId;
+@synthesize GroupId;
+@synthesize AuthorId;
+@synthesize CreatedAt;
+@synthesize UpdatedAt;
+@synthesize BumpedUpAt;
+@synthesize AllAttachmentsURL;
+@synthesize Permalink;
+@synthesize IconName;
+@synthesize LocalHumanCreatedAt;
+@synthesize LocalHumanUpdatedAt;
+@synthesize WholeLastUpdateAtAgo;
+@synthesize LastUpdateAtAgo;
+@synthesize MentionedUserIds;
+@synthesize DomainURL;
+@synthesize UpdatedAtUnixNano;
+@synthesize HtmlTitle;
+@synthesize HtmlContent;
+@synthesize HtmlContentPart;
+@synthesize TaskHtmlContentPart;
+@synthesize WatchlistHtml;
+@synthesize ToUsersHtml;
+@synthesize LikedByUsersHtml;
+@synthesize NotifyOptionsHtml;
+@synthesize Link;
+@synthesize PresentationLink;
+@synthesize UploadURL;
+@synthesize IsShared;
+@synthesize IsPublished;
+@synthesize IsCanPublish;
+@synthesize IsSystemMessage;
+@synthesize SystemMessageType;
+@synthesize BroadcastType;
+@synthesize IsBroadcast;
+@synthesize IsBroadcastTypeToAllAdmins;
+@synthesize IsBroadcastTypeToAllUsers;
+@synthesize IsBroadcastTypeToSomeOrgs;
+@synthesize IsFromSuperOrg;
+@synthesize IsFeedback;
+@synthesize FromOrg;
+@synthesize ToOrgs;
+@synthesize ToOrgsHtml;
+@synthesize IsRequest;
+@synthesize Request;
+@synthesize VisibleForSuperUserInSuperOrg;
+@synthesize VisibleForSuperOrg;
+@synthesize IsKnowledgeBase;
+@synthesize IsPost;
+@synthesize IsComment;
+@synthesize IsTask;
+@synthesize IsChat;
+@synthesize IsTaskToDo;
+@synthesize IsTaskAck;
+@synthesize IsInWatchList;
+@synthesize IsToGroup;
+@synthesize CurrentUserCanEdit;
+@synthesize CanEdit;
+@synthesize CanReply;
+@synthesize ManagerCanEdit;
+@synthesize LikedByMe;
+@synthesize HasInlineTask;
+@synthesize TaskIsCompleted;
+@synthesize IsRoot;
+@synthesize IsUnread;
+@synthesize IsUpdated;
+@synthesize IsLastVersion;
+@synthesize Presentation;
+@synthesize AnyoneCanEdit;
+@synthesize IsInGroup;
+@synthesize IsFromEmail;
+@synthesize AllAttachmentsCount;
+@synthesize CommentsCount;
+@synthesize AllLikesCount;
+@synthesize VersionCount;
+@synthesize Author;
+@synthesize CurrentVersionEditor;
+@synthesize Group;
+@synthesize Task;
+@synthesize Conversation;
+@synthesize LinkedEntries;
+@synthesize Versions;
+@synthesize ToUsers;
+@synthesize MentionedUsers;
+@synthesize LikedByUsers;
+@synthesize Attachments;
+@synthesize FirstPicture;
+@synthesize Comments;
+@synthesize ExternalComments;
+@synthesize CurrentVersionComments;
+@synthesize OtherVersionsComments;
+@synthesize NewComment;
+@synthesize NewEntry;
+@synthesize GroupSlector;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setId:[dict valueForKey:@"Id"]];
+	[self setEType:[dict valueForKey:@"EType"]];
+	[self setTitle:[dict valueForKey:@"Title"]];
+	[self setSlug:[dict valueForKey:@"Slug"]];
+	[self setContent:[dict valueForKey:@"Content"]];
+	[self setTypeTitle:[dict valueForKey:@"TypeTitle"]];
+	[self setRootId:[dict valueForKey:@"RootId"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setAuthorId:[dict valueForKey:@"AuthorId"]];
+	[self setCreatedAt:[NSDate dateWithString:[dict valueForKey:@"CreatedAt"]]];
+	[self setUpdatedAt:[NSDate dateWithString:[dict valueForKey:@"UpdatedAt"]]];
+	[self setBumpedUpAt:[NSDate dateWithString:[dict valueForKey:@"BumpedUpAt"]]];
+	[self setAllAttachmentsURL:[dict valueForKey:@"AllAttachmentsURL"]];
+	[self setPermalink:[dict valueForKey:@"Permalink"]];
+	[self setIconName:[dict valueForKey:@"IconName"]];
+	[self setLocalHumanCreatedAt:[dict valueForKey:@"LocalHumanCreatedAt"]];
+	[self setLocalHumanUpdatedAt:[dict valueForKey:@"LocalHumanUpdatedAt"]];
+	[self setWholeLastUpdateAtAgo:[dict valueForKey:@"WholeLastUpdateAtAgo"]];
+	[self setLastUpdateAtAgo:[dict valueForKey:@"LastUpdateAtAgo"]];
+	[self setMentionedUserIds:[dict valueForKey:@"MentionedUserIds"]];
+	[self setDomainURL:[dict valueForKey:@"DomainURL"]];
+	[self setUpdatedAtUnixNano:[dict valueForKey:@"UpdatedAtUnixNano"]];
+	[self setHtmlTitle:[dict valueForKey:@"HtmlTitle"]];
+	[self setHtmlContent:[dict valueForKey:@"HtmlContent"]];
+	[self setHtmlContentPart:[dict valueForKey:@"HtmlContentPart"]];
+	[self setTaskHtmlContentPart:[dict valueForKey:@"TaskHtmlContentPart"]];
+	[self setWatchlistHtml:[dict valueForKey:@"WatchlistHtml"]];
+	[self setToUsersHtml:[dict valueForKey:@"ToUsersHtml"]];
+	[self setLikedByUsersHtml:[dict valueForKey:@"LikedByUsersHtml"]];
+	[self setNotifyOptionsHtml:[dict valueForKey:@"NotifyOptionsHtml"]];
+	[self setLink:[dict valueForKey:@"Link"]];
+	[self setPresentationLink:[dict valueForKey:@"PresentationLink"]];
+	[self setUploadURL:[dict valueForKey:@"UploadURL"]];
+	[self setIsShared:[[dict valueForKey:@"IsShared"] boolValue]];
+	[self setIsPublished:[[dict valueForKey:@"IsPublished"] boolValue]];
+	[self setIsCanPublish:[[dict valueForKey:@"IsCanPublish"] boolValue]];
+	[self setIsSystemMessage:[[dict valueForKey:@"IsSystemMessage"] boolValue]];
+	[self setSystemMessageType:[dict valueForKey:@"SystemMessageType"]];
+	[self setBroadcastType:[dict valueForKey:@"BroadcastType"]];
+	[self setIsBroadcast:[[dict valueForKey:@"IsBroadcast"] boolValue]];
+	[self setIsBroadcastTypeToAllAdmins:[[dict valueForKey:@"IsBroadcastTypeToAllAdmins"] boolValue]];
+	[self setIsBroadcastTypeToAllUsers:[[dict valueForKey:@"IsBroadcastTypeToAllUsers"] boolValue]];
+	[self setIsBroadcastTypeToSomeOrgs:[[dict valueForKey:@"IsBroadcastTypeToSomeOrgs"] boolValue]];
+	[self setIsFromSuperOrg:[[dict valueForKey:@"IsFromSuperOrg"] boolValue]];
+	[self setIsFeedback:[[dict valueForKey:@"IsFeedback"] boolValue]];
+	[self setFromOrg:[[EmbedOrg alloc] initWithDictionary:[dict valueForKey:@"FromOrg"]]];
+	
+
+	NSMutableArray * mToOrgs = [[NSMutableArray alloc] init];
+	NSArray * lToOrgs = [dict valueForKey:@"ToOrgs"];
+	for (NSDictionary * d in lToOrgs) {
+		[mToOrgs addObject: [[EmbedOrg alloc] initWithDictionary:d]];
+	}
+	[self setToOrgs:mToOrgs];
+	
+	[self setToOrgsHtml:[dict valueForKey:@"ToOrgsHtml"]];
+	[self setIsRequest:[[dict valueForKey:@"IsRequest"] boolValue]];
+	[self setRequest:[[Request alloc] initWithDictionary:[dict valueForKey:@"Request"]]];
+	
+	[self setVisibleForSuperUserInSuperOrg:[[dict valueForKey:@"VisibleForSuperUserInSuperOrg"] boolValue]];
+	[self setVisibleForSuperOrg:[[dict valueForKey:@"VisibleForSuperOrg"] boolValue]];
+	[self setIsKnowledgeBase:[[dict valueForKey:@"IsKnowledgeBase"] boolValue]];
+	[self setIsPost:[[dict valueForKey:@"IsPost"] boolValue]];
+	[self setIsComment:[[dict valueForKey:@"IsComment"] boolValue]];
+	[self setIsTask:[[dict valueForKey:@"IsTask"] boolValue]];
+	[self setIsChat:[[dict valueForKey:@"IsChat"] boolValue]];
+	[self setIsTaskToDo:[[dict valueForKey:@"IsTaskToDo"] boolValue]];
+	[self setIsTaskAck:[[dict valueForKey:@"IsTaskAck"] boolValue]];
+	[self setIsInWatchList:[[dict valueForKey:@"IsInWatchList"] boolValue]];
+	[self setIsToGroup:[dict valueForKey:@"IsToGroup"]];
+	[self setCurrentUserCanEdit:[[dict valueForKey:@"CurrentUserCanEdit"] boolValue]];
+	[self setCanEdit:[[dict valueForKey:@"CanEdit"] boolValue]];
+	[self setCanReply:[[dict valueForKey:@"CanReply"] boolValue]];
+	[self setManagerCanEdit:[[dict valueForKey:@"ManagerCanEdit"] boolValue]];
+	[self setLikedByMe:[[dict valueForKey:@"LikedByMe"] boolValue]];
+	[self setHasInlineTask:[[dict valueForKey:@"HasInlineTask"] boolValue]];
+	[self setTaskIsCompleted:[[dict valueForKey:@"TaskIsCompleted"] boolValue]];
+	[self setIsRoot:[[dict valueForKey:@"IsRoot"] boolValue]];
+	[self setIsUnread:[[dict valueForKey:@"IsUnread"] boolValue]];
+	[self setIsUpdated:[[dict valueForKey:@"IsUpdated"] boolValue]];
+	[self setIsLastVersion:[[dict valueForKey:@"IsLastVersion"] boolValue]];
+	[self setPresentation:[[dict valueForKey:@"Presentation"] boolValue]];
+	[self setAnyoneCanEdit:[[dict valueForKey:@"AnyoneCanEdit"] boolValue]];
+	[self setIsInGroup:[[dict valueForKey:@"IsInGroup"] boolValue]];
+	[self setIsFromEmail:[[dict valueForKey:@"IsFromEmail"] boolValue]];
+	[self setAllAttachmentsCount:[dict valueForKey:@"AllAttachmentsCount"]];
+	[self setCommentsCount:[dict valueForKey:@"CommentsCount"]];
+	[self setAllLikesCount:[dict valueForKey:@"AllLikesCount"]];
+	[self setVersionCount:[dict valueForKey:@"VersionCount"]];
+	[self setAuthor:[[EmbedUser alloc] initWithDictionary:[dict valueForKey:@"Author"]]];
+	
+	[self setCurrentVersionEditor:[[EmbedUser alloc] initWithDictionary:[dict valueForKey:@"CurrentVersionEditor"]]];
+	
+	[self setGroup:[[Group alloc] initWithDictionary:[dict valueForKey:@"Group"]]];
+	
+	[self setTask:[[Task alloc] initWithDictionary:[dict valueForKey:@"Task"]]];
+	
+	[self setConversation:[[Conversation alloc] initWithDictionary:[dict valueForKey:@"Conversation"]]];
+	
+
+	NSMutableArray * mLinkedEntries = [[NSMutableArray alloc] init];
+	NSArray * lLinkedEntries = [dict valueForKey:@"LinkedEntries"];
+	for (NSDictionary * d in lLinkedEntries) {
+		[mLinkedEntries addObject: [[LinkedEntry alloc] initWithDictionary:d]];
+	}
+	[self setLinkedEntries:mLinkedEntries];
+	
+
+	NSMutableArray * mVersions = [[NSMutableArray alloc] init];
+	NSArray * lVersions = [dict valueForKey:@"Versions"];
+	for (NSDictionary * d in lVersions) {
+		[mVersions addObject: [[EntryVersion alloc] initWithDictionary:d]];
+	}
+	[self setVersions:mVersions];
+	
+
+	NSMutableArray * mToUsers = [[NSMutableArray alloc] init];
+	NSArray * lToUsers = [dict valueForKey:@"ToUsers"];
+	for (NSDictionary * d in lToUsers) {
+		[mToUsers addObject: [[EmbedUser alloc] initWithDictionary:d]];
+	}
+	[self setToUsers:mToUsers];
+	
+
+	NSMutableArray * mMentionedUsers = [[NSMutableArray alloc] init];
+	NSArray * lMentionedUsers = [dict valueForKey:@"MentionedUsers"];
+	for (NSDictionary * d in lMentionedUsers) {
+		[mMentionedUsers addObject: [[EmbedUser alloc] initWithDictionary:d]];
+	}
+	[self setMentionedUsers:mMentionedUsers];
+	
+
+	NSMutableArray * mLikedByUsers = [[NSMutableArray alloc] init];
+	NSArray * lLikedByUsers = [dict valueForKey:@"LikedByUsers"];
+	for (NSDictionary * d in lLikedByUsers) {
+		[mLikedByUsers addObject: [[EmbedUser alloc] initWithDictionary:d]];
+	}
+	[self setLikedByUsers:mLikedByUsers];
+	
+
+	NSMutableArray * mAttachments = [[NSMutableArray alloc] init];
+	NSArray * lAttachments = [dict valueForKey:@"Attachments"];
+	for (NSDictionary * d in lAttachments) {
+		[mAttachments addObject: [[Attachment alloc] initWithDictionary:d]];
+	}
+	[self setAttachments:mAttachments];
+	
+	[self setFirstPicture:[[Attachment alloc] initWithDictionary:[dict valueForKey:@"FirstPicture"]]];
+	
+
+	NSMutableArray * mComments = [[NSMutableArray alloc] init];
+	NSArray * lComments = [dict valueForKey:@"Comments"];
+	for (NSDictionary * d in lComments) {
+		[mComments addObject: [[Entry alloc] initWithDictionary:d]];
+	}
+	[self setComments:mComments];
+	
+
+	NSMutableArray * mExternalComments = [[NSMutableArray alloc] init];
+	NSArray * lExternalComments = [dict valueForKey:@"ExternalComments"];
+	for (NSDictionary * d in lExternalComments) {
+		[mExternalComments addObject: [[Entry alloc] initWithDictionary:d]];
+	}
+	[self setExternalComments:mExternalComments];
+	
+
+	NSMutableArray * mCurrentVersionComments = [[NSMutableArray alloc] init];
+	NSArray * lCurrentVersionComments = [dict valueForKey:@"CurrentVersionComments"];
+	for (NSDictionary * d in lCurrentVersionComments) {
+		[mCurrentVersionComments addObject: [[Entry alloc] initWithDictionary:d]];
+	}
+	[self setCurrentVersionComments:mCurrentVersionComments];
+	
+
+	NSMutableArray * mOtherVersionsComments = [[NSMutableArray alloc] init];
+	NSArray * lOtherVersionsComments = [dict valueForKey:@"OtherVersionsComments"];
+	for (NSDictionary * d in lOtherVersionsComments) {
+		[mOtherVersionsComments addObject: [[Entry alloc] initWithDictionary:d]];
+	}
+	[self setOtherVersionsComments:mOtherVersionsComments];
+	
+	[self setNewComment:[[Entry alloc] initWithDictionary:[dict valueForKey:@"NewComment"]]];
+	
+	[self setNewEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"NewEntry"]]];
+	
+	[self setGroupSlector:[[GroupSelector alloc] initWithDictionary:[dict valueForKey:@"GroupSlector"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Id forKey:@"Id"];
+	[dict setValue:self.EType forKey:@"EType"];
+	[dict setValue:self.Title forKey:@"Title"];
+	[dict setValue:self.Slug forKey:@"Slug"];
+	[dict setValue:self.Content forKey:@"Content"];
+	[dict setValue:self.TypeTitle forKey:@"TypeTitle"];
+	[dict setValue:self.RootId forKey:@"RootId"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.AuthorId forKey:@"AuthorId"];
+	[dict setValue:self.CreatedAt forKey:@"CreatedAt"];
+	[dict setValue:self.UpdatedAt forKey:@"UpdatedAt"];
+	[dict setValue:self.BumpedUpAt forKey:@"BumpedUpAt"];
+	[dict setValue:self.AllAttachmentsURL forKey:@"AllAttachmentsURL"];
+	[dict setValue:self.Permalink forKey:@"Permalink"];
+	[dict setValue:self.IconName forKey:@"IconName"];
+	[dict setValue:self.LocalHumanCreatedAt forKey:@"LocalHumanCreatedAt"];
+	[dict setValue:self.LocalHumanUpdatedAt forKey:@"LocalHumanUpdatedAt"];
+	[dict setValue:self.WholeLastUpdateAtAgo forKey:@"WholeLastUpdateAtAgo"];
+	[dict setValue:self.LastUpdateAtAgo forKey:@"LastUpdateAtAgo"];
+	[dict setValue:self.MentionedUserIds forKey:@"MentionedUserIds"];
+	[dict setValue:self.DomainURL forKey:@"DomainURL"];
+	[dict setValue:self.UpdatedAtUnixNano forKey:@"UpdatedAtUnixNano"];
+	[dict setValue:self.HtmlTitle forKey:@"HtmlTitle"];
+	[dict setValue:self.HtmlContent forKey:@"HtmlContent"];
+	[dict setValue:self.HtmlContentPart forKey:@"HtmlContentPart"];
+	[dict setValue:self.TaskHtmlContentPart forKey:@"TaskHtmlContentPart"];
+	[dict setValue:self.WatchlistHtml forKey:@"WatchlistHtml"];
+	[dict setValue:self.ToUsersHtml forKey:@"ToUsersHtml"];
+	[dict setValue:self.LikedByUsersHtml forKey:@"LikedByUsersHtml"];
+	[dict setValue:self.NotifyOptionsHtml forKey:@"NotifyOptionsHtml"];
+	[dict setValue:self.Link forKey:@"Link"];
+	[dict setValue:self.PresentationLink forKey:@"PresentationLink"];
+	[dict setValue:self.UploadURL forKey:@"UploadURL"];
+	[dict setValue:[NSNumber numberWithBool:self.IsShared] forKey:@"IsShared"];
+	[dict setValue:[NSNumber numberWithBool:self.IsPublished] forKey:@"IsPublished"];
+	[dict setValue:[NSNumber numberWithBool:self.IsCanPublish] forKey:@"IsCanPublish"];
+	[dict setValue:[NSNumber numberWithBool:self.IsSystemMessage] forKey:@"IsSystemMessage"];
+	[dict setValue:self.SystemMessageType forKey:@"SystemMessageType"];
+	[dict setValue:self.BroadcastType forKey:@"BroadcastType"];
+	[dict setValue:[NSNumber numberWithBool:self.IsBroadcast] forKey:@"IsBroadcast"];
+	[dict setValue:[NSNumber numberWithBool:self.IsBroadcastTypeToAllAdmins] forKey:@"IsBroadcastTypeToAllAdmins"];
+	[dict setValue:[NSNumber numberWithBool:self.IsBroadcastTypeToAllUsers] forKey:@"IsBroadcastTypeToAllUsers"];
+	[dict setValue:[NSNumber numberWithBool:self.IsBroadcastTypeToSomeOrgs] forKey:@"IsBroadcastTypeToSomeOrgs"];
+	[dict setValue:[NSNumber numberWithBool:self.IsFromSuperOrg] forKey:@"IsFromSuperOrg"];
+	[dict setValue:[NSNumber numberWithBool:self.IsFeedback] forKey:@"IsFeedback"];
+	[dict setValue:[self.FromOrg dictionary] forKey:@"FromOrg"];
+	
+
+	NSMutableArray * mToOrgs = [[NSMutableArray alloc] init];
+	for (EmbedOrg * p in ToOrgs) {
+		[mToOrgs addObject:[p dictionary]];
+	}
+	[dict setValue:mToOrgs forKey:@"ToOrgs"];
+	
+	[dict setValue:self.ToOrgsHtml forKey:@"ToOrgsHtml"];
+	[dict setValue:[NSNumber numberWithBool:self.IsRequest] forKey:@"IsRequest"];
+	[dict setValue:[self.Request dictionary] forKey:@"Request"];
+	
+	[dict setValue:[NSNumber numberWithBool:self.VisibleForSuperUserInSuperOrg] forKey:@"VisibleForSuperUserInSuperOrg"];
+	[dict setValue:[NSNumber numberWithBool:self.VisibleForSuperOrg] forKey:@"VisibleForSuperOrg"];
+	[dict setValue:[NSNumber numberWithBool:self.IsKnowledgeBase] forKey:@"IsKnowledgeBase"];
+	[dict setValue:[NSNumber numberWithBool:self.IsPost] forKey:@"IsPost"];
+	[dict setValue:[NSNumber numberWithBool:self.IsComment] forKey:@"IsComment"];
+	[dict setValue:[NSNumber numberWithBool:self.IsTask] forKey:@"IsTask"];
+	[dict setValue:[NSNumber numberWithBool:self.IsChat] forKey:@"IsChat"];
+	[dict setValue:[NSNumber numberWithBool:self.IsTaskToDo] forKey:@"IsTaskToDo"];
+	[dict setValue:[NSNumber numberWithBool:self.IsTaskAck] forKey:@"IsTaskAck"];
+	[dict setValue:[NSNumber numberWithBool:self.IsInWatchList] forKey:@"IsInWatchList"];
+	[dict setValue:self.IsToGroup forKey:@"IsToGroup"];
+	[dict setValue:[NSNumber numberWithBool:self.CurrentUserCanEdit] forKey:@"CurrentUserCanEdit"];
+	[dict setValue:[NSNumber numberWithBool:self.CanEdit] forKey:@"CanEdit"];
+	[dict setValue:[NSNumber numberWithBool:self.CanReply] forKey:@"CanReply"];
+	[dict setValue:[NSNumber numberWithBool:self.ManagerCanEdit] forKey:@"ManagerCanEdit"];
+	[dict setValue:[NSNumber numberWithBool:self.LikedByMe] forKey:@"LikedByMe"];
+	[dict setValue:[NSNumber numberWithBool:self.HasInlineTask] forKey:@"HasInlineTask"];
+	[dict setValue:[NSNumber numberWithBool:self.TaskIsCompleted] forKey:@"TaskIsCompleted"];
+	[dict setValue:[NSNumber numberWithBool:self.IsRoot] forKey:@"IsRoot"];
+	[dict setValue:[NSNumber numberWithBool:self.IsUnread] forKey:@"IsUnread"];
+	[dict setValue:[NSNumber numberWithBool:self.IsUpdated] forKey:@"IsUpdated"];
+	[dict setValue:[NSNumber numberWithBool:self.IsLastVersion] forKey:@"IsLastVersion"];
+	[dict setValue:[NSNumber numberWithBool:self.Presentation] forKey:@"Presentation"];
+	[dict setValue:[NSNumber numberWithBool:self.AnyoneCanEdit] forKey:@"AnyoneCanEdit"];
+	[dict setValue:[NSNumber numberWithBool:self.IsInGroup] forKey:@"IsInGroup"];
+	[dict setValue:[NSNumber numberWithBool:self.IsFromEmail] forKey:@"IsFromEmail"];
+	[dict setValue:self.AllAttachmentsCount forKey:@"AllAttachmentsCount"];
+	[dict setValue:self.CommentsCount forKey:@"CommentsCount"];
+	[dict setValue:self.AllLikesCount forKey:@"AllLikesCount"];
+	[dict setValue:self.VersionCount forKey:@"VersionCount"];
+	[dict setValue:[self.Author dictionary] forKey:@"Author"];
+	
+	[dict setValue:[self.CurrentVersionEditor dictionary] forKey:@"CurrentVersionEditor"];
+	
+	[dict setValue:[self.Group dictionary] forKey:@"Group"];
+	
+	[dict setValue:[self.Task dictionary] forKey:@"Task"];
+	
+	[dict setValue:[self.Conversation dictionary] forKey:@"Conversation"];
+	
+
+	NSMutableArray * mLinkedEntries = [[NSMutableArray alloc] init];
+	for (LinkedEntry * p in LinkedEntries) {
+		[mLinkedEntries addObject:[p dictionary]];
+	}
+	[dict setValue:mLinkedEntries forKey:@"LinkedEntries"];
+	
+
+	NSMutableArray * mVersions = [[NSMutableArray alloc] init];
+	for (EntryVersion * p in Versions) {
+		[mVersions addObject:[p dictionary]];
+	}
+	[dict setValue:mVersions forKey:@"Versions"];
+	
+
+	NSMutableArray * mToUsers = [[NSMutableArray alloc] init];
+	for (EmbedUser * p in ToUsers) {
+		[mToUsers addObject:[p dictionary]];
+	}
+	[dict setValue:mToUsers forKey:@"ToUsers"];
+	
+
+	NSMutableArray * mMentionedUsers = [[NSMutableArray alloc] init];
+	for (EmbedUser * p in MentionedUsers) {
+		[mMentionedUsers addObject:[p dictionary]];
+	}
+	[dict setValue:mMentionedUsers forKey:@"MentionedUsers"];
+	
+
+	NSMutableArray * mLikedByUsers = [[NSMutableArray alloc] init];
+	for (EmbedUser * p in LikedByUsers) {
+		[mLikedByUsers addObject:[p dictionary]];
+	}
+	[dict setValue:mLikedByUsers forKey:@"LikedByUsers"];
+	
+
+	NSMutableArray * mAttachments = [[NSMutableArray alloc] init];
+	for (Attachment * p in Attachments) {
+		[mAttachments addObject:[p dictionary]];
+	}
+	[dict setValue:mAttachments forKey:@"Attachments"];
+	
+	[dict setValue:[self.FirstPicture dictionary] forKey:@"FirstPicture"];
+	
+
+	NSMutableArray * mComments = [[NSMutableArray alloc] init];
+	for (Entry * p in Comments) {
+		[mComments addObject:[p dictionary]];
+	}
+	[dict setValue:mComments forKey:@"Comments"];
+	
+
+	NSMutableArray * mExternalComments = [[NSMutableArray alloc] init];
+	for (Entry * p in ExternalComments) {
+		[mExternalComments addObject:[p dictionary]];
+	}
+	[dict setValue:mExternalComments forKey:@"ExternalComments"];
+	
+
+	NSMutableArray * mCurrentVersionComments = [[NSMutableArray alloc] init];
+	for (Entry * p in CurrentVersionComments) {
+		[mCurrentVersionComments addObject:[p dictionary]];
+	}
+	[dict setValue:mCurrentVersionComments forKey:@"CurrentVersionComments"];
+	
+
+	NSMutableArray * mOtherVersionsComments = [[NSMutableArray alloc] init];
+	for (Entry * p in OtherVersionsComments) {
+		[mOtherVersionsComments addObject:[p dictionary]];
+	}
+	[dict setValue:mOtherVersionsComments forKey:@"OtherVersionsComments"];
+	
+	[dict setValue:[self.NewComment dictionary] forKey:@"NewComment"];
+	
+	[dict setValue:[self.NewEntry dictionary] forKey:@"NewEntry"];
+	
+	[dict setValue:[self.GroupSlector dictionary] forKey:@"GroupSlector"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- MyTask ---
+@implementation MyTask
+
+@synthesize TasksForMe;
+@synthesize MyCreatedTasks;
+@synthesize AboutTodos;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mTasksForMe = [[NSMutableArray alloc] init];
+	NSArray * lTasksForMe = [dict valueForKey:@"TasksForMe"];
+	for (NSDictionary * d in lTasksForMe) {
+		[mTasksForMe addObject: [[Entry alloc] initWithDictionary:d]];
+	}
+	[self setTasksForMe:mTasksForMe];
+	
+
+	NSMutableArray * mMyCreatedTasks = [[NSMutableArray alloc] init];
+	NSArray * lMyCreatedTasks = [dict valueForKey:@"MyCreatedTasks"];
+	for (NSDictionary * d in lMyCreatedTasks) {
+		[mMyCreatedTasks addObject: [[Entry alloc] initWithDictionary:d]];
+	}
+	[self setMyCreatedTasks:mMyCreatedTasks];
+	
+	[self setAboutTodos:[[dict valueForKey:@"AboutTodos"] boolValue]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mTasksForMe = [[NSMutableArray alloc] init];
+	for (Entry * p in TasksForMe) {
+		[mTasksForMe addObject:[p dictionary]];
+	}
+	[dict setValue:mTasksForMe forKey:@"TasksForMe"];
+	
+
+	NSMutableArray * mMyCreatedTasks = [[NSMutableArray alloc] init];
+	for (Entry * p in MyCreatedTasks) {
+		[mMyCreatedTasks addObject:[p dictionary]];
+	}
+	[dict setValue:mMyCreatedTasks forKey:@"MyCreatedTasks"];
+	
+	[dict setValue:[NSNumber numberWithBool:self.AboutTodos] forKey:@"AboutTodos"];
+
+	return dict;
+}
+
+@end
+
+// --- WatchItem ---
+@implementation WatchItem
+
+@synthesize AttachCnt;
+@synthesize CommentCnt;
+@synthesize LikeCnt;
+@synthesize AttachCntStr;
+@synthesize CommentCntStr;
+@synthesize LikeCntStr;
+@synthesize WatchTime;
+@synthesize WatchEntry;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setAttachCnt:[dict valueForKey:@"AttachCnt"]];
+	[self setCommentCnt:[dict valueForKey:@"CommentCnt"]];
+	[self setLikeCnt:[dict valueForKey:@"LikeCnt"]];
+	[self setAttachCntStr:[dict valueForKey:@"AttachCntStr"]];
+	[self setCommentCntStr:[dict valueForKey:@"CommentCntStr"]];
+	[self setLikeCntStr:[dict valueForKey:@"LikeCntStr"]];
+	[self setWatchTime:[NSDate dateWithString:[dict valueForKey:@"WatchTime"]]];
+	[self setWatchEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"WatchEntry"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.AttachCnt forKey:@"AttachCnt"];
+	[dict setValue:self.CommentCnt forKey:@"CommentCnt"];
+	[dict setValue:self.LikeCnt forKey:@"LikeCnt"];
+	[dict setValue:self.AttachCntStr forKey:@"AttachCntStr"];
+	[dict setValue:self.CommentCntStr forKey:@"CommentCntStr"];
+	[dict setValue:self.LikeCntStr forKey:@"LikeCntStr"];
+	[dict setValue:self.WatchTime forKey:@"WatchTime"];
+	[dict setValue:[self.WatchEntry dictionary] forKey:@"WatchEntry"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- DraftList ---
+@implementation DraftList
+
+@synthesize DraftItems;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mDraftItems = [[NSMutableArray alloc] init];
+	NSArray * lDraftItems = [dict valueForKey:@"DraftItems"];
+	for (NSDictionary * d in lDraftItems) {
+		[mDraftItems addObject: [[Entry alloc] initWithDictionary:d]];
+	}
+	[self setDraftItems:mDraftItems];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mDraftItems = [[NSMutableArray alloc] init];
+	for (Entry * p in DraftItems) {
+		[mDraftItems addObject:[p dictionary]];
+	}
+	[dict setValue:mDraftItems forKey:@"DraftItems"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- MyChats ---
+@implementation MyChats
+
+@synthesize ChatEntries;
+@synthesize HasMore;
+@synthesize LatestCreateTime;
+@synthesize WhatChats;
+@synthesize PrefixURL;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mChatEntries = [[NSMutableArray alloc] init];
+	NSArray * lChatEntries = [dict valueForKey:@"ChatEntries"];
+	for (NSDictionary * d in lChatEntries) {
+		[mChatEntries addObject: [[Entry alloc] initWithDictionary:d]];
+	}
+	[self setChatEntries:mChatEntries];
+	
+	[self setHasMore:[[dict valueForKey:@"HasMore"] boolValue]];
+	[self setLatestCreateTime:[dict valueForKey:@"LatestCreateTime"]];
+	[self setWhatChats:[[dict valueForKey:@"WhatChats"] boolValue]];
+	[self setPrefixURL:[dict valueForKey:@"PrefixURL"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mChatEntries = [[NSMutableArray alloc] init];
+	for (Entry * p in ChatEntries) {
+		[mChatEntries addObject:[p dictionary]];
+	}
+	[dict setValue:mChatEntries forKey:@"ChatEntries"];
+	
+	[dict setValue:[NSNumber numberWithBool:self.HasMore] forKey:@"HasMore"];
+	[dict setValue:self.LatestCreateTime forKey:@"LatestCreateTime"];
+	[dict setValue:[NSNumber numberWithBool:self.WhatChats] forKey:@"WhatChats"];
+	[dict setValue:self.PrefixURL forKey:@"PrefixURL"];
+
+	return dict;
+}
+
+@end
+
+// --- WatchList ---
+@implementation WatchList
+
+@synthesize Items;
+@synthesize WhatWatchList;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mItems = [[NSMutableArray alloc] init];
+	NSArray * lItems = [dict valueForKey:@"Items"];
+	for (NSDictionary * d in lItems) {
+		[mItems addObject: [[WatchItem alloc] initWithDictionary:d]];
+	}
+	[self setItems:mItems];
+	
+	[self setWhatWatchList:[[dict valueForKey:@"WhatWatchList"] boolValue]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mItems = [[NSMutableArray alloc] init];
+	for (WatchItem * p in Items) {
+		[mItems addObject:[p dictionary]];
+	}
+	[dict setValue:mItems forKey:@"Items"];
+	
+	[dict setValue:[NSNumber numberWithBool:self.WhatWatchList] forKey:@"WhatWatchList"];
+
+	return dict;
+}
+
 @end
 
 
 // === Interfaces ===
 
 
+
+// --- CancelChangingEmailParams ---
+@implementation NoAuthUserServiceCancelChangingEmailParams : NSObject
+
+@synthesize Token;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setToken:[dict valueForKey:@"Token"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Token forKey:@"Token"];
+
+	return dict;
+}
+
+@end
+
+// --- CancelChangingEmailResults ---
+@implementation NoAuthUserServiceCancelChangingEmailResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- ChangeEmailParams ---
+@implementation NoAuthUserServiceChangeEmailParams : NSObject
+
+@synthesize Token;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setToken:[dict valueForKey:@"Token"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Token forKey:@"Token"];
+
+	return dict;
+}
+
+@end
+
+// --- ChangeEmailResults ---
+@implementation NoAuthUserServiceChangeEmailResults : NSObject
+
+@synthesize ActivationToken;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setActivationToken:[dict valueForKey:@"ActivationToken"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.ActivationToken forKey:@"ActivationToken"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- PrepareChangeEmailParams ---
+@implementation NoAuthUserServicePrepareChangeEmailParams : NSObject
+
+@synthesize MemberId;
+@synthesize NewEmail;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setMemberId:[dict valueForKey:@"MemberId"]];
+	[self setNewEmail:[dict valueForKey:@"NewEmail"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.MemberId forKey:@"MemberId"];
+	[dict setValue:self.NewEmail forKey:@"NewEmail"];
+
+	return dict;
+}
+
+@end
+
+// --- PrepareChangeEmailResults ---
+@implementation NoAuthUserServicePrepareChangeEmailResults : NSObject
+
+@synthesize R;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setR:[[EmailChanger alloc] initWithDictionary:[dict valueForKey:@"R"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.R dictionary] forKey:@"R"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GetSharingInviationParams ---
+@implementation NoAuthUserServiceGetSharingInviationParams : NSObject
+
+@synthesize SharingInviationToken;
+@synthesize MemberId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setSharingInviationToken:[dict valueForKey:@"SharingInviationToken"]];
+	[self setMemberId:[dict valueForKey:@"MemberId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.SharingInviationToken forKey:@"SharingInviationToken"];
+	[dict setValue:self.MemberId forKey:@"MemberId"];
+
+	return dict;
+}
+
+@end
+
+// --- GetSharingInviationResults ---
+@implementation NoAuthUserServiceGetSharingInviationResults : NSObject
+
+@synthesize R;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setR:[[SharingInvitationItem alloc] initWithDictionary:[dict valueForKey:@"R"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.R dictionary] forKey:@"R"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- ChangeEmailToAcceptSharingParams ---
+@implementation NoAuthUserServiceChangeEmailToAcceptSharingParams : NSObject
+
+@synthesize Token;
+@synthesize NewEmail;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setToken:[dict valueForKey:@"Token"]];
+	[self setNewEmail:[dict valueForKey:@"NewEmail"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Token forKey:@"Token"];
+	[dict setValue:self.NewEmail forKey:@"NewEmail"];
+
+	return dict;
+}
+
+@end
+
+// --- ChangeEmailToAcceptSharingResults ---
+@implementation NoAuthUserServiceChangeEmailToAcceptSharingResults : NSObject
+
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- AskHelpParams ---
+@implementation NoAuthUserServiceAskHelpParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[HelpInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- AskHelpResults ---
+@implementation NoAuthUserServiceAskHelpResults : NSObject
+
+@synthesize Help;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setHelp:[[HelpInfo alloc] initWithDictionary:[dict valueForKey:@"Help"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Help dictionary] forKey:@"Help"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- BlogEntriesParams ---
+@implementation NoAuthUserServiceBlogEntriesParams : NSObject
+
+@synthesize Doi;
+@synthesize PageNum;
+@synthesize Limit;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setDoi:[dict valueForKey:@"Doi"]];
+	[self setPageNum:[dict valueForKey:@"PageNum"]];
+	[self setLimit:[dict valueForKey:@"Limit"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Doi forKey:@"Doi"];
+	[dict setValue:self.PageNum forKey:@"PageNum"];
+	[dict setValue:self.Limit forKey:@"Limit"];
+
+	return dict;
+}
+
+@end
+
+// --- BlogEntriesResults ---
+@implementation NoAuthUserServiceBlogEntriesResults : NSObject
+
+@synthesize Blog;
+@synthesize R;
+@synthesize TotalPageNum;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setBlog:[[Blog alloc] initWithDictionary:[dict valueForKey:@"Blog"]]];
+	
+
+	NSMutableArray * mR = [[NSMutableArray alloc] init];
+	NSArray * lR = [dict valueForKey:@"R"];
+	for (NSDictionary * d in lR) {
+		[mR addObject: [[BlogEntry alloc] initWithDictionary:d]];
+	}
+	[self setR:mR];
+	
+	[self setTotalPageNum:[dict valueForKey:@"TotalPageNum"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Blog dictionary] forKey:@"Blog"];
+	
+
+	NSMutableArray * mR = [[NSMutableArray alloc] init];
+	for (BlogEntry * p in R) {
+		[mR addObject:[p dictionary]];
+	}
+	[dict setValue:mR forKey:@"R"];
+	
+	[dict setValue:self.TotalPageNum forKey:@"TotalPageNum"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- BlogEntryBySlugParams ---
+@implementation NoAuthUserServiceBlogEntryBySlugParams : NSObject
+
+@synthesize Doi;
+@synthesize Slug;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setDoi:[dict valueForKey:@"Doi"]];
+	[self setSlug:[dict valueForKey:@"Slug"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Doi forKey:@"Doi"];
+	[dict setValue:self.Slug forKey:@"Slug"];
+
+	return dict;
+}
+
+@end
+
+// --- BlogEntryBySlugResults ---
+@implementation NoAuthUserServiceBlogEntryBySlugResults : NSObject
+
+@synthesize Blog;
+@synthesize R;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setBlog:[[Blog alloc] initWithDictionary:[dict valueForKey:@"Blog"]]];
+	
+	[self setR:[[BlogEntry alloc] initWithDictionary:[dict valueForKey:@"R"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Blog dictionary] forKey:@"Blog"];
+	
+	[dict setValue:[self.R dictionary] forKey:@"R"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- CreateExternalCommentParams ---
+@implementation NoAuthUserServiceCreateExternalCommentParams : NSObject
+
+@synthesize Doi;
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setDoi:[dict valueForKey:@"Doi"]];
+	[self setInput:[[EntryInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Doi forKey:@"Doi"];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- CreateExternalCommentResults ---
+@implementation NoAuthUserServiceCreateExternalCommentResults : NSObject
+
+@synthesize R;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setR:[[BlogEntry alloc] initWithDictionary:[dict valueForKey:@"R"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.R dictionary] forKey:@"R"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- CheckSlugParams ---
+@implementation NoAuthUserServiceCheckSlugParams : NSObject
+
+@synthesize Doi;
+@synthesize Slug;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setDoi:[dict valueForKey:@"Doi"]];
+	[self setSlug:[dict valueForKey:@"Slug"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Doi forKey:@"Doi"];
+	[dict setValue:self.Slug forKey:@"Slug"];
+
+	return dict;
+}
+
+@end
+
+// --- CheckSlugResults ---
+@implementation NoAuthUserServiceCheckSlugResults : NSObject
+
+@synthesize ValidSlug;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setValidSlug:[dict valueForKey:@"ValidSlug"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.ValidSlug forKey:@"ValidSlug"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- CreateNewsletterParams ---
+@implementation NoAuthUserServiceCreateNewsletterParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[NewsletterInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- CreateNewsletterResults ---
+@implementation NoAuthUserServiceCreateNewsletterResults : NSObject
+
+@synthesize R;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setR:[[Newsletter alloc] initWithDictionary:[dict valueForKey:@"R"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.R dictionary] forKey:@"R"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+
+// --- GetAbandonUserInfoParams ---
+@implementation AuthMemberServiceGetAbandonUserInfoParams : NSObject
+
+@synthesize OrganizationId;
+@synthesize MemberId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setOrganizationId:[dict valueForKey:@"OrganizationId"]];
+	[self setMemberId:[dict valueForKey:@"MemberId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.OrganizationId forKey:@"OrganizationId"];
+	[dict setValue:self.MemberId forKey:@"MemberId"];
+
+	return dict;
+}
+
+@end
+
+// --- GetAbandonUserInfoResults ---
+@implementation AuthMemberServiceGetAbandonUserInfoResults : NSObject
+
+@synthesize Info;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInfo:[[AbandonUserInfo alloc] initWithDictionary:[dict valueForKey:@"Info"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Info dictionary] forKey:@"Info"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- SwitchOrganizationParams ---
+@implementation AuthMemberServiceSwitchOrganizationParams : NSObject
+
+@synthesize OrgId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setOrgId:[dict valueForKey:@"OrgId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.OrgId forKey:@"OrgId"];
+
+	return dict;
+}
+
+@end
+
+// --- SwitchOrganizationResults ---
+@implementation AuthMemberServiceSwitchOrganizationResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GetSharingInviationByTokenParams ---
+@implementation AuthMemberServiceGetSharingInviationByTokenParams : NSObject
+
+@synthesize SharingInviationToken;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setSharingInviationToken:[dict valueForKey:@"SharingInviationToken"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.SharingInviationToken forKey:@"SharingInviationToken"];
+
+	return dict;
+}
+
+@end
+
+// --- GetSharingInviationByTokenResults ---
+@implementation AuthMemberServiceGetSharingInviationByTokenResults : NSObject
+
+@synthesize R;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setR:[[SharingInvitationItem alloc] initWithDictionary:[dict valueForKey:@"R"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.R dictionary] forKey:@"R"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- RejectSharingBeforeForwardingParams ---
+@implementation AuthMemberServiceRejectSharingBeforeForwardingParams : NSObject
+
+@synthesize GroupId;
+@synthesize Email;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setEmail:[dict valueForKey:@"Email"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.Email forKey:@"Email"];
+
+	return dict;
+}
+
+@end
+
+// --- RejectSharingBeforeForwardingResults ---
+@implementation AuthMemberServiceRejectSharingBeforeForwardingResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- ResponseSharingRequestParams ---
+@implementation AuthMemberServiceResponseSharingRequestParams : NSObject
+
+@synthesize Token;
+@synthesize FromOrgId;
+@synthesize FromUserId;
+@synthesize ForSharingOrgId;
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setToken:[dict valueForKey:@"Token"]];
+	[self setFromOrgId:[dict valueForKey:@"FromOrgId"]];
+	[self setFromUserId:[dict valueForKey:@"FromUserId"]];
+	[self setForSharingOrgId:[dict valueForKey:@"ForSharingOrgId"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Token forKey:@"Token"];
+	[dict setValue:self.FromOrgId forKey:@"FromOrgId"];
+	[dict setValue:self.FromUserId forKey:@"FromUserId"];
+	[dict setValue:self.ForSharingOrgId forKey:@"ForSharingOrgId"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- ResponseSharingRequestResults ---
+@implementation AuthMemberServiceResponseSharingRequestResults : NSObject
+
+@synthesize PrefixURL;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setPrefixURL:[dict valueForKey:@"PrefixURL"]];
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.PrefixURL forKey:@"PrefixURL"];
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+
+// --- NewEntryParams ---
+@implementation AuthUserServiceNewEntryParams : NSObject
+
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- NewEntryResults ---
+@implementation AuthUserServiceNewEntryResults : NSObject
+
+@synthesize Entry;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"Entry"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Entry dictionary] forKey:@"Entry"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- QortexMessagesParams ---
+@implementation AuthUserServiceQortexMessagesParams : NSObject
+
+@synthesize MesssageType;
+@synthesize Before;
+@synthesize Limit;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setMesssageType:[dict valueForKey:@"MesssageType"]];
+	[self setBefore:[dict valueForKey:@"Before"]];
+	[self setLimit:[dict valueForKey:@"Limit"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.MesssageType forKey:@"MesssageType"];
+	[dict setValue:self.Before forKey:@"Before"];
+	[dict setValue:self.Limit forKey:@"Limit"];
+
+	return dict;
+}
+
+@end
+
+// --- QortexMessagesResults ---
+@implementation AuthUserServiceQortexMessagesResults : NSObject
+
+@synthesize Entries;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mEntries = [[NSMutableArray alloc] init];
+	NSArray * lEntries = [dict valueForKey:@"Entries"];
+	for (NSDictionary * d in lEntries) {
+		[mEntries addObject: [[Entry alloc] initWithDictionary:d]];
+	}
+	[self setEntries:mEntries];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mEntries = [[NSMutableArray alloc] init];
+	for (Entry * p in Entries) {
+		[mEntries addObject:[p dictionary]];
+	}
+	[dict setValue:mEntries forKey:@"Entries"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- CreateBroadcastParams ---
+@implementation AuthUserServiceCreateBroadcastParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[BroadcastInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- CreateBroadcastResults ---
+@implementation AuthUserServiceCreateBroadcastResults : NSObject
+
+@synthesize Entry;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"Entry"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Entry dictionary] forKey:@"Entry"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- CreateBroadcastCommentParams ---
+@implementation AuthUserServiceCreateBroadcastCommentParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[BroadcastInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- CreateBroadcastCommentResults ---
+@implementation AuthUserServiceCreateBroadcastCommentResults : NSObject
+
+@synthesize Entry;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"Entry"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Entry dictionary] forKey:@"Entry"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GetRequestParams ---
+@implementation AuthUserServiceGetRequestParams : NSObject
+
+@synthesize EntryId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntryId:[dict valueForKey:@"EntryId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.EntryId forKey:@"EntryId"];
+
+	return dict;
+}
+
+@end
+
+// --- GetRequestResults ---
+@implementation AuthUserServiceGetRequestResults : NSObject
+
+@synthesize Entry;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"Entry"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Entry dictionary] forKey:@"Entry"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- EditBroadcastParams ---
+@implementation AuthUserServiceEditBroadcastParams : NSObject
+
+@synthesize EntryId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntryId:[dict valueForKey:@"EntryId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.EntryId forKey:@"EntryId"];
+
+	return dict;
+}
+
+@end
+
+// --- EditBroadcastResults ---
+@implementation AuthUserServiceEditBroadcastResults : NSObject
+
+@synthesize Entry;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"Entry"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Entry dictionary] forKey:@"Entry"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- EditBroadcastCommentParams ---
+@implementation AuthUserServiceEditBroadcastCommentParams : NSObject
+
+@synthesize EntryId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntryId:[dict valueForKey:@"EntryId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.EntryId forKey:@"EntryId"];
+
+	return dict;
+}
+
+@end
+
+// --- EditBroadcastCommentResults ---
+@implementation AuthUserServiceEditBroadcastCommentResults : NSObject
+
+@synthesize Entry;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"Entry"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Entry dictionary] forKey:@"Entry"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- UpdateBroadcastParams ---
+@implementation AuthUserServiceUpdateBroadcastParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[BroadcastInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- UpdateBroadcastResults ---
+@implementation AuthUserServiceUpdateBroadcastResults : NSObject
+
+@synthesize Entry;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"Entry"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Entry dictionary] forKey:@"Entry"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- UpdateBroadcastCommentParams ---
+@implementation AuthUserServiceUpdateBroadcastCommentParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[BroadcastInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- UpdateBroadcastCommentResults ---
+@implementation AuthUserServiceUpdateBroadcastCommentResults : NSObject
+
+@synthesize Entry;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"Entry"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Entry dictionary] forKey:@"Entry"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- CreatePostParams ---
+@implementation AuthUserServiceCreatePostParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[EntryInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- CreatePostResults ---
+@implementation AuthUserServiceCreatePostResults : NSObject
+
+@synthesize Entry;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"Entry"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Entry dictionary] forKey:@"Entry"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- CreateTaskParams ---
+@implementation AuthUserServiceCreateTaskParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[EntryInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- CreateTaskResults ---
+@implementation AuthUserServiceCreateTaskResults : NSObject
+
+@synthesize Entry;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"Entry"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Entry dictionary] forKey:@"Entry"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- CloseTaskParams ---
+@implementation AuthUserServiceCloseTaskParams : NSObject
+
+@synthesize EntryId;
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntryId:[dict valueForKey:@"EntryId"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.EntryId forKey:@"EntryId"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- CloseTaskResults ---
+@implementation AuthUserServiceCloseTaskResults : NSObject
+
+@synthesize Entry;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntry:[[Task alloc] initWithDictionary:[dict valueForKey:@"Entry"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Entry dictionary] forKey:@"Entry"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- CreateCommentParams ---
+@implementation AuthUserServiceCreateCommentParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[EntryInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- CreateCommentResults ---
+@implementation AuthUserServiceCreateCommentResults : NSObject
+
+@synthesize Entry;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"Entry"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Entry dictionary] forKey:@"Entry"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GetCommentParams ---
+@implementation AuthUserServiceGetCommentParams : NSObject
+
+@synthesize EntryId;
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntryId:[dict valueForKey:@"EntryId"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.EntryId forKey:@"EntryId"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- GetCommentResults ---
+@implementation AuthUserServiceGetCommentResults : NSObject
+
+@synthesize Entry;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"Entry"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Entry dictionary] forKey:@"Entry"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- UpdateCommentParams ---
+@implementation AuthUserServiceUpdateCommentParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[EntryInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- UpdateCommentResults ---
+@implementation AuthUserServiceUpdateCommentResults : NSObject
+
+@synthesize Entry;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"Entry"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Entry dictionary] forKey:@"Entry"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- UpdateEntryParams ---
+@implementation AuthUserServiceUpdateEntryParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[EntryInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- UpdateEntryResults ---
+@implementation AuthUserServiceUpdateEntryResults : NSObject
+
+@synthesize Entry;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"Entry"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Entry dictionary] forKey:@"Entry"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GetLatestUpdatedEntryIdByTitleParams ---
+@implementation AuthUserServiceGetLatestUpdatedEntryIdByTitleParams : NSObject
+
+@synthesize Title;
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setTitle:[dict valueForKey:@"Title"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Title forKey:@"Title"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- GetLatestUpdatedEntryIdByTitleResults ---
+@implementation AuthUserServiceGetLatestUpdatedEntryIdByTitleResults : NSObject
+
+@synthesize R;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setR:[dict valueForKey:@"R"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.R forKey:@"R"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GetEntryParams ---
+@implementation AuthUserServiceGetEntryParams : NSObject
+
+@synthesize EntryId;
+@synthesize GroupId;
+@synthesize UpdateAtUnixNano;
+@synthesize SearchKeyWords;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntryId:[dict valueForKey:@"EntryId"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setUpdateAtUnixNano:[dict valueForKey:@"UpdateAtUnixNano"]];
+	[self setSearchKeyWords:[dict valueForKey:@"SearchKeyWords"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.EntryId forKey:@"EntryId"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.UpdateAtUnixNano forKey:@"UpdateAtUnixNano"];
+	[dict setValue:self.SearchKeyWords forKey:@"SearchKeyWords"];
+
+	return dict;
+}
+
+@end
+
+// --- GetEntryResults ---
+@implementation AuthUserServiceGetEntryResults : NSObject
+
+@synthesize Entry;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"Entry"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Entry dictionary] forKey:@"Entry"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- DeleteEntryParams ---
+@implementation AuthUserServiceDeleteEntryParams : NSObject
+
+@synthesize EntryId;
+@synthesize GroupId;
+@synthesize DType;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntryId:[dict valueForKey:@"EntryId"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setDType:[dict valueForKey:@"DType"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.EntryId forKey:@"EntryId"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.DType forKey:@"DType"];
+
+	return dict;
+}
+
+@end
+
+// --- DeleteEntryResults ---
+@implementation AuthUserServiceDeleteEntryResults : NSObject
+
+@synthesize DelType;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setDelType:[dict valueForKey:@"DelType"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.DelType forKey:@"DelType"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- EntryAttachmentsParams ---
+@implementation AuthUserServiceEntryAttachmentsParams : NSObject
+
+@synthesize EntryId;
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntryId:[dict valueForKey:@"EntryId"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.EntryId forKey:@"EntryId"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- EntryAttachmentsResults ---
+@implementation AuthUserServiceEntryAttachmentsResults : NSObject
+
+@synthesize Attachments;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mAttachments = [[NSMutableArray alloc] init];
+	NSArray * lAttachments = [dict valueForKey:@"Attachments"];
+	for (NSDictionary * d in lAttachments) {
+		[mAttachments addObject: [[Attachment alloc] initWithDictionary:d]];
+	}
+	[self setAttachments:mAttachments];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mAttachments = [[NSMutableArray alloc] init];
+	for (Attachment * p in Attachments) {
+		[mAttachments addObject:[p dictionary]];
+	}
+	[dict setValue:mAttachments forKey:@"Attachments"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- OtherCommentsParams ---
+@implementation AuthUserServiceOtherCommentsParams : NSObject
+
+@synthesize EntryId;
+@synthesize GroupId;
+@synthesize VersionUpdateat;
+@synthesize SearchKeyWords;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntryId:[dict valueForKey:@"EntryId"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setVersionUpdateat:[dict valueForKey:@"VersionUpdateat"]];
+	[self setSearchKeyWords:[dict valueForKey:@"SearchKeyWords"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.EntryId forKey:@"EntryId"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.VersionUpdateat forKey:@"VersionUpdateat"];
+	[dict setValue:self.SearchKeyWords forKey:@"SearchKeyWords"];
+
+	return dict;
+}
+
+@end
+
+// --- OtherCommentsResults ---
+@implementation AuthUserServiceOtherCommentsResults : NSObject
+
+@synthesize Comments;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mComments = [[NSMutableArray alloc] init];
+	NSArray * lComments = [dict valueForKey:@"Comments"];
+	for (NSDictionary * d in lComments) {
+		[mComments addObject: [[Entry alloc] initWithDictionary:d]];
+	}
+	[self setComments:mComments];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mComments = [[NSMutableArray alloc] init];
+	for (Entry * p in Comments) {
+		[mComments addObject:[p dictionary]];
+	}
+	[dict setValue:mComments forKey:@"Comments"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GroupEntriesParams ---
+@implementation AuthUserServiceGroupEntriesParams : NSObject
+
+@synthesize GroupId;
+@synthesize EntryType;
+@synthesize Before;
+@synthesize Limit;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setEntryType:[dict valueForKey:@"EntryType"]];
+	[self setBefore:[dict valueForKey:@"Before"]];
+	[self setLimit:[dict valueForKey:@"Limit"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.EntryType forKey:@"EntryType"];
+	[dict setValue:self.Before forKey:@"Before"];
+	[dict setValue:self.Limit forKey:@"Limit"];
+
+	return dict;
+}
+
+@end
+
+// --- GroupEntriesResults ---
+@implementation AuthUserServiceGroupEntriesResults : NSObject
+
+@synthesize Entries;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mEntries = [[NSMutableArray alloc] init];
+	NSArray * lEntries = [dict valueForKey:@"Entries"];
+	for (NSDictionary * d in lEntries) {
+		[mEntries addObject: [[Entry alloc] initWithDictionary:d]];
+	}
+	[self setEntries:mEntries];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mEntries = [[NSMutableArray alloc] init];
+	for (Entry * p in Entries) {
+		[mEntries addObject:[p dictionary]];
+	}
+	[dict setValue:mEntries forKey:@"Entries"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- MyFeedEntriesParams ---
+@implementation AuthUserServiceMyFeedEntriesParams : NSObject
+
+@synthesize EntryType;
+@synthesize Before;
+@synthesize Limit;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntryType:[dict valueForKey:@"EntryType"]];
+	[self setBefore:[dict valueForKey:@"Before"]];
+	[self setLimit:[dict valueForKey:@"Limit"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.EntryType forKey:@"EntryType"];
+	[dict setValue:self.Before forKey:@"Before"];
+	[dict setValue:self.Limit forKey:@"Limit"];
+
+	return dict;
+}
+
+@end
+
+// --- MyFeedEntriesResults ---
+@implementation AuthUserServiceMyFeedEntriesResults : NSObject
+
+@synthesize Entries;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mEntries = [[NSMutableArray alloc] init];
+	NSArray * lEntries = [dict valueForKey:@"Entries"];
+	for (NSDictionary * d in lEntries) {
+		[mEntries addObject: [[Entry alloc] initWithDictionary:d]];
+	}
+	[self setEntries:mEntries];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mEntries = [[NSMutableArray alloc] init];
+	for (Entry * p in Entries) {
+		[mEntries addObject:[p dictionary]];
+	}
+	[dict setValue:mEntries forKey:@"Entries"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- NewFeedEntriesParams ---
+@implementation AuthUserServiceNewFeedEntriesParams : NSObject
+
+@synthesize EntryType;
+@synthesize From;
+@synthesize Limit;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntryType:[dict valueForKey:@"EntryType"]];
+	[self setFrom:[dict valueForKey:@"From"]];
+	[self setLimit:[dict valueForKey:@"Limit"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.EntryType forKey:@"EntryType"];
+	[dict setValue:self.From forKey:@"From"];
+	[dict setValue:self.Limit forKey:@"Limit"];
+
+	return dict;
+}
+
+@end
+
+// --- NewFeedEntriesResults ---
+@implementation AuthUserServiceNewFeedEntriesResults : NSObject
+
+@synthesize Entries;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mEntries = [[NSMutableArray alloc] init];
+	NSArray * lEntries = [dict valueForKey:@"Entries"];
+	for (NSDictionary * d in lEntries) {
+		[mEntries addObject: [[Entry alloc] initWithDictionary:d]];
+	}
+	[self setEntries:mEntries];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mEntries = [[NSMutableArray alloc] init];
+	for (Entry * p in Entries) {
+		[mEntries addObject:[p dictionary]];
+	}
+	[dict setValue:mEntries forKey:@"Entries"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- MyTaskEntriesParams ---
+@implementation AuthUserServiceMyTaskEntriesParams : NSObject
+
+@synthesize Active;
+@synthesize Before;
+@synthesize Limit;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setActive:[[dict valueForKey:@"Active"] boolValue]];
+	[self setBefore:[dict valueForKey:@"Before"]];
+	[self setLimit:[dict valueForKey:@"Limit"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[NSNumber numberWithBool:self.Active] forKey:@"Active"];
+	[dict setValue:self.Before forKey:@"Before"];
+	[dict setValue:self.Limit forKey:@"Limit"];
+
+	return dict;
+}
+
+@end
+
+// --- MyTaskEntriesResults ---
+@implementation AuthUserServiceMyTaskEntriesResults : NSObject
+
+@synthesize TasksForMe;
+@synthesize MyCreatedTasks;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mTasksForMe = [[NSMutableArray alloc] init];
+	NSArray * lTasksForMe = [dict valueForKey:@"TasksForMe"];
+	for (NSDictionary * d in lTasksForMe) {
+		[mTasksForMe addObject: [[Entry alloc] initWithDictionary:d]];
+	}
+	[self setTasksForMe:mTasksForMe];
+	
+
+	NSMutableArray * mMyCreatedTasks = [[NSMutableArray alloc] init];
+	NSArray * lMyCreatedTasks = [dict valueForKey:@"MyCreatedTasks"];
+	for (NSDictionary * d in lMyCreatedTasks) {
+		[mMyCreatedTasks addObject: [[Entry alloc] initWithDictionary:d]];
+	}
+	[self setMyCreatedTasks:mMyCreatedTasks];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mTasksForMe = [[NSMutableArray alloc] init];
+	for (Entry * p in TasksForMe) {
+		[mTasksForMe addObject:[p dictionary]];
+	}
+	[dict setValue:mTasksForMe forKey:@"TasksForMe"];
+	
+
+	NSMutableArray * mMyCreatedTasks = [[NSMutableArray alloc] init];
+	for (Entry * p in MyCreatedTasks) {
+		[mMyCreatedTasks addObject:[p dictionary]];
+	}
+	[dict setValue:mMyCreatedTasks forKey:@"MyCreatedTasks"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- UserEntriesParams ---
+@implementation AuthUserServiceUserEntriesParams : NSObject
+
+@synthesize UserId;
+@synthesize EntryType;
+@synthesize Before;
+@synthesize Limit;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setUserId:[dict valueForKey:@"UserId"]];
+	[self setEntryType:[dict valueForKey:@"EntryType"]];
+	[self setBefore:[dict valueForKey:@"Before"]];
+	[self setLimit:[dict valueForKey:@"Limit"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.UserId forKey:@"UserId"];
+	[dict setValue:self.EntryType forKey:@"EntryType"];
+	[dict setValue:self.Before forKey:@"Before"];
+	[dict setValue:self.Limit forKey:@"Limit"];
+
+	return dict;
+}
+
+@end
+
+// --- UserEntriesResults ---
+@implementation AuthUserServiceUserEntriesResults : NSObject
+
+@synthesize Entries;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mEntries = [[NSMutableArray alloc] init];
+	NSArray * lEntries = [dict valueForKey:@"Entries"];
+	for (NSDictionary * d in lEntries) {
+		[mEntries addObject: [[Entry alloc] initWithDictionary:d]];
+	}
+	[self setEntries:mEntries];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mEntries = [[NSMutableArray alloc] init];
+	for (Entry * p in Entries) {
+		[mEntries addObject:[p dictionary]];
+	}
+	[dict setValue:mEntries forKey:@"Entries"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- MyChatEntriesParams ---
+@implementation AuthUserServiceMyChatEntriesParams : NSObject
+
+@synthesize Before;
+@synthesize Limit;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setBefore:[dict valueForKey:@"Before"]];
+	[self setLimit:[dict valueForKey:@"Limit"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Before forKey:@"Before"];
+	[dict setValue:self.Limit forKey:@"Limit"];
+
+	return dict;
+}
+
+@end
+
+// --- MyChatEntriesResults ---
+@implementation AuthUserServiceMyChatEntriesResults : NSObject
+
+@synthesize Entries;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mEntries = [[NSMutableArray alloc] init];
+	NSArray * lEntries = [dict valueForKey:@"Entries"];
+	for (NSDictionary * d in lEntries) {
+		[mEntries addObject: [[Entry alloc] initWithDictionary:d]];
+	}
+	[self setEntries:mEntries];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mEntries = [[NSMutableArray alloc] init];
+	for (Entry * p in Entries) {
+		[mEntries addObject:[p dictionary]];
+	}
+	[dict setValue:mEntries forKey:@"Entries"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- MyNotificationItemsParams ---
+@implementation AuthUserServiceMyNotificationItemsParams : NSObject
+
+@synthesize Before;
+@synthesize Limit;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setBefore:[dict valueForKey:@"Before"]];
+	[self setLimit:[dict valueForKey:@"Limit"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Before forKey:@"Before"];
+	[dict setValue:self.Limit forKey:@"Limit"];
+
+	return dict;
+}
+
+@end
+
+// --- MyNotificationItemsResults ---
+@implementation AuthUserServiceMyNotificationItemsResults : NSObject
+
+@synthesize NotificationItems;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mNotificationItems = [[NSMutableArray alloc] init];
+	NSArray * lNotificationItems = [dict valueForKey:@"NotificationItems"];
+	for (NSDictionary * d in lNotificationItems) {
+		[mNotificationItems addObject: [[NotificationItem alloc] initWithDictionary:d]];
+	}
+	[self setNotificationItems:mNotificationItems];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mNotificationItems = [[NSMutableArray alloc] init];
+	for (NotificationItem * p in NotificationItems) {
+		[mNotificationItems addObject:[p dictionary]];
+	}
+	[dict setValue:mNotificationItems forKey:@"NotificationItems"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- MarkAllAsReadParams ---
+@implementation AuthUserServiceMarkAllAsReadParams : NSObject
+
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- MarkAllAsReadResults ---
+@implementation AuthUserServiceMarkAllAsReadResults : NSObject
+
+@synthesize Mycount;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setMycount:[[MyCount alloc] initWithDictionary:[dict valueForKey:@"Mycount"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Mycount dictionary] forKey:@"Mycount"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GetWatchListParams ---
+@implementation AuthUserServiceGetWatchListParams : NSObject
+
+@synthesize Before;
+@synthesize Limit;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setBefore:[NSDate dateWithString:[dict valueForKey:@"Before"]]];
+	[self setLimit:[dict valueForKey:@"Limit"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Before forKey:@"Before"];
+	[dict setValue:self.Limit forKey:@"Limit"];
+
+	return dict;
+}
+
+@end
+
+// --- GetWatchListResults ---
+@implementation AuthUserServiceGetWatchListResults : NSObject
+
+@synthesize Watchlist;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setWatchlist:[[WatchList alloc] initWithDictionary:[dict valueForKey:@"Watchlist"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Watchlist dictionary] forKey:@"Watchlist"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- AddToWatchListParams ---
+@implementation AuthUserServiceAddToWatchListParams : NSObject
+
+@synthesize EntryId;
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntryId:[dict valueForKey:@"EntryId"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.EntryId forKey:@"EntryId"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- AddToWatchListResults ---
+@implementation AuthUserServiceAddToWatchListResults : NSObject
+
+@synthesize Added;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setAdded:[[dict valueForKey:@"Added"] boolValue]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[NSNumber numberWithBool:self.Added] forKey:@"Added"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- StopWatchingParams ---
+@implementation AuthUserServiceStopWatchingParams : NSObject
+
+@synthesize EntryId;
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntryId:[dict valueForKey:@"EntryId"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.EntryId forKey:@"EntryId"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- StopWatchingResults ---
+@implementation AuthUserServiceStopWatchingResults : NSObject
+
+@synthesize Stopped;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setStopped:[[dict valueForKey:@"Stopped"] boolValue]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[NSNumber numberWithBool:self.Stopped] forKey:@"Stopped"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- ReadWatchingParams ---
+@implementation AuthUserServiceReadWatchingParams : NSObject
+
+@synthesize EntryId;
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntryId:[dict valueForKey:@"EntryId"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.EntryId forKey:@"EntryId"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- ReadWatchingResults ---
+@implementation AuthUserServiceReadWatchingResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- UpdateLikeParams ---
+@implementation AuthUserServiceUpdateLikeParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[LikeInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- UpdateLikeResults ---
+@implementation AuthUserServiceUpdateLikeResults : NSObject
+
+@synthesize Entry;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"Entry"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Entry dictionary] forKey:@"Entry"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GetDraftListParams ---
+@implementation AuthUserServiceGetDraftListParams : NSObject
+
+@synthesize Before;
+@synthesize Limit;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setBefore:[NSDate dateWithString:[dict valueForKey:@"Before"]]];
+	[self setLimit:[dict valueForKey:@"Limit"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Before forKey:@"Before"];
+	[dict setValue:self.Limit forKey:@"Limit"];
+
+	return dict;
+}
+
+@end
+
+// --- GetDraftListResults ---
+@implementation AuthUserServiceGetDraftListResults : NSObject
+
+@synthesize Draftlist;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setDraftlist:[[DraftList alloc] initWithDictionary:[dict valueForKey:@"Draftlist"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Draftlist dictionary] forKey:@"Draftlist"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GetDraftParams ---
+@implementation AuthUserServiceGetDraftParams : NSObject
+
+@synthesize EntryId;
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntryId:[dict valueForKey:@"EntryId"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.EntryId forKey:@"EntryId"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- GetDraftResults ---
+@implementation AuthUserServiceGetDraftResults : NSObject
+
+@synthesize Entry;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"Entry"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Entry dictionary] forKey:@"Entry"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- DeleteDraftParams ---
+@implementation AuthUserServiceDeleteDraftParams : NSObject
+
+@synthesize EntryId;
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntryId:[dict valueForKey:@"EntryId"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.EntryId forKey:@"EntryId"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- DeleteDraftResults ---
+@implementation AuthUserServiceDeleteDraftResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- NewGroupParams ---
+@implementation AuthUserServiceNewGroupParams : NSObject
+
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	return dict;
+}
+
+@end
+
+// --- NewGroupResults ---
+@implementation AuthUserServiceNewGroupResults : NSObject
+
+@synthesize Group;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroup:[[Group alloc] initWithDictionary:[dict valueForKey:@"Group"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Group dictionary] forKey:@"Group"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GetGroupParams ---
+@implementation AuthUserServiceGetGroupParams : NSObject
+
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- GetGroupResults ---
+@implementation AuthUserServiceGetGroupResults : NSObject
+
+@synthesize Group;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroup:[[Group alloc] initWithDictionary:[dict valueForKey:@"Group"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Group dictionary] forKey:@"Group"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- CreateGroupParams ---
+@implementation AuthUserServiceCreateGroupParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[GroupInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- CreateGroupResults ---
+@implementation AuthUserServiceCreateGroupResults : NSObject
+
+@synthesize Group;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroup:[[Group alloc] initWithDictionary:[dict valueForKey:@"Group"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Group dictionary] forKey:@"Group"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- UpdateGroupParams ---
+@implementation AuthUserServiceUpdateGroupParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[GroupInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- UpdateGroupResults ---
+@implementation AuthUserServiceUpdateGroupResults : NSObject
+
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- UpdateGroupLogoParams ---
+@implementation AuthUserServiceUpdateGroupLogoParams : NSObject
+
+@synthesize GroupId;
+@synthesize LogoURL;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setLogoURL:[dict valueForKey:@"LogoURL"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.LogoURL forKey:@"LogoURL"];
+
+	return dict;
+}
+
+@end
+
+// --- UpdateGroupLogoResults ---
+@implementation AuthUserServiceUpdateGroupLogoResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- DeleteGroupParams ---
+@implementation AuthUserServiceDeleteGroupParams : NSObject
+
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- DeleteGroupResults ---
+@implementation AuthUserServiceDeleteGroupResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GroupBySlugParams ---
+@implementation AuthUserServiceGroupBySlugParams : NSObject
+
+@synthesize Slug;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setSlug:[dict valueForKey:@"Slug"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Slug forKey:@"Slug"];
+
+	return dict;
+}
+
+@end
+
+// --- GroupBySlugResults ---
+@implementation AuthUserServiceGroupBySlugResults : NSObject
+
+@synthesize Group;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroup:[[Group alloc] initWithDictionary:[dict valueForKey:@"Group"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Group dictionary] forKey:@"Group"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GetAllGroupsParams ---
+@implementation AuthUserServiceGetAllGroupsParams : NSObject
+
+@synthesize Keyword;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setKeyword:[dict valueForKey:@"Keyword"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Keyword forKey:@"Keyword"];
+
+	return dict;
+}
+
+@end
+
+// --- GetAllGroupsResults ---
+@implementation AuthUserServiceGetAllGroupsResults : NSObject
+
+@synthesize Groups;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mGroups = [[NSMutableArray alloc] init];
+	NSArray * lGroups = [dict valueForKey:@"Groups"];
+	for (NSDictionary * d in lGroups) {
+		[mGroups addObject: [[Group alloc] initWithDictionary:d]];
+	}
+	[self setGroups:mGroups];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mGroups = [[NSMutableArray alloc] init];
+	for (Group * p in Groups) {
+		[mGroups addObject:[p dictionary]];
+	}
+	[dict setValue:mGroups forKey:@"Groups"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GetPublicGroupsParams ---
+@implementation AuthUserServiceGetPublicGroupsParams : NSObject
+
+@synthesize Keyword;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setKeyword:[dict valueForKey:@"Keyword"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Keyword forKey:@"Keyword"];
+
+	return dict;
+}
+
+@end
+
+// --- GetPublicGroupsResults ---
+@implementation AuthUserServiceGetPublicGroupsResults : NSObject
+
+@synthesize Groups;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mGroups = [[NSMutableArray alloc] init];
+	NSArray * lGroups = [dict valueForKey:@"Groups"];
+	for (NSDictionary * d in lGroups) {
+		[mGroups addObject: [[Group alloc] initWithDictionary:d]];
+	}
+	[self setGroups:mGroups];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mGroups = [[NSMutableArray alloc] init];
+	for (Group * p in Groups) {
+		[mGroups addObject:[p dictionary]];
+	}
+	[dict setValue:mGroups forKey:@"Groups"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- AddUserToGroupParams ---
+@implementation AuthUserServiceAddUserToGroupParams : NSObject
+
+@synthesize GroupId;
+@synthesize UserId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setUserId:[dict valueForKey:@"UserId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.UserId forKey:@"UserId"];
+
+	return dict;
+}
+
+@end
+
+// --- AddUserToGroupResults ---
+@implementation AuthUserServiceAddUserToGroupResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- RemoveUserFromGroupParams ---
+@implementation AuthUserServiceRemoveUserFromGroupParams : NSObject
+
+@synthesize GroupId;
+@synthesize UserId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setUserId:[dict valueForKey:@"UserId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.UserId forKey:@"UserId"];
+
+	return dict;
+}
+
+@end
+
+// --- RemoveUserFromGroupResults ---
+@implementation AuthUserServiceRemoveUserFromGroupResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GetGroupHeaderItemParams ---
+@implementation AuthUserServiceGetGroupHeaderItemParams : NSObject
+
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- GetGroupHeaderItemResults ---
+@implementation AuthUserServiceGetGroupHeaderItemResults : NSObject
+
+@synthesize Ghi;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGhi:[[GroupHeaderItem alloc] initWithDictionary:[dict valueForKey:@"Ghi"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Ghi dictionary] forKey:@"Ghi"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- ClassifyMyGroupsParams ---
+@implementation AuthUserServiceClassifyMyGroupsParams : NSObject
+
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	return dict;
+}
+
+@end
+
+// --- ClassifyMyGroupsResults ---
+@implementation AuthUserServiceClassifyMyGroupsResults : NSObject
+
+@synthesize PublicGroup;
+@synthesize FollowedGroups;
+@synthesize UnFollowedGroups;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setPublicGroup:[[Group alloc] initWithDictionary:[dict valueForKey:@"PublicGroup"]]];
+	
+
+	NSMutableArray * mFollowedGroups = [[NSMutableArray alloc] init];
+	NSArray * lFollowedGroups = [dict valueForKey:@"FollowedGroups"];
+	for (NSDictionary * d in lFollowedGroups) {
+		[mFollowedGroups addObject: [[Group alloc] initWithDictionary:d]];
+	}
+	[self setFollowedGroups:mFollowedGroups];
+	
+
+	NSMutableArray * mUnFollowedGroups = [[NSMutableArray alloc] init];
+	NSArray * lUnFollowedGroups = [dict valueForKey:@"UnFollowedGroups"];
+	for (NSDictionary * d in lUnFollowedGroups) {
+		[mUnFollowedGroups addObject: [[Group alloc] initWithDictionary:d]];
+	}
+	[self setUnFollowedGroups:mUnFollowedGroups];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.PublicGroup dictionary] forKey:@"PublicGroup"];
+	
+
+	NSMutableArray * mFollowedGroups = [[NSMutableArray alloc] init];
+	for (Group * p in FollowedGroups) {
+		[mFollowedGroups addObject:[p dictionary]];
+	}
+	[dict setValue:mFollowedGroups forKey:@"FollowedGroups"];
+	
+
+	NSMutableArray * mUnFollowedGroups = [[NSMutableArray alloc] init];
+	for (Group * p in UnFollowedGroups) {
+		[mUnFollowedGroups addObject:[p dictionary]];
+	}
+	[dict setValue:mUnFollowedGroups forKey:@"UnFollowedGroups"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- OrganizationUsersParams ---
+@implementation AuthUserServiceOrganizationUsersParams : NSObject
+
+@synthesize Query;
+@synthesize SortKey;
+@synthesize CountPerPage;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setQuery:[dict valueForKey:@"Query"]];
+	[self setSortKey:[dict valueForKey:@"SortKey"]];
+	[self setCountPerPage:[dict valueForKey:@"CountPerPage"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Query forKey:@"Query"];
+	[dict setValue:self.SortKey forKey:@"SortKey"];
+	[dict setValue:self.CountPerPage forKey:@"CountPerPage"];
+
+	return dict;
+}
+
+@end
+
+// --- OrganizationUsersResults ---
+@implementation AuthUserServiceOrganizationUsersResults : NSObject
+
+@synthesize Users;
+@synthesize NewSortKey;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mUsers = [[NSMutableArray alloc] init];
+	NSArray * lUsers = [dict valueForKey:@"Users"];
+	for (NSDictionary * d in lUsers) {
+		[mUsers addObject: [[User alloc] initWithDictionary:d]];
+	}
+	[self setUsers:mUsers];
+	
+	[self setNewSortKey:[dict valueForKey:@"NewSortKey"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mUsers = [[NSMutableArray alloc] init];
+	for (User * p in Users) {
+		[mUsers addObject:[p dictionary]];
+	}
+	[dict setValue:mUsers forKey:@"Users"];
+	
+	[dict setValue:self.NewSortKey forKey:@"NewSortKey"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GroupUsersParams ---
+@implementation AuthUserServiceGroupUsersParams : NSObject
+
+@synthesize GroupId;
+@synthesize Query;
+@synthesize OnlyFollowers;
+@synthesize SortKey;
+@synthesize CountPerPage;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setQuery:[dict valueForKey:@"Query"]];
+	[self setOnlyFollowers:[[dict valueForKey:@"OnlyFollowers"] boolValue]];
+	[self setSortKey:[dict valueForKey:@"SortKey"]];
+	[self setCountPerPage:[dict valueForKey:@"CountPerPage"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.Query forKey:@"Query"];
+	[dict setValue:[NSNumber numberWithBool:self.OnlyFollowers] forKey:@"OnlyFollowers"];
+	[dict setValue:self.SortKey forKey:@"SortKey"];
+	[dict setValue:self.CountPerPage forKey:@"CountPerPage"];
+
+	return dict;
+}
+
+@end
+
+// --- GroupUsersResults ---
+@implementation AuthUserServiceGroupUsersResults : NSObject
+
+@synthesize Users;
+@synthesize NewSortKey;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mUsers = [[NSMutableArray alloc] init];
+	NSArray * lUsers = [dict valueForKey:@"Users"];
+	for (NSDictionary * d in lUsers) {
+		[mUsers addObject: [[User alloc] initWithDictionary:d]];
+	}
+	[self setUsers:mUsers];
+	
+	[self setNewSortKey:[dict valueForKey:@"NewSortKey"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mUsers = [[NSMutableArray alloc] init];
+	for (User * p in Users) {
+		[mUsers addObject:[p dictionary]];
+	}
+	[dict setValue:mUsers forKey:@"Users"];
+	
+	[dict setValue:self.NewSortKey forKey:@"NewSortKey"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GetUserParams ---
+@implementation AuthUserServiceGetUserParams : NSObject
+
+@synthesize UserId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setUserId:[dict valueForKey:@"UserId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.UserId forKey:@"UserId"];
+
+	return dict;
+}
+
+@end
+
+// --- GetUserResults ---
+@implementation AuthUserServiceGetUserResults : NSObject
+
+@synthesize User;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setUser:[[User alloc] initWithDictionary:[dict valueForKey:@"User"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.User dictionary] forKey:@"User"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- EnableUserParams ---
+@implementation AuthUserServiceEnableUserParams : NSObject
+
+@synthesize UserId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setUserId:[dict valueForKey:@"UserId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.UserId forKey:@"UserId"];
+
+	return dict;
+}
+
+@end
+
+// --- EnableUserResults ---
+@implementation AuthUserServiceEnableUserResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- DisableUserParams ---
+@implementation AuthUserServiceDisableUserParams : NSObject
+
+@synthesize UserId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setUserId:[dict valueForKey:@"UserId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.UserId forKey:@"UserId"];
+
+	return dict;
+}
+
+@end
+
+// --- DisableUserResults ---
+@implementation AuthUserServiceDisableUserResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- DeleteUserParams ---
+@implementation AuthUserServiceDeleteUserParams : NSObject
+
+@synthesize UserId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setUserId:[dict valueForKey:@"UserId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.UserId forKey:@"UserId"];
+
+	return dict;
+}
+
+@end
+
+// --- DeleteUserResults ---
+@implementation AuthUserServiceDeleteUserResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- PromoteToSuperUserParams ---
+@implementation AuthUserServicePromoteToSuperUserParams : NSObject
+
+@synthesize UserId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setUserId:[dict valueForKey:@"UserId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.UserId forKey:@"UserId"];
+
+	return dict;
+}
+
+@end
+
+// --- PromoteToSuperUserResults ---
+@implementation AuthUserServicePromoteToSuperUserResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- DemoteFromSuperUserParams ---
+@implementation AuthUserServiceDemoteFromSuperUserParams : NSObject
+
+@synthesize UserId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setUserId:[dict valueForKey:@"UserId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.UserId forKey:@"UserId"];
+
+	return dict;
+}
+
+@end
+
+// --- DemoteFromSuperUserResults ---
+@implementation AuthUserServiceDemoteFromSuperUserResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- FollowUserParams ---
+@implementation AuthUserServiceFollowUserParams : NSObject
+
+@synthesize UserId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setUserId:[dict valueForKey:@"UserId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.UserId forKey:@"UserId"];
+
+	return dict;
+}
+
+@end
+
+// --- FollowUserResults ---
+@implementation AuthUserServiceFollowUserResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- UnfollowUserParams ---
+@implementation AuthUserServiceUnfollowUserParams : NSObject
+
+@synthesize UserId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setUserId:[dict valueForKey:@"UserId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.UserId forKey:@"UserId"];
+
+	return dict;
+}
+
+@end
+
+// --- UnfollowUserResults ---
+@implementation AuthUserServiceUnfollowUserResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- MyFollowingUsersParams ---
+@implementation AuthUserServiceMyFollowingUsersParams : NSObject
+
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	return dict;
+}
+
+@end
+
+// --- MyFollowingUsersResults ---
+@implementation AuthUserServiceMyFollowingUsersResults : NSObject
+
+@synthesize FollowingPeople;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mFollowingPeople = [[NSMutableArray alloc] init];
+	NSArray * lFollowingPeople = [dict valueForKey:@"FollowingPeople"];
+	for (NSDictionary * d in lFollowingPeople) {
+		[mFollowingPeople addObject: [[User alloc] initWithDictionary:d]];
+	}
+	[self setFollowingPeople:mFollowingPeople];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mFollowingPeople = [[NSMutableArray alloc] init];
+	for (User * p in FollowingPeople) {
+		[mFollowingPeople addObject:[p dictionary]];
+	}
+	[dict setValue:mFollowingPeople forKey:@"FollowingPeople"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- PanelStatusParams ---
+@implementation AuthUserServicePanelStatusParams : NSObject
+
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	return dict;
+}
+
+@end
+
+// --- PanelStatusResults ---
+@implementation AuthUserServicePanelStatusResults : NSObject
+
+@synthesize PanelStatus;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setPanelStatus:[[PanelStatus alloc] initWithDictionary:[dict valueForKey:@"PanelStatus"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.PanelStatus dictionary] forKey:@"PanelStatus"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- PreferencesParams ---
+@implementation AuthUserServicePreferencesParams : NSObject
+
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	return dict;
+}
+
+@end
+
+// --- PreferencesResults ---
+@implementation AuthUserServicePreferencesResults : NSObject
+
+@synthesize Preference;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setPreference:[[Preferences alloc] initWithDictionary:[dict valueForKey:@"Preference"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Preference dictionary] forKey:@"Preference"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- UpdatePreferencesParams ---
+@implementation AuthUserServiceUpdatePreferencesParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[PreferencesInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- UpdatePreferencesResults ---
+@implementation AuthUserServiceUpdatePreferencesResults : NSObject
+
+@synthesize Preference;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setPreference:[[Preferences alloc] initWithDictionary:[dict valueForKey:@"Preference"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Preference dictionary] forKey:@"Preference"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- AllEmbedUsersParams ---
+@implementation AuthUserServiceAllEmbedUsersParams : NSObject
+
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	return dict;
+}
+
+@end
+
+// --- AllEmbedUsersResults ---
+@implementation AuthUserServiceAllEmbedUsersResults : NSObject
+
+@synthesize Users;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mUsers = [[NSMutableArray alloc] init];
+	NSArray * lUsers = [dict valueForKey:@"Users"];
+	for (NSDictionary * d in lUsers) {
+		[mUsers addObject: [[EmbedUser alloc] initWithDictionary:d]];
+	}
+	[self setUsers:mUsers];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mUsers = [[NSMutableArray alloc] init];
+	for (EmbedUser * p in Users) {
+		[mUsers addObject:[p dictionary]];
+	}
+	[dict setValue:mUsers forKey:@"Users"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GroupEmbedUsersParams ---
+@implementation AuthUserServiceGroupEmbedUsersParams : NSObject
+
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	return dict;
+}
+
+@end
+
+// --- GroupEmbedUsersResults ---
+@implementation AuthUserServiceGroupEmbedUsersResults : NSObject
+
+@synthesize GroupUsers;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mGroupUsers = [[NSMutableArray alloc] init];
+	NSArray * lGroupUsers = [dict valueForKey:@"GroupUsers"];
+	for (NSDictionary * d in lGroupUsers) {
+		[mGroupUsers addObject: [[GroupUsers alloc] initWithDictionary:d]];
+	}
+	[self setGroupUsers:mGroupUsers];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mGroupUsers = [[NSMutableArray alloc] init];
+	for (GroupUsers * p in GroupUsers) {
+		[mGroupUsers addObject:[p dictionary]];
+	}
+	[dict setValue:mGroupUsers forKey:@"GroupUsers"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- UpdateUserProfileParams ---
+@implementation AuthUserServiceUpdateUserProfileParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[UserProfileInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- UpdateUserProfileResults ---
+@implementation AuthUserServiceUpdateUserProfileResults : NSObject
+
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- MyCountParams ---
+@implementation AuthUserServiceMyCountParams : NSObject
+
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	return dict;
+}
+
+@end
+
+// --- MyCountResults ---
+@implementation AuthUserServiceMyCountResults : NSObject
+
+@synthesize MyCount;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setMyCount:[[MyCount alloc] initWithDictionary:[dict valueForKey:@"MyCount"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.MyCount dictionary] forKey:@"MyCount"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- ReadEntryParams ---
+@implementation AuthUserServiceReadEntryParams : NSObject
+
+@synthesize EntryId;
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEntryId:[dict valueForKey:@"EntryId"]];
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.EntryId forKey:@"EntryId"];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- ReadEntryResults ---
+@implementation AuthUserServiceReadEntryResults : NSObject
+
+@synthesize MyCount;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setMyCount:[[MyCount alloc] initWithDictionary:[dict valueForKey:@"MyCount"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.MyCount dictionary] forKey:@"MyCount"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GetInvitationsInfoParams ---
+@implementation AuthUserServiceGetInvitationsInfoParams : NSObject
+
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	return dict;
+}
+
+@end
+
+// --- GetInvitationsInfoResults ---
+@implementation AuthUserServiceGetInvitationsInfoResults : NSObject
+
+@synthesize Invitaions;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mInvitaions = [[NSMutableArray alloc] init];
+	NSArray * lInvitaions = [dict valueForKey:@"Invitaions"];
+	for (NSDictionary * d in lInvitaions) {
+		[mInvitaions addObject: [[Invitation alloc] initWithDictionary:d]];
+	}
+	[self setInvitaions:mInvitaions];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mInvitaions = [[NSMutableArray alloc] init];
+	for (Invitation * p in Invitaions) {
+		[mInvitaions addObject:[p dictionary]];
+	}
+	[dict setValue:mInvitaions forKey:@"Invitaions"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- OrganizationsInfoParams ---
+@implementation AuthUserServiceOrganizationsInfoParams : NSObject
+
+@synthesize OrgIds;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setOrgIds:[dict valueForKey:@"OrgIds"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.OrgIds forKey:@"OrgIds"];
+
+	return dict;
+}
+
+@end
+
+// --- OrganizationsInfoResults ---
+@implementation AuthUserServiceOrganizationsInfoResults : NSObject
+
+@synthesize Orgs;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mOrgs = [[NSMutableArray alloc] init];
+	NSArray * lOrgs = [dict valueForKey:@"Orgs"];
+	for (NSDictionary * d in lOrgs) {
+		[mOrgs addObject: [[Organization alloc] initWithDictionary:d]];
+	}
+	[self setOrgs:mOrgs];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mOrgs = [[NSMutableArray alloc] init];
+	for (Organization * p in Orgs) {
+		[mOrgs addObject:[p dictionary]];
+	}
+	[dict setValue:mOrgs forKey:@"Orgs"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- OrganizationInfoParams ---
+@implementation AuthUserServiceOrganizationInfoParams : NSObject
+
+@synthesize OrgId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setOrgId:[dict valueForKey:@"OrgId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.OrgId forKey:@"OrgId"];
+
+	return dict;
+}
+
+@end
+
+// --- OrganizationInfoResults ---
+@implementation AuthUserServiceOrganizationInfoResults : NSObject
+
+@synthesize Org;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setOrg:[[Organization alloc] initWithDictionary:[dict valueForKey:@"Org"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Org dictionary] forKey:@"Org"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- SearchOrganizationsParams ---
+@implementation AuthUserServiceSearchOrganizationsParams : NSObject
+
+@synthesize Query;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setQuery:[dict valueForKey:@"Query"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Query forKey:@"Query"];
+
+	return dict;
+}
+
+@end
+
+// --- SearchOrganizationsResults ---
+@implementation AuthUserServiceSearchOrganizationsResults : NSObject
+
+@synthesize Org;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mOrg = [[NSMutableArray alloc] init];
+	NSArray * lOrg = [dict valueForKey:@"Org"];
+	for (NSDictionary * d in lOrg) {
+		[mOrg addObject: [[Organization alloc] initWithDictionary:d]];
+	}
+	[self setOrg:mOrg];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mOrg = [[NSMutableArray alloc] init];
+	for (Organization * p in Org) {
+		[mOrg addObject:[p dictionary]];
+	}
+	[dict setValue:mOrg forKey:@"Org"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- UpdateOrganizationParams ---
+@implementation AuthUserServiceUpdateOrganizationParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[OrganizationInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- UpdateOrganizationResults ---
+@implementation AuthUserServiceUpdateOrganizationResults : NSObject
+
+@synthesize Org;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setOrg:[[Organization alloc] initWithDictionary:[dict valueForKey:@"Org"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Org dictionary] forKey:@"Org"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- SwitchOrganizationParams ---
+@implementation AuthUserServiceSwitchOrganizationParams : NSObject
+
+@synthesize OrgId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setOrgId:[dict valueForKey:@"OrgId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.OrgId forKey:@"OrgId"];
+
+	return dict;
+}
+
+@end
+
+// --- SwitchOrganizationResults ---
+@implementation AuthUserServiceSwitchOrganizationResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- AcceptSharedGroupRequestParams ---
+@implementation AuthUserServiceAcceptSharedGroupRequestParams : NSObject
+
+@synthesize FromOrgId;
+@synthesize SharedOrgId;
+@synthesize SharedGroupId;
+@synthesize FromUserId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setFromOrgId:[dict valueForKey:@"FromOrgId"]];
+	[self setSharedOrgId:[dict valueForKey:@"SharedOrgId"]];
+	[self setSharedGroupId:[dict valueForKey:@"SharedGroupId"]];
+	[self setFromUserId:[dict valueForKey:@"FromUserId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.FromOrgId forKey:@"FromOrgId"];
+	[dict setValue:self.SharedOrgId forKey:@"SharedOrgId"];
+	[dict setValue:self.SharedGroupId forKey:@"SharedGroupId"];
+	[dict setValue:self.FromUserId forKey:@"FromUserId"];
+
+	return dict;
+}
+
+@end
+
+// --- AcceptSharedGroupRequestResults ---
+@implementation AuthUserServiceAcceptSharedGroupRequestResults : NSObject
+
+@synthesize Req;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setReq:[[Request alloc] initWithDictionary:[dict valueForKey:@"Req"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Req dictionary] forKey:@"Req"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- RejectSharedGroupRequestParams ---
+@implementation AuthUserServiceRejectSharedGroupRequestParams : NSObject
+
+@synthesize FromOrgId;
+@synthesize SharedOrgIdHex;
+@synthesize SharedGroupIdHex;
+@synthesize FromUserId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setFromOrgId:[dict valueForKey:@"FromOrgId"]];
+	[self setSharedOrgIdHex:[dict valueForKey:@"SharedOrgIdHex"]];
+	[self setSharedGroupIdHex:[dict valueForKey:@"SharedGroupIdHex"]];
+	[self setFromUserId:[dict valueForKey:@"FromUserId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.FromOrgId forKey:@"FromOrgId"];
+	[dict setValue:self.SharedOrgIdHex forKey:@"SharedOrgIdHex"];
+	[dict setValue:self.SharedGroupIdHex forKey:@"SharedGroupIdHex"];
+	[dict setValue:self.FromUserId forKey:@"FromUserId"];
+
+	return dict;
+}
+
+@end
+
+// --- RejectSharedGroupRequestResults ---
+@implementation AuthUserServiceRejectSharedGroupRequestResults : NSObject
+
+@synthesize Req;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setReq:[[Request alloc] initWithDictionary:[dict valueForKey:@"Req"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Req dictionary] forKey:@"Req"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GetOrgSettingsParams ---
+@implementation AuthUserServiceGetOrgSettingsParams : NSObject
+
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	return dict;
+}
+
+@end
+
+// --- GetOrgSettingsResults ---
+@implementation AuthUserServiceGetOrgSettingsResults : NSObject
+
+@synthesize OrgSetting;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setOrgSetting:[[OrgSettings alloc] initWithDictionary:[dict valueForKey:@"OrgSetting"]]];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.OrgSetting dictionary] forKey:@"OrgSetting"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- UpdateOrgSettingsParams ---
+@implementation AuthUserServiceUpdateOrgSettingsParams : NSObject
+
+@synthesize OrgSettingInput;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setOrgSettingInput:[[OrgSettingsInput alloc] initWithDictionary:[dict valueForKey:@"OrgSettingInput"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.OrgSettingInput dictionary] forKey:@"OrgSettingInput"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- UpdateOrgSettingsResults ---
+@implementation AuthUserServiceUpdateOrgSettingsResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- CanCreateGroupParams ---
+@implementation AuthUserServiceCanCreateGroupParams : NSObject
+
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	return dict;
+}
+
+@end
+
+// --- CanCreateGroupResults ---
+@implementation AuthUserServiceCanCreateGroupResults : NSObject
+
+@synthesize R;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setR:[[dict valueForKey:@"R"] boolValue]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[NSNumber numberWithBool:self.R] forKey:@"R"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- CanInvitePeopleParams ---
+@implementation AuthUserServiceCanInvitePeopleParams : NSObject
+
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	return dict;
+}
+
+@end
+
+// --- CanInvitePeopleResults ---
+@implementation AuthUserServiceCanInvitePeopleResults : NSObject
+
+@synthesize R;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setR:[[dict valueForKey:@"R"] boolValue]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[NSNumber numberWithBool:self.R] forKey:@"R"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- InvitePeopleParams ---
+@implementation AuthUserServiceInvitePeopleParams : NSObject
+
+@synthesize Emails;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEmails:[dict valueForKey:@"Emails"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Emails forKey:@"Emails"];
+
+	return dict;
+}
+
+@end
+
+// --- InvitePeopleResults ---
+@implementation AuthUserServiceInvitePeopleResults : NSObject
+
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- CancelInvitationParams ---
+@implementation AuthUserServiceCancelInvitationParams : NSObject
+
+@synthesize Email;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEmail:[dict valueForKey:@"Email"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Email forKey:@"Email"];
+
+	return dict;
+}
+
+@end
+
+// --- CancelInvitationResults ---
+@implementation AuthUserServiceCancelInvitationResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- ResendInvitationParams ---
+@implementation AuthUserServiceResendInvitationParams : NSObject
+
+@synthesize Email;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEmail:[dict valueForKey:@"Email"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Email forKey:@"Email"];
+
+	return dict;
+}
+
+@end
+
+// --- ResendInvitationResults ---
+@implementation AuthUserServiceResendInvitationResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- PrepareChangeEmailParams ---
+@implementation AuthUserServicePrepareChangeEmailParams : NSObject
+
+@synthesize NewEmail;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setNewEmail:[dict valueForKey:@"NewEmail"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.NewEmail forKey:@"NewEmail"];
+
+	return dict;
+}
+
+@end
+
+// --- PrepareChangeEmailResults ---
+@implementation AuthUserServicePrepareChangeEmailResults : NSObject
+
+@synthesize R;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setR:[[EmailChanger alloc] initWithDictionary:[dict valueForKey:@"R"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.R dictionary] forKey:@"R"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- ChangeEmailParams ---
+@implementation AuthUserServiceChangeEmailParams : NSObject
+
+@synthesize Token;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setToken:[dict valueForKey:@"Token"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Token forKey:@"Token"];
+
+	return dict;
+}
+
+@end
+
+// --- ChangeEmailResults ---
+@implementation AuthUserServiceChangeEmailResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- UpdateAccountParams ---
+@implementation AuthUserServiceUpdateAccountParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[MemberAccountInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- UpdateAccountResults ---
+@implementation AuthUserServiceUpdateAccountResults : NSObject
+
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- SendSharingInvitationParams ---
+@implementation AuthUserServiceSendSharingInvitationParams : NSObject
+
+@synthesize GroupId;
+@synthesize Email;
+@synthesize IsResend;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setEmail:[dict valueForKey:@"Email"]];
+	[self setIsResend:[[dict valueForKey:@"IsResend"] boolValue]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.Email forKey:@"Email"];
+	[dict setValue:[NSNumber numberWithBool:self.IsResend] forKey:@"IsResend"];
+
+	return dict;
+}
+
+@end
+
+// --- SendSharingInvitationResults ---
+@implementation AuthUserServiceSendSharingInvitationResults : NSObject
+
+@synthesize Si;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setSi:[[SharingInvitationItem alloc] initWithDictionary:[dict valueForKey:@"Si"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Si dictionary] forKey:@"Si"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- GetSharingInvitationItemsParams ---
+@implementation AuthUserServiceGetSharingInvitationItemsParams : NSObject
+
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- GetSharingInvitationItemsResults ---
+@implementation AuthUserServiceGetSharingInvitationItemsResults : NSObject
+
+@synthesize Sis;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+
+	NSMutableArray * mSis = [[NSMutableArray alloc] init];
+	NSArray * lSis = [dict valueForKey:@"Sis"];
+	for (NSDictionary * d in lSis) {
+		[mSis addObject: [[SharingInvitationItem alloc] initWithDictionary:d]];
+	}
+	[self setSis:mSis];
+	
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+
+	NSMutableArray * mSis = [[NSMutableArray alloc] init];
+	for (SharingInvitationItem * p in Sis) {
+		[mSis addObject:[p dictionary]];
+	}
+	[dict setValue:mSis forKey:@"Sis"];
+	
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- CancelSharingParams ---
+@implementation AuthUserServiceCancelSharingParams : NSObject
+
+@synthesize GroupId;
+@synthesize Email;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setEmail:[dict valueForKey:@"Email"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.Email forKey:@"Email"];
+
+	return dict;
+}
+
+@end
+
+// --- CancelSharingResults ---
+@implementation AuthUserServiceCancelSharingResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- StopSharingGroupParams ---
+@implementation AuthUserServiceStopSharingGroupParams : NSObject
+
+@synthesize GroupId;
+@synthesize ToStopOrgId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+	[self setToStopOrgId:[dict valueForKey:@"ToStopOrgId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+	[dict setValue:self.ToStopOrgId forKey:@"ToStopOrgId"];
+
+	return dict;
+}
+
+@end
+
+// --- StopSharingGroupResults ---
+@implementation AuthUserServiceStopSharingGroupResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- LeaveSharingGroupParams ---
+@implementation AuthUserServiceLeaveSharingGroupParams : NSObject
+
+@synthesize GroupId;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setGroupId:[dict valueForKey:@"GroupId"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.GroupId forKey:@"GroupId"];
+
+	return dict;
+}
+
+@end
+
+// --- LeaveSharingGroupResults ---
+@implementation AuthUserServiceLeaveSharingGroupResults : NSObject
+
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+// --- ShareChatParams ---
+@implementation AuthUserServiceShareChatParams : NSObject
+
+@synthesize Input;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setInput:[[ShareChatInput alloc] initWithDictionary:[dict valueForKey:@"Input"]]];
+	
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.Input dictionary] forKey:@"Input"];
+	
+
+	return dict;
+}
+
+@end
+
+// --- ShareChatResults ---
+@implementation AuthUserServiceShareChatResults : NSObject
+
+@synthesize ChatEntry;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setChatEntry:[[Entry alloc] initWithDictionary:[dict valueForKey:@"ChatEntry"]]];
+	
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:[self.ChatEntry dictionary] forKey:@"ChatEntry"];
+	
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+
+// --- GetSessionParams ---
+@implementation GlobalGetSessionParams : NSObject
+
+@synthesize Email;
+@synthesize Password;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setEmail:[dict valueForKey:@"Email"]];
+	[self setPassword:[dict valueForKey:@"Password"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Email forKey:@"Email"];
+	[dict setValue:self.Password forKey:@"Password"];
+
+	return dict;
+}
+
+@end
+
+// --- GetSessionResults ---
+@implementation GlobalGetSessionResults : NSObject
+
+@synthesize Session;
+@synthesize Validated;
+@synthesize Err;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setSession:[dict valueForKey:@"Session"]];
+	[self setValidated:[dict valueForKey:@"Validated"]];
+	[self setErr:[dict valueForKey:@"Err"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Session forKey:@"Session"];
+	[dict setValue:self.Validated forKey:@"Validated"];
+	[dict setValue:self.Err forKey:@"Err"];
+
+	return dict;
+}
+
+@end
+
+
+
+@implementation NoAuthUserService : NSObject
+
+
+// --- CancelChangingEmail ---
+- (NoAuthUserServiceCancelChangingEmailResults *) CancelChangingEmail:(NSString *)token {
+	
+	NoAuthUserServiceCancelChangingEmailResults *results = [[NoAuthUserServiceCancelChangingEmailResults alloc] init];
+	NoAuthUserServiceCancelChangingEmailParams *params = [[NoAuthUserServiceCancelChangingEmailParams alloc] init];
+	[params setToken:token];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"NoAuthUserService", @"CancelChangingEmail"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- ChangeEmail ---
+- (NoAuthUserServiceChangeEmailResults *) ChangeEmail:(NSString *)token {
+	
+	NoAuthUserServiceChangeEmailResults *results = [[NoAuthUserServiceChangeEmailResults alloc] init];
+	NoAuthUserServiceChangeEmailParams *params = [[NoAuthUserServiceChangeEmailParams alloc] init];
+	[params setToken:token];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"NoAuthUserService", @"ChangeEmail"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- PrepareChangeEmail ---
+- (NoAuthUserServicePrepareChangeEmailResults *) PrepareChangeEmail:(NSString *)memberId newEmail:(NSString *)newEmail {
+	
+	NoAuthUserServicePrepareChangeEmailResults *results = [[NoAuthUserServicePrepareChangeEmailResults alloc] init];
+	NoAuthUserServicePrepareChangeEmailParams *params = [[NoAuthUserServicePrepareChangeEmailParams alloc] init];
+	[params setMemberId:memberId];
+	[params setNewEmail:newEmail];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"NoAuthUserService", @"PrepareChangeEmail"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GetSharingInviation ---
+- (NoAuthUserServiceGetSharingInviationResults *) GetSharingInviation:(NSString *)sharingInviationToken memberId:(NSString *)memberId {
+	
+	NoAuthUserServiceGetSharingInviationResults *results = [[NoAuthUserServiceGetSharingInviationResults alloc] init];
+	NoAuthUserServiceGetSharingInviationParams *params = [[NoAuthUserServiceGetSharingInviationParams alloc] init];
+	[params setSharingInviationToken:sharingInviationToken];
+	[params setMemberId:memberId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"NoAuthUserService", @"GetSharingInviation"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- ChangeEmailToAcceptSharing ---
+- (NoAuthUserServiceChangeEmailToAcceptSharingResults *) ChangeEmailToAcceptSharing:(NSString *)token newEmail:(NSString *)newEmail {
+	
+	NoAuthUserServiceChangeEmailToAcceptSharingResults *results = [[NoAuthUserServiceChangeEmailToAcceptSharingResults alloc] init];
+	NoAuthUserServiceChangeEmailToAcceptSharingParams *params = [[NoAuthUserServiceChangeEmailToAcceptSharingParams alloc] init];
+	[params setToken:token];
+	[params setNewEmail:newEmail];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"NoAuthUserService", @"ChangeEmailToAcceptSharing"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- AskHelp ---
+- (NoAuthUserServiceAskHelpResults *) AskHelp:(HelpInput *)input {
+	
+	NoAuthUserServiceAskHelpResults *results = [[NoAuthUserServiceAskHelpResults alloc] init];
+	NoAuthUserServiceAskHelpParams *params = [[NoAuthUserServiceAskHelpParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"NoAuthUserService", @"AskHelp"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- BlogEntries ---
+- (NoAuthUserServiceBlogEntriesResults *) BlogEntries:(NSString *)doi pageNum:(NSNumber *)pageNum limit:(NSNumber *)limit {
+	
+	NoAuthUserServiceBlogEntriesResults *results = [[NoAuthUserServiceBlogEntriesResults alloc] init];
+	NoAuthUserServiceBlogEntriesParams *params = [[NoAuthUserServiceBlogEntriesParams alloc] init];
+	[params setDoi:doi];
+	[params setPageNum:pageNum];
+	[params setLimit:limit];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"NoAuthUserService", @"BlogEntries"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- BlogEntryBySlug ---
+- (NoAuthUserServiceBlogEntryBySlugResults *) BlogEntryBySlug:(NSString *)doi slug:(NSString *)slug {
+	
+	NoAuthUserServiceBlogEntryBySlugResults *results = [[NoAuthUserServiceBlogEntryBySlugResults alloc] init];
+	NoAuthUserServiceBlogEntryBySlugParams *params = [[NoAuthUserServiceBlogEntryBySlugParams alloc] init];
+	[params setDoi:doi];
+	[params setSlug:slug];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"NoAuthUserService", @"BlogEntryBySlug"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- CreateExternalComment ---
+- (NoAuthUserServiceCreateExternalCommentResults *) CreateExternalComment:(NSString *)doi input:(EntryInput *)input {
+	
+	NoAuthUserServiceCreateExternalCommentResults *results = [[NoAuthUserServiceCreateExternalCommentResults alloc] init];
+	NoAuthUserServiceCreateExternalCommentParams *params = [[NoAuthUserServiceCreateExternalCommentParams alloc] init];
+	[params setDoi:doi];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"NoAuthUserService", @"CreateExternalComment"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- CheckSlug ---
+- (NoAuthUserServiceCheckSlugResults *) CheckSlug:(NSString *)doi slug:(NSString *)slug {
+	
+	NoAuthUserServiceCheckSlugResults *results = [[NoAuthUserServiceCheckSlugResults alloc] init];
+	NoAuthUserServiceCheckSlugParams *params = [[NoAuthUserServiceCheckSlugParams alloc] init];
+	[params setDoi:doi];
+	[params setSlug:slug];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"NoAuthUserService", @"CheckSlug"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- CreateNewsletter ---
+- (NoAuthUserServiceCreateNewsletterResults *) CreateNewsletter:(NewsletterInput *)input {
+	
+	NoAuthUserServiceCreateNewsletterResults *results = [[NoAuthUserServiceCreateNewsletterResults alloc] init];
+	NoAuthUserServiceCreateNewsletterParams *params = [[NoAuthUserServiceCreateNewsletterParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"NoAuthUserService", @"CreateNewsletter"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+@end
+
+@implementation AuthMemberService : NSObject
+
+
+// --- GetAbandonUserInfo ---
+- (AuthMemberServiceGetAbandonUserInfoResults *) GetAbandonUserInfo:(NSString *)organizationId memberId:(NSString *)memberId {
+	
+	AuthMemberServiceGetAbandonUserInfoResults *results = [[AuthMemberServiceGetAbandonUserInfoResults alloc] init];
+	AuthMemberServiceGetAbandonUserInfoParams *params = [[AuthMemberServiceGetAbandonUserInfoParams alloc] init];
+	[params setOrganizationId:organizationId];
+	[params setMemberId:memberId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthMemberService", @"GetAbandonUserInfo"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- SwitchOrganization ---
+- (AuthMemberServiceSwitchOrganizationResults *) SwitchOrganization:(NSString *)orgId {
+	
+	AuthMemberServiceSwitchOrganizationResults *results = [[AuthMemberServiceSwitchOrganizationResults alloc] init];
+	AuthMemberServiceSwitchOrganizationParams *params = [[AuthMemberServiceSwitchOrganizationParams alloc] init];
+	[params setOrgId:orgId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthMemberService", @"SwitchOrganization"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GetSharingInviationByToken ---
+- (AuthMemberServiceGetSharingInviationByTokenResults *) GetSharingInviationByToken:(NSString *)sharingInviationToken {
+	
+	AuthMemberServiceGetSharingInviationByTokenResults *results = [[AuthMemberServiceGetSharingInviationByTokenResults alloc] init];
+	AuthMemberServiceGetSharingInviationByTokenParams *params = [[AuthMemberServiceGetSharingInviationByTokenParams alloc] init];
+	[params setSharingInviationToken:sharingInviationToken];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthMemberService", @"GetSharingInviationByToken"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- RejectSharingBeforeForwarding ---
+- (AuthMemberServiceRejectSharingBeforeForwardingResults *) RejectSharingBeforeForwarding:(NSString *)groupId email:(NSString *)email {
+	
+	AuthMemberServiceRejectSharingBeforeForwardingResults *results = [[AuthMemberServiceRejectSharingBeforeForwardingResults alloc] init];
+	AuthMemberServiceRejectSharingBeforeForwardingParams *params = [[AuthMemberServiceRejectSharingBeforeForwardingParams alloc] init];
+	[params setGroupId:groupId];
+	[params setEmail:email];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthMemberService", @"RejectSharingBeforeForwarding"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- ResponseSharingRequest ---
+- (AuthMemberServiceResponseSharingRequestResults *) ResponseSharingRequest:(NSString *)token fromOrgId:(NSString *)fromOrgId fromUserId:(NSString *)fromUserId forSharingOrgId:(NSString *)forSharingOrgId groupId:(NSString *)groupId {
+	
+	AuthMemberServiceResponseSharingRequestResults *results = [[AuthMemberServiceResponseSharingRequestResults alloc] init];
+	AuthMemberServiceResponseSharingRequestParams *params = [[AuthMemberServiceResponseSharingRequestParams alloc] init];
+	[params setToken:token];
+	[params setFromOrgId:fromOrgId];
+	[params setFromUserId:fromUserId];
+	[params setForSharingOrgId:forSharingOrgId];
+	[params setGroupId:groupId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthMemberService", @"ResponseSharingRequest"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+@end
+
 @implementation AuthUserService : NSObject
 
-@synthesize Session = _Session;
 
+@synthesize Session;
+
+- (id) initWithDictionary:(NSDictionary*)dict{
+	self = [super init];
+	if (!self) {
+		return self;
+	}
+	if (dict == nil) {
+		return self;
+	}
+	[self setSession:[dict valueForKey:@"Session"]];
+
+	return self;
+}
+
+- (NSDictionary*) dictionary {
+	NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+	[dict setValue:self.Session forKey:@"Session"];
+
+	return dict;
+}
+
+
+
+// --- NewEntry ---
+- (AuthUserServiceNewEntryResults *) NewEntry:(NSString *)groupId {
+	
+	AuthUserServiceNewEntryResults *results = [[AuthUserServiceNewEntryResults alloc] init];
+	AuthUserServiceNewEntryParams *params = [[AuthUserServiceNewEntryParams alloc] init];
+	[params setGroupId:groupId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"NewEntry"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- QortexMessages ---
+- (AuthUserServiceQortexMessagesResults *) QortexMessages:(NSString *)messsageType before:(NSString *)before limit:(NSNumber *)limit {
+	
+	AuthUserServiceQortexMessagesResults *results = [[AuthUserServiceQortexMessagesResults alloc] init];
+	AuthUserServiceQortexMessagesParams *params = [[AuthUserServiceQortexMessagesParams alloc] init];
+	[params setMesssageType:messsageType];
+	[params setBefore:before];
+	[params setLimit:limit];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"QortexMessages"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- CreateBroadcast ---
+- (AuthUserServiceCreateBroadcastResults *) CreateBroadcast:(BroadcastInput *)input {
+	
+	AuthUserServiceCreateBroadcastResults *results = [[AuthUserServiceCreateBroadcastResults alloc] init];
+	AuthUserServiceCreateBroadcastParams *params = [[AuthUserServiceCreateBroadcastParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"CreateBroadcast"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- CreateBroadcastComment ---
+- (AuthUserServiceCreateBroadcastCommentResults *) CreateBroadcastComment:(BroadcastInput *)input {
+	
+	AuthUserServiceCreateBroadcastCommentResults *results = [[AuthUserServiceCreateBroadcastCommentResults alloc] init];
+	AuthUserServiceCreateBroadcastCommentParams *params = [[AuthUserServiceCreateBroadcastCommentParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"CreateBroadcastComment"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GetRequest ---
+- (AuthUserServiceGetRequestResults *) GetRequest:(NSString *)entryId {
+	
+	AuthUserServiceGetRequestResults *results = [[AuthUserServiceGetRequestResults alloc] init];
+	AuthUserServiceGetRequestParams *params = [[AuthUserServiceGetRequestParams alloc] init];
+	[params setEntryId:entryId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GetRequest"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- EditBroadcast ---
+- (AuthUserServiceEditBroadcastResults *) EditBroadcast:(NSString *)entryId {
+	
+	AuthUserServiceEditBroadcastResults *results = [[AuthUserServiceEditBroadcastResults alloc] init];
+	AuthUserServiceEditBroadcastParams *params = [[AuthUserServiceEditBroadcastParams alloc] init];
+	[params setEntryId:entryId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"EditBroadcast"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- EditBroadcastComment ---
+- (AuthUserServiceEditBroadcastCommentResults *) EditBroadcastComment:(NSString *)entryId {
+	
+	AuthUserServiceEditBroadcastCommentResults *results = [[AuthUserServiceEditBroadcastCommentResults alloc] init];
+	AuthUserServiceEditBroadcastCommentParams *params = [[AuthUserServiceEditBroadcastCommentParams alloc] init];
+	[params setEntryId:entryId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"EditBroadcastComment"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- UpdateBroadcast ---
+- (AuthUserServiceUpdateBroadcastResults *) UpdateBroadcast:(BroadcastInput *)input {
+	
+	AuthUserServiceUpdateBroadcastResults *results = [[AuthUserServiceUpdateBroadcastResults alloc] init];
+	AuthUserServiceUpdateBroadcastParams *params = [[AuthUserServiceUpdateBroadcastParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"UpdateBroadcast"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- UpdateBroadcastComment ---
+- (AuthUserServiceUpdateBroadcastCommentResults *) UpdateBroadcastComment:(BroadcastInput *)input {
+	
+	AuthUserServiceUpdateBroadcastCommentResults *results = [[AuthUserServiceUpdateBroadcastCommentResults alloc] init];
+	AuthUserServiceUpdateBroadcastCommentParams *params = [[AuthUserServiceUpdateBroadcastCommentParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"UpdateBroadcastComment"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- CreatePost ---
+- (AuthUserServiceCreatePostResults *) CreatePost:(EntryInput *)input {
+	
+	AuthUserServiceCreatePostResults *results = [[AuthUserServiceCreatePostResults alloc] init];
+	AuthUserServiceCreatePostParams *params = [[AuthUserServiceCreatePostParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"CreatePost"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- CreateTask ---
+- (AuthUserServiceCreateTaskResults *) CreateTask:(EntryInput *)input {
+	
+	AuthUserServiceCreateTaskResults *results = [[AuthUserServiceCreateTaskResults alloc] init];
+	AuthUserServiceCreateTaskParams *params = [[AuthUserServiceCreateTaskParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"CreateTask"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- CloseTask ---
+- (AuthUserServiceCloseTaskResults *) CloseTask:(NSString *)entryId groupId:(NSString *)groupId {
+	
+	AuthUserServiceCloseTaskResults *results = [[AuthUserServiceCloseTaskResults alloc] init];
+	AuthUserServiceCloseTaskParams *params = [[AuthUserServiceCloseTaskParams alloc] init];
+	[params setEntryId:entryId];
+	[params setGroupId:groupId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"CloseTask"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- CreateComment ---
+- (AuthUserServiceCreateCommentResults *) CreateComment:(EntryInput *)input {
+	
+	AuthUserServiceCreateCommentResults *results = [[AuthUserServiceCreateCommentResults alloc] init];
+	AuthUserServiceCreateCommentParams *params = [[AuthUserServiceCreateCommentParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"CreateComment"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GetComment ---
+- (AuthUserServiceGetCommentResults *) GetComment:(NSString *)entryId groupId:(NSString *)groupId {
+	
+	AuthUserServiceGetCommentResults *results = [[AuthUserServiceGetCommentResults alloc] init];
+	AuthUserServiceGetCommentParams *params = [[AuthUserServiceGetCommentParams alloc] init];
+	[params setEntryId:entryId];
+	[params setGroupId:groupId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GetComment"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- UpdateComment ---
+- (AuthUserServiceUpdateCommentResults *) UpdateComment:(EntryInput *)input {
+	
+	AuthUserServiceUpdateCommentResults *results = [[AuthUserServiceUpdateCommentResults alloc] init];
+	AuthUserServiceUpdateCommentParams *params = [[AuthUserServiceUpdateCommentParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"UpdateComment"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- UpdateEntry ---
+- (AuthUserServiceUpdateEntryResults *) UpdateEntry:(EntryInput *)input {
+	
+	AuthUserServiceUpdateEntryResults *results = [[AuthUserServiceUpdateEntryResults alloc] init];
+	AuthUserServiceUpdateEntryParams *params = [[AuthUserServiceUpdateEntryParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"UpdateEntry"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GetLatestUpdatedEntryIdByTitle ---
+- (AuthUserServiceGetLatestUpdatedEntryIdByTitleResults *) GetLatestUpdatedEntryIdByTitle:(NSString *)title groupId:(NSString *)groupId {
+	
+	AuthUserServiceGetLatestUpdatedEntryIdByTitleResults *results = [[AuthUserServiceGetLatestUpdatedEntryIdByTitleResults alloc] init];
+	AuthUserServiceGetLatestUpdatedEntryIdByTitleParams *params = [[AuthUserServiceGetLatestUpdatedEntryIdByTitleParams alloc] init];
+	[params setTitle:title];
+	[params setGroupId:groupId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GetLatestUpdatedEntryIdByTitle"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GetEntry ---
+- (AuthUserServiceGetEntryResults *) GetEntry:(NSString *)entryId groupId:(NSString *)groupId updateAtUnixNano:(NSString *)updateAtUnixNano searchKeyWords:(NSString *)searchKeyWords {
+	
+	AuthUserServiceGetEntryResults *results = [[AuthUserServiceGetEntryResults alloc] init];
+	AuthUserServiceGetEntryParams *params = [[AuthUserServiceGetEntryParams alloc] init];
+	[params setEntryId:entryId];
+	[params setGroupId:groupId];
+	[params setUpdateAtUnixNano:updateAtUnixNano];
+	[params setSearchKeyWords:searchKeyWords];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GetEntry"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- DeleteEntry ---
+- (AuthUserServiceDeleteEntryResults *) DeleteEntry:(NSString *)entryId groupId:(NSString *)groupId dType:(NSString *)dType {
+	
+	AuthUserServiceDeleteEntryResults *results = [[AuthUserServiceDeleteEntryResults alloc] init];
+	AuthUserServiceDeleteEntryParams *params = [[AuthUserServiceDeleteEntryParams alloc] init];
+	[params setEntryId:entryId];
+	[params setGroupId:groupId];
+	[params setDType:dType];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"DeleteEntry"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- EntryAttachments ---
+- (AuthUserServiceEntryAttachmentsResults *) EntryAttachments:(NSString *)entryId groupId:(NSString *)groupId {
+	
+	AuthUserServiceEntryAttachmentsResults *results = [[AuthUserServiceEntryAttachmentsResults alloc] init];
+	AuthUserServiceEntryAttachmentsParams *params = [[AuthUserServiceEntryAttachmentsParams alloc] init];
+	[params setEntryId:entryId];
+	[params setGroupId:groupId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"EntryAttachments"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- OtherComments ---
+- (AuthUserServiceOtherCommentsResults *) OtherComments:(NSString *)entryId groupId:(NSString *)groupId versionUpdateat:(NSString *)versionUpdateat searchKeyWords:(NSString *)searchKeyWords {
+	
+	AuthUserServiceOtherCommentsResults *results = [[AuthUserServiceOtherCommentsResults alloc] init];
+	AuthUserServiceOtherCommentsParams *params = [[AuthUserServiceOtherCommentsParams alloc] init];
+	[params setEntryId:entryId];
+	[params setGroupId:groupId];
+	[params setVersionUpdateat:versionUpdateat];
+	[params setSearchKeyWords:searchKeyWords];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"OtherComments"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GroupEntries ---
+- (AuthUserServiceGroupEntriesResults *) GroupEntries:(NSString *)groupId entryType:(NSString *)entryType before:(NSString *)before limit:(NSNumber *)limit {
+	
+	AuthUserServiceGroupEntriesResults *results = [[AuthUserServiceGroupEntriesResults alloc] init];
+	AuthUserServiceGroupEntriesParams *params = [[AuthUserServiceGroupEntriesParams alloc] init];
+	[params setGroupId:groupId];
+	[params setEntryType:entryType];
+	[params setBefore:before];
+	[params setLimit:limit];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GroupEntries"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- MyFeedEntries ---
+- (AuthUserServiceMyFeedEntriesResults *) MyFeedEntries:(NSString *)entryType before:(NSString *)before limit:(NSNumber *)limit {
+	
+	AuthUserServiceMyFeedEntriesResults *results = [[AuthUserServiceMyFeedEntriesResults alloc] init];
+	AuthUserServiceMyFeedEntriesParams *params = [[AuthUserServiceMyFeedEntriesParams alloc] init];
+	[params setEntryType:entryType];
+	[params setBefore:before];
+	[params setLimit:limit];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"MyFeedEntries"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- NewFeedEntries ---
+- (AuthUserServiceNewFeedEntriesResults *) NewFeedEntries:(NSString *)entryType From:(NSString *)From limit:(NSNumber *)limit {
+	
+	AuthUserServiceNewFeedEntriesResults *results = [[AuthUserServiceNewFeedEntriesResults alloc] init];
+	AuthUserServiceNewFeedEntriesParams *params = [[AuthUserServiceNewFeedEntriesParams alloc] init];
+	[params setEntryType:entryType];
+	[params setFrom:From];
+	[params setLimit:limit];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"NewFeedEntries"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- MyTaskEntries ---
+- (AuthUserServiceMyTaskEntriesResults *) MyTaskEntries:(BOOL)active before:(NSString *)before limit:(NSNumber *)limit {
+	
+	AuthUserServiceMyTaskEntriesResults *results = [[AuthUserServiceMyTaskEntriesResults alloc] init];
+	AuthUserServiceMyTaskEntriesParams *params = [[AuthUserServiceMyTaskEntriesParams alloc] init];
+	[params setActive:active];
+	[params setBefore:before];
+	[params setLimit:limit];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"MyTaskEntries"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- UserEntries ---
+- (AuthUserServiceUserEntriesResults *) UserEntries:(NSString *)userId entryType:(NSString *)entryType before:(NSString *)before limit:(NSNumber *)limit {
+	
+	AuthUserServiceUserEntriesResults *results = [[AuthUserServiceUserEntriesResults alloc] init];
+	AuthUserServiceUserEntriesParams *params = [[AuthUserServiceUserEntriesParams alloc] init];
+	[params setUserId:userId];
+	[params setEntryType:entryType];
+	[params setBefore:before];
+	[params setLimit:limit];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"UserEntries"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- MyChatEntries ---
+- (AuthUserServiceMyChatEntriesResults *) MyChatEntries:(NSString *)before limit:(NSNumber *)limit {
+	
+	AuthUserServiceMyChatEntriesResults *results = [[AuthUserServiceMyChatEntriesResults alloc] init];
+	AuthUserServiceMyChatEntriesParams *params = [[AuthUserServiceMyChatEntriesParams alloc] init];
+	[params setBefore:before];
+	[params setLimit:limit];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"MyChatEntries"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- MyNotificationItems ---
+- (AuthUserServiceMyNotificationItemsResults *) MyNotificationItems:(NSString *)before limit:(NSNumber *)limit {
+	
+	AuthUserServiceMyNotificationItemsResults *results = [[AuthUserServiceMyNotificationItemsResults alloc] init];
+	AuthUserServiceMyNotificationItemsParams *params = [[AuthUserServiceMyNotificationItemsParams alloc] init];
+	[params setBefore:before];
+	[params setLimit:limit];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"MyNotificationItems"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- MarkAllAsRead ---
+- (AuthUserServiceMarkAllAsReadResults *) MarkAllAsRead:(NSString *)groupId {
+	
+	AuthUserServiceMarkAllAsReadResults *results = [[AuthUserServiceMarkAllAsReadResults alloc] init];
+	AuthUserServiceMarkAllAsReadParams *params = [[AuthUserServiceMarkAllAsReadParams alloc] init];
+	[params setGroupId:groupId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"MarkAllAsRead"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GetWatchList ---
+- (AuthUserServiceGetWatchListResults *) GetWatchList:(NSDate *)before limit:(NSNumber *)limit {
+	
+	AuthUserServiceGetWatchListResults *results = [[AuthUserServiceGetWatchListResults alloc] init];
+	AuthUserServiceGetWatchListParams *params = [[AuthUserServiceGetWatchListParams alloc] init];
+	[params setBefore:before];
+	[params setLimit:limit];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GetWatchList"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- AddToWatchList ---
+- (AuthUserServiceAddToWatchListResults *) AddToWatchList:(NSString *)entryId groupId:(NSString *)groupId {
+	
+	AuthUserServiceAddToWatchListResults *results = [[AuthUserServiceAddToWatchListResults alloc] init];
+	AuthUserServiceAddToWatchListParams *params = [[AuthUserServiceAddToWatchListParams alloc] init];
+	[params setEntryId:entryId];
+	[params setGroupId:groupId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"AddToWatchList"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- StopWatching ---
+- (AuthUserServiceStopWatchingResults *) StopWatching:(NSString *)entryId groupId:(NSString *)groupId {
+	
+	AuthUserServiceStopWatchingResults *results = [[AuthUserServiceStopWatchingResults alloc] init];
+	AuthUserServiceStopWatchingParams *params = [[AuthUserServiceStopWatchingParams alloc] init];
+	[params setEntryId:entryId];
+	[params setGroupId:groupId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"StopWatching"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- ReadWatching ---
+- (AuthUserServiceReadWatchingResults *) ReadWatching:(NSString *)entryId groupId:(NSString *)groupId {
+	
+	AuthUserServiceReadWatchingResults *results = [[AuthUserServiceReadWatchingResults alloc] init];
+	AuthUserServiceReadWatchingParams *params = [[AuthUserServiceReadWatchingParams alloc] init];
+	[params setEntryId:entryId];
+	[params setGroupId:groupId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"ReadWatching"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- UpdateLike ---
+- (AuthUserServiceUpdateLikeResults *) UpdateLike:(LikeInput *)input {
+	
+	AuthUserServiceUpdateLikeResults *results = [[AuthUserServiceUpdateLikeResults alloc] init];
+	AuthUserServiceUpdateLikeParams *params = [[AuthUserServiceUpdateLikeParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"UpdateLike"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GetDraftList ---
+- (AuthUserServiceGetDraftListResults *) GetDraftList:(NSDate *)before limit:(NSNumber *)limit {
+	
+	AuthUserServiceGetDraftListResults *results = [[AuthUserServiceGetDraftListResults alloc] init];
+	AuthUserServiceGetDraftListParams *params = [[AuthUserServiceGetDraftListParams alloc] init];
+	[params setBefore:before];
+	[params setLimit:limit];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GetDraftList"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GetDraft ---
+- (AuthUserServiceGetDraftResults *) GetDraft:(NSString *)entryId groupId:(NSString *)groupId {
+	
+	AuthUserServiceGetDraftResults *results = [[AuthUserServiceGetDraftResults alloc] init];
+	AuthUserServiceGetDraftParams *params = [[AuthUserServiceGetDraftParams alloc] init];
+	[params setEntryId:entryId];
+	[params setGroupId:groupId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GetDraft"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- DeleteDraft ---
+- (AuthUserServiceDeleteDraftResults *) DeleteDraft:(NSString *)entryId groupId:(NSString *)groupId {
+	
+	AuthUserServiceDeleteDraftResults *results = [[AuthUserServiceDeleteDraftResults alloc] init];
+	AuthUserServiceDeleteDraftParams *params = [[AuthUserServiceDeleteDraftParams alloc] init];
+	[params setEntryId:entryId];
+	[params setGroupId:groupId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"DeleteDraft"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- NewGroup ---
+- (AuthUserServiceNewGroupResults *) NewGroup {
+	
+	AuthUserServiceNewGroupResults *results = [[AuthUserServiceNewGroupResults alloc] init];
+	AuthUserServiceNewGroupParams *params = [[AuthUserServiceNewGroupParams alloc] init];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"NewGroup"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GetGroup ---
+- (AuthUserServiceGetGroupResults *) GetGroup:(NSString *)groupId {
+	
+	AuthUserServiceGetGroupResults *results = [[AuthUserServiceGetGroupResults alloc] init];
+	AuthUserServiceGetGroupParams *params = [[AuthUserServiceGetGroupParams alloc] init];
+	[params setGroupId:groupId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GetGroup"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- CreateGroup ---
+- (AuthUserServiceCreateGroupResults *) CreateGroup:(GroupInput *)input {
+	
+	AuthUserServiceCreateGroupResults *results = [[AuthUserServiceCreateGroupResults alloc] init];
+	AuthUserServiceCreateGroupParams *params = [[AuthUserServiceCreateGroupParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"CreateGroup"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- UpdateGroup ---
+- (AuthUserServiceUpdateGroupResults *) UpdateGroup:(GroupInput *)input {
+	
+	AuthUserServiceUpdateGroupResults *results = [[AuthUserServiceUpdateGroupResults alloc] init];
+	AuthUserServiceUpdateGroupParams *params = [[AuthUserServiceUpdateGroupParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"UpdateGroup"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- UpdateGroupLogo ---
+- (AuthUserServiceUpdateGroupLogoResults *) UpdateGroupLogo:(NSString *)groupId logoURL:(NSString *)logoURL {
+	
+	AuthUserServiceUpdateGroupLogoResults *results = [[AuthUserServiceUpdateGroupLogoResults alloc] init];
+	AuthUserServiceUpdateGroupLogoParams *params = [[AuthUserServiceUpdateGroupLogoParams alloc] init];
+	[params setGroupId:groupId];
+	[params setLogoURL:logoURL];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"UpdateGroupLogo"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- DeleteGroup ---
+- (AuthUserServiceDeleteGroupResults *) DeleteGroup:(NSString *)groupId {
+	
+	AuthUserServiceDeleteGroupResults *results = [[AuthUserServiceDeleteGroupResults alloc] init];
+	AuthUserServiceDeleteGroupParams *params = [[AuthUserServiceDeleteGroupParams alloc] init];
+	[params setGroupId:groupId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"DeleteGroup"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GroupBySlug ---
+- (AuthUserServiceGroupBySlugResults *) GroupBySlug:(NSString *)slug {
+	
+	AuthUserServiceGroupBySlugResults *results = [[AuthUserServiceGroupBySlugResults alloc] init];
+	AuthUserServiceGroupBySlugParams *params = [[AuthUserServiceGroupBySlugParams alloc] init];
+	[params setSlug:slug];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GroupBySlug"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GetAllGroups ---
+- (AuthUserServiceGetAllGroupsResults *) GetAllGroups:(NSString *)keyword {
+	
+	AuthUserServiceGetAllGroupsResults *results = [[AuthUserServiceGetAllGroupsResults alloc] init];
+	AuthUserServiceGetAllGroupsParams *params = [[AuthUserServiceGetAllGroupsParams alloc] init];
+	[params setKeyword:keyword];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GetAllGroups"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GetPublicGroups ---
+- (AuthUserServiceGetPublicGroupsResults *) GetPublicGroups:(NSString *)keyword {
+	
+	AuthUserServiceGetPublicGroupsResults *results = [[AuthUserServiceGetPublicGroupsResults alloc] init];
+	AuthUserServiceGetPublicGroupsParams *params = [[AuthUserServiceGetPublicGroupsParams alloc] init];
+	[params setKeyword:keyword];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GetPublicGroups"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- AddUserToGroup ---
+- (AuthUserServiceAddUserToGroupResults *) AddUserToGroup:(NSString *)groupId userId:(NSString *)userId {
+	
+	AuthUserServiceAddUserToGroupResults *results = [[AuthUserServiceAddUserToGroupResults alloc] init];
+	AuthUserServiceAddUserToGroupParams *params = [[AuthUserServiceAddUserToGroupParams alloc] init];
+	[params setGroupId:groupId];
+	[params setUserId:userId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"AddUserToGroup"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- RemoveUserFromGroup ---
+- (AuthUserServiceRemoveUserFromGroupResults *) RemoveUserFromGroup:(NSString *)groupId userId:(NSString *)userId {
+	
+	AuthUserServiceRemoveUserFromGroupResults *results = [[AuthUserServiceRemoveUserFromGroupResults alloc] init];
+	AuthUserServiceRemoveUserFromGroupParams *params = [[AuthUserServiceRemoveUserFromGroupParams alloc] init];
+	[params setGroupId:groupId];
+	[params setUserId:userId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"RemoveUserFromGroup"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GetGroupHeaderItem ---
+- (AuthUserServiceGetGroupHeaderItemResults *) GetGroupHeaderItem:(NSString *)groupId {
+	
+	AuthUserServiceGetGroupHeaderItemResults *results = [[AuthUserServiceGetGroupHeaderItemResults alloc] init];
+	AuthUserServiceGetGroupHeaderItemParams *params = [[AuthUserServiceGetGroupHeaderItemParams alloc] init];
+	[params setGroupId:groupId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GetGroupHeaderItem"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- ClassifyMyGroups ---
+- (AuthUserServiceClassifyMyGroupsResults *) ClassifyMyGroups {
+	
+	AuthUserServiceClassifyMyGroupsResults *results = [[AuthUserServiceClassifyMyGroupsResults alloc] init];
+	AuthUserServiceClassifyMyGroupsParams *params = [[AuthUserServiceClassifyMyGroupsParams alloc] init];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"ClassifyMyGroups"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- OrganizationUsers ---
+- (AuthUserServiceOrganizationUsersResults *) OrganizationUsers:(NSString *)query sortKey:(NSString *)sortKey countPerPage:(NSNumber *)countPerPage {
+	
+	AuthUserServiceOrganizationUsersResults *results = [[AuthUserServiceOrganizationUsersResults alloc] init];
+	AuthUserServiceOrganizationUsersParams *params = [[AuthUserServiceOrganizationUsersParams alloc] init];
+	[params setQuery:query];
+	[params setSortKey:sortKey];
+	[params setCountPerPage:countPerPage];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"OrganizationUsers"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GroupUsers ---
+- (AuthUserServiceGroupUsersResults *) GroupUsers:(NSString *)groupId query:(NSString *)query OnlyFollowers:(BOOL)OnlyFollowers sortKey:(NSString *)sortKey countPerPage:(NSNumber *)countPerPage {
+	
+	AuthUserServiceGroupUsersResults *results = [[AuthUserServiceGroupUsersResults alloc] init];
+	AuthUserServiceGroupUsersParams *params = [[AuthUserServiceGroupUsersParams alloc] init];
+	[params setGroupId:groupId];
+	[params setQuery:query];
+	[params setOnlyFollowers:OnlyFollowers];
+	[params setSortKey:sortKey];
+	[params setCountPerPage:countPerPage];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GroupUsers"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GetUser ---
+- (AuthUserServiceGetUserResults *) GetUser:(NSString *)userId {
+	
+	AuthUserServiceGetUserResults *results = [[AuthUserServiceGetUserResults alloc] init];
+	AuthUserServiceGetUserParams *params = [[AuthUserServiceGetUserParams alloc] init];
+	[params setUserId:userId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GetUser"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- EnableUser ---
+- (AuthUserServiceEnableUserResults *) EnableUser:(NSString *)userId {
+	
+	AuthUserServiceEnableUserResults *results = [[AuthUserServiceEnableUserResults alloc] init];
+	AuthUserServiceEnableUserParams *params = [[AuthUserServiceEnableUserParams alloc] init];
+	[params setUserId:userId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"EnableUser"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- DisableUser ---
+- (AuthUserServiceDisableUserResults *) DisableUser:(NSString *)userId {
+	
+	AuthUserServiceDisableUserResults *results = [[AuthUserServiceDisableUserResults alloc] init];
+	AuthUserServiceDisableUserParams *params = [[AuthUserServiceDisableUserParams alloc] init];
+	[params setUserId:userId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"DisableUser"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- DeleteUser ---
+- (AuthUserServiceDeleteUserResults *) DeleteUser:(NSString *)userId {
+	
+	AuthUserServiceDeleteUserResults *results = [[AuthUserServiceDeleteUserResults alloc] init];
+	AuthUserServiceDeleteUserParams *params = [[AuthUserServiceDeleteUserParams alloc] init];
+	[params setUserId:userId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"DeleteUser"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- PromoteToSuperUser ---
+- (AuthUserServicePromoteToSuperUserResults *) PromoteToSuperUser:(NSString *)userId {
+	
+	AuthUserServicePromoteToSuperUserResults *results = [[AuthUserServicePromoteToSuperUserResults alloc] init];
+	AuthUserServicePromoteToSuperUserParams *params = [[AuthUserServicePromoteToSuperUserParams alloc] init];
+	[params setUserId:userId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"PromoteToSuperUser"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- DemoteFromSuperUser ---
+- (AuthUserServiceDemoteFromSuperUserResults *) DemoteFromSuperUser:(NSString *)userId {
+	
+	AuthUserServiceDemoteFromSuperUserResults *results = [[AuthUserServiceDemoteFromSuperUserResults alloc] init];
+	AuthUserServiceDemoteFromSuperUserParams *params = [[AuthUserServiceDemoteFromSuperUserParams alloc] init];
+	[params setUserId:userId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"DemoteFromSuperUser"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- FollowUser ---
+- (AuthUserServiceFollowUserResults *) FollowUser:(NSString *)userId {
+	
+	AuthUserServiceFollowUserResults *results = [[AuthUserServiceFollowUserResults alloc] init];
+	AuthUserServiceFollowUserParams *params = [[AuthUserServiceFollowUserParams alloc] init];
+	[params setUserId:userId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"FollowUser"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- UnfollowUser ---
+- (AuthUserServiceUnfollowUserResults *) UnfollowUser:(NSString *)userId {
+	
+	AuthUserServiceUnfollowUserResults *results = [[AuthUserServiceUnfollowUserResults alloc] init];
+	AuthUserServiceUnfollowUserParams *params = [[AuthUserServiceUnfollowUserParams alloc] init];
+	[params setUserId:userId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"UnfollowUser"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- MyFollowingUsers ---
+- (AuthUserServiceMyFollowingUsersResults *) MyFollowingUsers {
+	
+	AuthUserServiceMyFollowingUsersResults *results = [[AuthUserServiceMyFollowingUsersResults alloc] init];
+	AuthUserServiceMyFollowingUsersParams *params = [[AuthUserServiceMyFollowingUsersParams alloc] init];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"MyFollowingUsers"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- PanelStatus ---
+- (AuthUserServicePanelStatusResults *) PanelStatus {
+	
+	AuthUserServicePanelStatusResults *results = [[AuthUserServicePanelStatusResults alloc] init];
+	AuthUserServicePanelStatusParams *params = [[AuthUserServicePanelStatusParams alloc] init];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"PanelStatus"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- Preferences ---
+- (AuthUserServicePreferencesResults *) Preferences {
+	
+	AuthUserServicePreferencesResults *results = [[AuthUserServicePreferencesResults alloc] init];
+	AuthUserServicePreferencesParams *params = [[AuthUserServicePreferencesParams alloc] init];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"Preferences"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- UpdatePreferences ---
+- (AuthUserServiceUpdatePreferencesResults *) UpdatePreferences:(PreferencesInput *)input {
+	
+	AuthUserServiceUpdatePreferencesResults *results = [[AuthUserServiceUpdatePreferencesResults alloc] init];
+	AuthUserServiceUpdatePreferencesParams *params = [[AuthUserServiceUpdatePreferencesParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"UpdatePreferences"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- AllEmbedUsers ---
+- (AuthUserServiceAllEmbedUsersResults *) AllEmbedUsers {
+	
+	AuthUserServiceAllEmbedUsersResults *results = [[AuthUserServiceAllEmbedUsersResults alloc] init];
+	AuthUserServiceAllEmbedUsersParams *params = [[AuthUserServiceAllEmbedUsersParams alloc] init];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"AllEmbedUsers"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GroupEmbedUsers ---
+- (AuthUserServiceGroupEmbedUsersResults *) GroupEmbedUsers {
+	
+	AuthUserServiceGroupEmbedUsersResults *results = [[AuthUserServiceGroupEmbedUsersResults alloc] init];
+	AuthUserServiceGroupEmbedUsersParams *params = [[AuthUserServiceGroupEmbedUsersParams alloc] init];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GroupEmbedUsers"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- UpdateUserProfile ---
+- (AuthUserServiceUpdateUserProfileResults *) UpdateUserProfile:(UserProfileInput *)input {
+	
+	AuthUserServiceUpdateUserProfileResults *results = [[AuthUserServiceUpdateUserProfileResults alloc] init];
+	AuthUserServiceUpdateUserProfileParams *params = [[AuthUserServiceUpdateUserProfileParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"UpdateUserProfile"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- MyCount ---
+- (AuthUserServiceMyCountResults *) MyCount {
+	
+	AuthUserServiceMyCountResults *results = [[AuthUserServiceMyCountResults alloc] init];
+	AuthUserServiceMyCountParams *params = [[AuthUserServiceMyCountParams alloc] init];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"MyCount"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- ReadEntry ---
+- (AuthUserServiceReadEntryResults *) ReadEntry:(NSString *)entryId groupId:(NSString *)groupId {
+	
+	AuthUserServiceReadEntryResults *results = [[AuthUserServiceReadEntryResults alloc] init];
+	AuthUserServiceReadEntryParams *params = [[AuthUserServiceReadEntryParams alloc] init];
+	[params setEntryId:entryId];
+	[params setGroupId:groupId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"ReadEntry"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GetInvitationsInfo ---
+- (AuthUserServiceGetInvitationsInfoResults *) GetInvitationsInfo {
+	
+	AuthUserServiceGetInvitationsInfoResults *results = [[AuthUserServiceGetInvitationsInfoResults alloc] init];
+	AuthUserServiceGetInvitationsInfoParams *params = [[AuthUserServiceGetInvitationsInfoParams alloc] init];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GetInvitationsInfo"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- OrganizationsInfo ---
+- (AuthUserServiceOrganizationsInfoResults *) OrganizationsInfo:(NSArray *)orgIds {
+	
+	AuthUserServiceOrganizationsInfoResults *results = [[AuthUserServiceOrganizationsInfoResults alloc] init];
+	AuthUserServiceOrganizationsInfoParams *params = [[AuthUserServiceOrganizationsInfoParams alloc] init];
+	[params setOrgIds:orgIds];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"OrganizationsInfo"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
 
 // --- OrganizationInfo ---
 - (AuthUserServiceOrganizationInfoResults *) OrganizationInfo:(NSString *)orgId {
@@ -32,6 +11499,288 @@
 	AuthUserServiceOrganizationInfoParams *params = [[AuthUserServiceOrganizationInfoParams alloc] init];
 	[params setOrgId:orgId];
 	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"OrganizationInfo"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- SearchOrganizations ---
+- (AuthUserServiceSearchOrganizationsResults *) SearchOrganizations:(NSString *)query {
+	
+	AuthUserServiceSearchOrganizationsResults *results = [[AuthUserServiceSearchOrganizationsResults alloc] init];
+	AuthUserServiceSearchOrganizationsParams *params = [[AuthUserServiceSearchOrganizationsParams alloc] init];
+	[params setQuery:query];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"SearchOrganizations"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- UpdateOrganization ---
+- (AuthUserServiceUpdateOrganizationResults *) UpdateOrganization:(OrganizationInput *)input {
+	
+	AuthUserServiceUpdateOrganizationResults *results = [[AuthUserServiceUpdateOrganizationResults alloc] init];
+	AuthUserServiceUpdateOrganizationParams *params = [[AuthUserServiceUpdateOrganizationParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"UpdateOrganization"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- SwitchOrganization ---
+- (AuthUserServiceSwitchOrganizationResults *) SwitchOrganization:(NSString *)orgId {
+	
+	AuthUserServiceSwitchOrganizationResults *results = [[AuthUserServiceSwitchOrganizationResults alloc] init];
+	AuthUserServiceSwitchOrganizationParams *params = [[AuthUserServiceSwitchOrganizationParams alloc] init];
+	[params setOrgId:orgId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"SwitchOrganization"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- AcceptSharedGroupRequest ---
+- (AuthUserServiceAcceptSharedGroupRequestResults *) AcceptSharedGroupRequest:(NSString *)fromOrgId sharedOrgId:(NSString *)sharedOrgId sharedGroupId:(NSString *)sharedGroupId fromUserId:(NSString *)fromUserId {
+	
+	AuthUserServiceAcceptSharedGroupRequestResults *results = [[AuthUserServiceAcceptSharedGroupRequestResults alloc] init];
+	AuthUserServiceAcceptSharedGroupRequestParams *params = [[AuthUserServiceAcceptSharedGroupRequestParams alloc] init];
+	[params setFromOrgId:fromOrgId];
+	[params setSharedOrgId:sharedOrgId];
+	[params setSharedGroupId:sharedGroupId];
+	[params setFromUserId:fromUserId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"AcceptSharedGroupRequest"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- RejectSharedGroupRequest ---
+- (AuthUserServiceRejectSharedGroupRequestResults *) RejectSharedGroupRequest:(NSString *)fromOrgId sharedOrgIdHex:(NSString *)sharedOrgIdHex sharedGroupIdHex:(NSString *)sharedGroupIdHex fromUserId:(NSString *)fromUserId {
+	
+	AuthUserServiceRejectSharedGroupRequestResults *results = [[AuthUserServiceRejectSharedGroupRequestResults alloc] init];
+	AuthUserServiceRejectSharedGroupRequestParams *params = [[AuthUserServiceRejectSharedGroupRequestParams alloc] init];
+	[params setFromOrgId:fromOrgId];
+	[params setSharedOrgIdHex:sharedOrgIdHex];
+	[params setSharedGroupIdHex:sharedGroupIdHex];
+	[params setFromUserId:fromUserId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"RejectSharedGroupRequest"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GetOrgSettings ---
+- (AuthUserServiceGetOrgSettingsResults *) GetOrgSettings {
+	
+	AuthUserServiceGetOrgSettingsResults *results = [[AuthUserServiceGetOrgSettingsResults alloc] init];
+	AuthUserServiceGetOrgSettingsParams *params = [[AuthUserServiceGetOrgSettingsParams alloc] init];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GetOrgSettings"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- UpdateOrgSettings ---
+- (AuthUserServiceUpdateOrgSettingsResults *) UpdateOrgSettings:(OrgSettingsInput *)orgSettingInput {
+	
+	AuthUserServiceUpdateOrgSettingsResults *results = [[AuthUserServiceUpdateOrgSettingsResults alloc] init];
+	AuthUserServiceUpdateOrgSettingsParams *params = [[AuthUserServiceUpdateOrgSettingsParams alloc] init];
+	[params setOrgSettingInput:orgSettingInput];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"UpdateOrgSettings"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- CanCreateGroup ---
+- (AuthUserServiceCanCreateGroupResults *) CanCreateGroup {
+	
+	AuthUserServiceCanCreateGroupResults *results = [[AuthUserServiceCanCreateGroupResults alloc] init];
+	AuthUserServiceCanCreateGroupParams *params = [[AuthUserServiceCanCreateGroupParams alloc] init];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"CanCreateGroup"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- CanInvitePeople ---
+- (AuthUserServiceCanInvitePeopleResults *) CanInvitePeople {
+	
+	AuthUserServiceCanInvitePeopleResults *results = [[AuthUserServiceCanInvitePeopleResults alloc] init];
+	AuthUserServiceCanInvitePeopleParams *params = [[AuthUserServiceCanInvitePeopleParams alloc] init];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"CanInvitePeople"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- InvitePeople ---
+- (AuthUserServiceInvitePeopleResults *) InvitePeople:(NSArray *)emails {
+	
+	AuthUserServiceInvitePeopleResults *results = [[AuthUserServiceInvitePeopleResults alloc] init];
+	AuthUserServiceInvitePeopleParams *params = [[AuthUserServiceInvitePeopleParams alloc] init];
+	[params setEmails:emails];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"InvitePeople"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- CancelInvitation ---
+- (AuthUserServiceCancelInvitationResults *) CancelInvitation:(NSString *)email {
+	
+	AuthUserServiceCancelInvitationResults *results = [[AuthUserServiceCancelInvitationResults alloc] init];
+	AuthUserServiceCancelInvitationParams *params = [[AuthUserServiceCancelInvitationParams alloc] init];
+	[params setEmail:email];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"CancelInvitation"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- ResendInvitation ---
+- (AuthUserServiceResendInvitationResults *) ResendInvitation:(NSString *)email {
+	
+	AuthUserServiceResendInvitationResults *results = [[AuthUserServiceResendInvitationResults alloc] init];
+	AuthUserServiceResendInvitationParams *params = [[AuthUserServiceResendInvitationParams alloc] init];
+	[params setEmail:email];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"ResendInvitation"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- PrepareChangeEmail ---
+- (AuthUserServicePrepareChangeEmailResults *) PrepareChangeEmail:(NSString *)newEmail {
+	
+	AuthUserServicePrepareChangeEmailResults *results = [[AuthUserServicePrepareChangeEmailResults alloc] init];
+	AuthUserServicePrepareChangeEmailParams *params = [[AuthUserServicePrepareChangeEmailParams alloc] init];
+	[params setNewEmail:newEmail];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"PrepareChangeEmail"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- ChangeEmail ---
+- (AuthUserServiceChangeEmailResults *) ChangeEmail:(NSString *)token {
+	
+	AuthUserServiceChangeEmailResults *results = [[AuthUserServiceChangeEmailResults alloc] init];
+	AuthUserServiceChangeEmailParams *params = [[AuthUserServiceChangeEmailParams alloc] init];
+	[params setToken:token];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"ChangeEmail"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- UpdateAccount ---
+- (AuthUserServiceUpdateAccountResults *) UpdateAccount:(MemberAccountInput *)input {
+	
+	AuthUserServiceUpdateAccountResults *results = [[AuthUserServiceUpdateAccountResults alloc] init];
+	AuthUserServiceUpdateAccountParams *params = [[AuthUserServiceUpdateAccountParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"UpdateAccount"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- SendSharingInvitation ---
+- (AuthUserServiceSendSharingInvitationResults *) SendSharingInvitation:(NSString *)groupId email:(NSString *)email isResend:(BOOL)isResend {
+	
+	AuthUserServiceSendSharingInvitationResults *results = [[AuthUserServiceSendSharingInvitationResults alloc] init];
+	AuthUserServiceSendSharingInvitationParams *params = [[AuthUserServiceSendSharingInvitationParams alloc] init];
+	[params setGroupId:groupId];
+	[params setEmail:email];
+	[params setIsResend:isResend];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"SendSharingInvitation"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- GetSharingInvitationItems ---
+- (AuthUserServiceGetSharingInvitationItemsResults *) GetSharingInvitationItems:(NSString *)groupId {
+	
+	AuthUserServiceGetSharingInvitationItemsResults *results = [[AuthUserServiceGetSharingInvitationItemsResults alloc] init];
+	AuthUserServiceGetSharingInvitationItemsParams *params = [[AuthUserServiceGetSharingInvitationItemsParams alloc] init];
+	[params setGroupId:groupId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"GetSharingInvitationItems"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- CancelSharing ---
+- (AuthUserServiceCancelSharingResults *) CancelSharing:(NSString *)groupId email:(NSString *)email {
+	
+	AuthUserServiceCancelSharingResults *results = [[AuthUserServiceCancelSharingResults alloc] init];
+	AuthUserServiceCancelSharingParams *params = [[AuthUserServiceCancelSharingParams alloc] init];
+	[params setGroupId:groupId];
+	[params setEmail:email];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"CancelSharing"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- StopSharingGroup ---
+- (AuthUserServiceStopSharingGroupResults *) StopSharingGroup:(NSString *)GroupId toStopOrgId:(NSString *)toStopOrgId {
+	
+	AuthUserServiceStopSharingGroupResults *results = [[AuthUserServiceStopSharingGroupResults alloc] init];
+	AuthUserServiceStopSharingGroupParams *params = [[AuthUserServiceStopSharingGroupParams alloc] init];
+	[params setGroupId:GroupId];
+	[params setToStopOrgId:toStopOrgId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"StopSharingGroup"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- LeaveSharingGroup ---
+- (AuthUserServiceLeaveSharingGroupResults *) LeaveSharingGroup:(NSString *)GroupId {
+	
+	AuthUserServiceLeaveSharingGroupResults *results = [[AuthUserServiceLeaveSharingGroupResults alloc] init];
+	AuthUserServiceLeaveSharingGroupParams *params = [[AuthUserServiceLeaveSharingGroupParams alloc] init];
+	[params setGroupId:GroupId];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"LeaveSharingGroup"]];
+	NSLog(@"%@", requestUrl);
+	//[DoRequest:params results:results];
+	return results;
+}
+
+// --- ShareChat ---
+- (AuthUserServiceShareChatResults *) ShareChat:(ShareChatInput *)input {
+	
+	AuthUserServiceShareChatResults *results = [[AuthUserServiceShareChatResults alloc] init];
+	AuthUserServiceShareChatParams *params = [[AuthUserServiceShareChatParams alloc] init];
+	[params setInput:input];
+	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"AuthUserService", @"ShareChat"]];
+	NSLog(@"%@", requestUrl);
 	//[DoRequest:params results:results];
 	return results;
 }
@@ -48,6 +11797,8 @@
 	[params setEmail:email];
 	[params setPassword:password];
 	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"Global", @"GetSession"]];
+	NSLog(@"%@", requestUrl);
 	//[DoRequest:params results:results];
 	return results;
 }
@@ -58,6 +11809,8 @@
 	AuthUserService *results = [[AuthUserService alloc] init];
 	[results setSession:session];
 	
+	NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@/%@.json", [[Qortexapi get] BaseURL], @"Global", @"GetAuthUserService"]];
+	NSLog(@"%@", requestUrl);
 	//[DoRequest:params results:results];
 	return results;
 }
