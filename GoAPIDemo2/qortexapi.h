@@ -1259,7 +1259,7 @@
 - (NSDictionary*) dictionary;
 
 
-- (NoAuthUserServiceCancelChangingEmailResults *) CancelChangingEmail:(NSString *)token;
+- (NSError *) CancelChangingEmail:(NSString *)token;
 
 - (NoAuthUserServiceChangeEmailResults *) ChangeEmail:(NSString *)token;
 
@@ -1400,11 +1400,11 @@
 
 - (AuthMemberServiceGetAbandonUserInfoResults *) GetAbandonUserInfo:(NSString *)organizationId memberId:(NSString *)memberId;
 
-- (AuthMemberServiceSwitchOrganizationResults *) SwitchOrganization:(NSString *)orgId;
+- (NSError *) SwitchOrganization:(NSString *)orgId;
 
 - (AuthMemberServiceGetSharingInviationByTokenResults *) GetSharingInviationByToken:(NSString *)sharingInviationToken;
 
-- (AuthMemberServiceRejectSharingBeforeForwardingResults *) RejectSharingBeforeForwarding:(NSString *)groupId email:(NSString *)email;
+- (NSError *) RejectSharingBeforeForwarding:(NSString *)groupId email:(NSString *)email;
 
 - (AuthMemberServiceResponseSharingRequestResults *) ResponseSharingRequest:(NSString *)token fromOrgId:(NSString *)fromOrgId fromUserId:(NSString *)fromUserId forSharingOrgId:(NSString *)forSharingOrgId groupId:(NSString *)groupId;
 @end
@@ -3479,7 +3479,7 @@
 
 - (AuthUserServiceStopWatchingResults *) StopWatching:(NSString *)entryId groupId:(NSString *)groupId;
 
-- (AuthUserServiceReadWatchingResults *) ReadWatching:(NSString *)entryId groupId:(NSString *)groupId;
+- (NSError *) ReadWatching:(NSString *)entryId groupId:(NSString *)groupId;
 
 - (AuthUserServiceUpdateLikeResults *) UpdateLike:(LikeInput *)input;
 
@@ -3487,7 +3487,7 @@
 
 - (AuthUserServiceGetDraftResults *) GetDraft:(NSString *)entryId groupId:(NSString *)groupId;
 
-- (AuthUserServiceDeleteDraftResults *) DeleteDraft:(NSString *)entryId groupId:(NSString *)groupId;
+- (NSError *) DeleteDraft:(NSString *)entryId groupId:(NSString *)groupId;
 
 - (AuthUserServiceNewGroupResults *) NewGroup;
 
@@ -3497,9 +3497,9 @@
 
 - (AuthUserServiceUpdateGroupResults *) UpdateGroup:(GroupInput *)input;
 
-- (AuthUserServiceUpdateGroupLogoResults *) UpdateGroupLogo:(NSString *)groupId logoURL:(NSString *)logoURL;
+- (NSError *) UpdateGroupLogo:(NSString *)groupId logoURL:(NSString *)logoURL;
 
-- (AuthUserServiceDeleteGroupResults *) DeleteGroup:(NSString *)groupId;
+- (NSError *) DeleteGroup:(NSString *)groupId;
 
 - (AuthUserServiceGroupBySlugResults *) GroupBySlug:(NSString *)slug;
 
@@ -3507,9 +3507,9 @@
 
 - (AuthUserServiceGetPublicGroupsResults *) GetPublicGroups:(NSString *)keyword;
 
-- (AuthUserServiceAddUserToGroupResults *) AddUserToGroup:(NSString *)groupId userId:(NSString *)userId;
+- (NSError *) AddUserToGroup:(NSString *)groupId userId:(NSString *)userId;
 
-- (AuthUserServiceRemoveUserFromGroupResults *) RemoveUserFromGroup:(NSString *)groupId userId:(NSString *)userId;
+- (NSError *) RemoveUserFromGroup:(NSString *)groupId userId:(NSString *)userId;
 
 - (AuthUserServiceGetGroupHeaderItemResults *) GetGroupHeaderItem:(NSString *)groupId;
 
@@ -3521,19 +3521,19 @@
 
 - (AuthUserServiceGetUserResults *) GetUser:(NSString *)userId;
 
-- (AuthUserServiceEnableUserResults *) EnableUser:(NSString *)userId;
+- (NSError *) EnableUser:(NSString *)userId;
 
-- (AuthUserServiceDisableUserResults *) DisableUser:(NSString *)userId;
+- (NSError *) DisableUser:(NSString *)userId;
 
-- (AuthUserServiceDeleteUserResults *) DeleteUser:(NSString *)userId;
+- (NSError *) DeleteUser:(NSString *)userId;
 
-- (AuthUserServicePromoteToSuperUserResults *) PromoteToSuperUser:(NSString *)userId;
+- (NSError *) PromoteToSuperUser:(NSString *)userId;
 
-- (AuthUserServiceDemoteFromSuperUserResults *) DemoteFromSuperUser:(NSString *)userId;
+- (NSError *) DemoteFromSuperUser:(NSString *)userId;
 
-- (AuthUserServiceFollowUserResults *) FollowUser:(NSString *)userId;
+- (NSError *) FollowUser:(NSString *)userId;
 
-- (AuthUserServiceUnfollowUserResults *) UnfollowUser:(NSString *)userId;
+- (NSError *) UnfollowUser:(NSString *)userId;
 
 - (AuthUserServiceMyFollowingUsersResults *) MyFollowingUsers;
 
@@ -3563,7 +3563,7 @@
 
 - (AuthUserServiceUpdateOrganizationResults *) UpdateOrganization:(OrganizationInput *)input;
 
-- (AuthUserServiceSwitchOrganizationResults *) SwitchOrganization:(NSString *)orgId;
+- (NSError *) SwitchOrganization:(NSString *)orgId;
 
 - (AuthUserServiceAcceptSharedGroupRequestResults *) AcceptSharedGroupRequest:(NSString *)fromOrgId sharedOrgId:(NSString *)sharedOrgId sharedGroupId:(NSString *)sharedGroupId fromUserId:(NSString *)fromUserId;
 
@@ -3571,7 +3571,7 @@
 
 - (AuthUserServiceGetOrgSettingsResults *) GetOrgSettings;
 
-- (AuthUserServiceUpdateOrgSettingsResults *) UpdateOrgSettings:(OrgSettingsInput *)orgSettingInput;
+- (NSError *) UpdateOrgSettings:(OrgSettingsInput *)orgSettingInput;
 
 - (AuthUserServiceCanCreateGroupResults *) CanCreateGroup;
 
@@ -3579,13 +3579,13 @@
 
 - (AuthUserServiceInvitePeopleResults *) InvitePeople:(NSArray *)emails;
 
-- (AuthUserServiceCancelInvitationResults *) CancelInvitation:(NSString *)email;
+- (NSError *) CancelInvitation:(NSString *)email;
 
-- (AuthUserServiceResendInvitationResults *) ResendInvitation:(NSString *)email;
+- (NSError *) ResendInvitation:(NSString *)email;
 
 - (AuthUserServicePrepareChangeEmailResults *) PrepareChangeEmail:(NSString *)newEmail;
 
-- (AuthUserServiceChangeEmailResults *) ChangeEmail:(NSString *)token;
+- (NSError *) ChangeEmail:(NSString *)token;
 
 - (AuthUserServiceUpdateAccountResults *) UpdateAccount:(MemberAccountInput *)input;
 
@@ -3593,11 +3593,11 @@
 
 - (AuthUserServiceGetSharingInvitationItemsResults *) GetSharingInvitationItems:(NSString *)groupId;
 
-- (AuthUserServiceCancelSharingResults *) CancelSharing:(NSString *)groupId email:(NSString *)email;
+- (NSError *) CancelSharing:(NSString *)groupId email:(NSString *)email;
 
-- (AuthUserServiceStopSharingGroupResults *) StopSharingGroup:(NSString *)GroupId toStopOrgId:(NSString *)toStopOrgId;
+- (NSError *) StopSharingGroup:(NSString *)GroupId toStopOrgId:(NSString *)toStopOrgId;
 
-- (AuthUserServiceLeaveSharingGroupResults *) LeaveSharingGroup:(NSString *)GroupId;
+- (NSError *) LeaveSharingGroup:(NSString *)GroupId;
 
 - (AuthUserServiceShareChatResults *) ShareChat:(ShareChatInput *)input;
 @end

@@ -15,9 +15,9 @@ static Qortexapi * _qortexapi;
 	NSMutableURLRequest *httpRequest = [NSMutableURLRequest requestWithURL:url];
 	[httpRequest setHTTPMethod:@"POST"];
 	[httpRequest setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-
+	Qortexapi * _api = [Qortexapi get];
 	NSData *requestBody = [NSJSONSerialization dataWithJSONObject:req options:NSJSONWritingPrettyPrinted error:error];
-	if([[Qortexapi get] Verbose]) {
+	if([_api Verbose]) {
 		NSLog(@"Request: %@", [NSString stringWithUTF8String:[requestBody bytes]]);
 	}
 	[httpRequest setHTTPBody:requestBody];
@@ -29,7 +29,7 @@ static Qortexapi * _qortexapi;
 	if(*error != nil || returnData == nil) {
 		return nil;
 	}
-	if([[Qortexapi get] Verbose]) {
+	if([_api Verbose]) {
 		NSLog(@"Response: %@", [NSString stringWithUTF8String:[returnData bytes]]);
 	}
 	return [NSJSONSerialization JSONObjectWithData:returnData options:NSJSONReadingAllowFragments error:error];
@@ -10309,28 +10309,29 @@ static Qortexapi * _qortexapi;
 
 
 // --- CancelChangingEmail ---
-- (NoAuthUserServiceCancelChangingEmailResults *) CancelChangingEmail:(NSString *)token {
+- (NSError *) CancelChangingEmail:(NSString *)token {
 	
 	NoAuthUserServiceCancelChangingEmailResults *results = [[NoAuthUserServiceCancelChangingEmailResults alloc] init];
 	NoAuthUserServiceCancelChangingEmailParams *params = [[NoAuthUserServiceCancelChangingEmailParams alloc] init];
 	[params setToken:token];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/CancelChangingEmail.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/CancelChangingEmail.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- ChangeEmail ---
@@ -10340,14 +10341,15 @@ static Qortexapi * _qortexapi;
 	NoAuthUserServiceChangeEmailParams *params = [[NoAuthUserServiceChangeEmailParams alloc] init];
 	[params setToken:token];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/ChangeEmail.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/ChangeEmail.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10366,14 +10368,15 @@ static Qortexapi * _qortexapi;
 	[params setMemberId:memberId];
 	[params setNewEmail:newEmail];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/PrepareChangeEmail.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/PrepareChangeEmail.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10392,14 +10395,15 @@ static Qortexapi * _qortexapi;
 	[params setSharingInviationToken:sharingInviationToken];
 	[params setMemberId:memberId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/GetSharingInviation.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/GetSharingInviation.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10418,14 +10422,15 @@ static Qortexapi * _qortexapi;
 	[params setToken:token];
 	[params setNewEmail:newEmail];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/ChangeEmailToAcceptSharing.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/ChangeEmailToAcceptSharing.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10443,14 +10448,15 @@ static Qortexapi * _qortexapi;
 	NoAuthUserServiceAskHelpParams *params = [[NoAuthUserServiceAskHelpParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/AskHelp.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/AskHelp.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10470,14 +10476,15 @@ static Qortexapi * _qortexapi;
 	[params setPageNum:pageNum];
 	[params setLimit:limit];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/BlogEntries.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/BlogEntries.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10496,14 +10503,15 @@ static Qortexapi * _qortexapi;
 	[params setDoi:doi];
 	[params setSlug:slug];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/BlogEntryBySlug.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/BlogEntryBySlug.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10522,14 +10530,15 @@ static Qortexapi * _qortexapi;
 	[params setDoi:doi];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/CreateExternalComment.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/CreateExternalComment.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10548,14 +10557,15 @@ static Qortexapi * _qortexapi;
 	[params setDoi:doi];
 	[params setSlug:slug];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/CheckSlug.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/CheckSlug.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10573,14 +10583,15 @@ static Qortexapi * _qortexapi;
 	NoAuthUserServiceCreateNewsletterParams *params = [[NoAuthUserServiceCreateNewsletterParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/CreateNewsletter.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/NoAuthUserService/CreateNewsletter.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10607,14 +10618,15 @@ static Qortexapi * _qortexapi;
 	[params setOrganizationId:organizationId];
 	[params setMemberId:memberId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthMemberService/GetAbandonUserInfo.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthMemberService/GetAbandonUserInfo.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10626,28 +10638,29 @@ static Qortexapi * _qortexapi;
 }
 
 // --- SwitchOrganization ---
-- (AuthMemberServiceSwitchOrganizationResults *) SwitchOrganization:(NSString *)orgId {
+- (NSError *) SwitchOrganization:(NSString *)orgId {
 	
 	AuthMemberServiceSwitchOrganizationResults *results = [[AuthMemberServiceSwitchOrganizationResults alloc] init];
 	AuthMemberServiceSwitchOrganizationParams *params = [[AuthMemberServiceSwitchOrganizationParams alloc] init];
 	[params setOrgId:orgId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthMemberService/SwitchOrganization.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthMemberService/SwitchOrganization.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- GetSharingInviationByToken ---
@@ -10657,14 +10670,15 @@ static Qortexapi * _qortexapi;
 	AuthMemberServiceGetSharingInviationByTokenParams *params = [[AuthMemberServiceGetSharingInviationByTokenParams alloc] init];
 	[params setSharingInviationToken:sharingInviationToken];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthMemberService/GetSharingInviationByToken.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthMemberService/GetSharingInviationByToken.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10676,29 +10690,30 @@ static Qortexapi * _qortexapi;
 }
 
 // --- RejectSharingBeforeForwarding ---
-- (AuthMemberServiceRejectSharingBeforeForwardingResults *) RejectSharingBeforeForwarding:(NSString *)groupId email:(NSString *)email {
+- (NSError *) RejectSharingBeforeForwarding:(NSString *)groupId email:(NSString *)email {
 	
 	AuthMemberServiceRejectSharingBeforeForwardingResults *results = [[AuthMemberServiceRejectSharingBeforeForwardingResults alloc] init];
 	AuthMemberServiceRejectSharingBeforeForwardingParams *params = [[AuthMemberServiceRejectSharingBeforeForwardingParams alloc] init];
 	[params setGroupId:groupId];
 	[params setEmail:email];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthMemberService/RejectSharingBeforeForwarding.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthMemberService/RejectSharingBeforeForwarding.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- ResponseSharingRequest ---
@@ -10712,14 +10727,15 @@ static Qortexapi * _qortexapi;
 	[params setForSharingOrgId:forSharingOrgId];
 	[params setGroupId:groupId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthMemberService/ResponseSharingRequest.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthMemberService/ResponseSharingRequest.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10765,14 +10781,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceNewEntryParams *params = [[AuthUserServiceNewEntryParams alloc] init];
 	[params setGroupId:groupId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/NewEntry.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/NewEntry.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10792,14 +10809,15 @@ static Qortexapi * _qortexapi;
 	[params setBefore:before];
 	[params setLimit:limit];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/QortexMessages.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/QortexMessages.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10817,14 +10835,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceCreateBroadcastParams *params = [[AuthUserServiceCreateBroadcastParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CreateBroadcast.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CreateBroadcast.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10842,14 +10861,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceCreateBroadcastCommentParams *params = [[AuthUserServiceCreateBroadcastCommentParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CreateBroadcastComment.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CreateBroadcastComment.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10867,14 +10887,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceGetRequestParams *params = [[AuthUserServiceGetRequestParams alloc] init];
 	[params setEntryId:entryId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetRequest.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetRequest.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10892,14 +10913,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceEditBroadcastParams *params = [[AuthUserServiceEditBroadcastParams alloc] init];
 	[params setEntryId:entryId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/EditBroadcast.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/EditBroadcast.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10917,14 +10939,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceEditBroadcastCommentParams *params = [[AuthUserServiceEditBroadcastCommentParams alloc] init];
 	[params setEntryId:entryId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/EditBroadcastComment.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/EditBroadcastComment.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10942,14 +10965,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceUpdateBroadcastParams *params = [[AuthUserServiceUpdateBroadcastParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateBroadcast.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateBroadcast.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10967,14 +10991,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceUpdateBroadcastCommentParams *params = [[AuthUserServiceUpdateBroadcastCommentParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateBroadcastComment.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateBroadcastComment.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -10992,14 +11017,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceCreatePostParams *params = [[AuthUserServiceCreatePostParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CreatePost.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CreatePost.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11017,14 +11043,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceCreateTaskParams *params = [[AuthUserServiceCreateTaskParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CreateTask.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CreateTask.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11043,14 +11070,15 @@ static Qortexapi * _qortexapi;
 	[params setEntryId:entryId];
 	[params setGroupId:groupId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CloseTask.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CloseTask.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11068,14 +11096,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceCreateCommentParams *params = [[AuthUserServiceCreateCommentParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CreateComment.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CreateComment.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11094,14 +11123,15 @@ static Qortexapi * _qortexapi;
 	[params setEntryId:entryId];
 	[params setGroupId:groupId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetComment.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetComment.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11119,14 +11149,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceUpdateCommentParams *params = [[AuthUserServiceUpdateCommentParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateComment.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateComment.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11144,14 +11175,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceUpdateEntryParams *params = [[AuthUserServiceUpdateEntryParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateEntry.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateEntry.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11170,14 +11202,15 @@ static Qortexapi * _qortexapi;
 	[params setTitle:title];
 	[params setGroupId:groupId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetLatestUpdatedEntryIdByTitle.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetLatestUpdatedEntryIdByTitle.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11198,14 +11231,15 @@ static Qortexapi * _qortexapi;
 	[params setUpdateAtUnixNano:updateAtUnixNano];
 	[params setSearchKeyWords:searchKeyWords];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetEntry.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetEntry.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11225,14 +11259,15 @@ static Qortexapi * _qortexapi;
 	[params setGroupId:groupId];
 	[params setDType:dType];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/DeleteEntry.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/DeleteEntry.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11251,14 +11286,15 @@ static Qortexapi * _qortexapi;
 	[params setEntryId:entryId];
 	[params setGroupId:groupId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/EntryAttachments.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/EntryAttachments.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11279,14 +11315,15 @@ static Qortexapi * _qortexapi;
 	[params setVersionUpdateat:versionUpdateat];
 	[params setSearchKeyWords:searchKeyWords];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/OtherComments.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/OtherComments.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11307,14 +11344,15 @@ static Qortexapi * _qortexapi;
 	[params setBefore:before];
 	[params setLimit:limit];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GroupEntries.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GroupEntries.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11334,14 +11372,15 @@ static Qortexapi * _qortexapi;
 	[params setBefore:before];
 	[params setLimit:limit];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/MyFeedEntries.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/MyFeedEntries.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11361,14 +11400,15 @@ static Qortexapi * _qortexapi;
 	[params setFrom:From];
 	[params setLimit:limit];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/NewFeedEntries.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/NewFeedEntries.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11388,14 +11428,15 @@ static Qortexapi * _qortexapi;
 	[params setBefore:before];
 	[params setLimit:limit];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/MyTaskEntries.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/MyTaskEntries.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11416,14 +11457,15 @@ static Qortexapi * _qortexapi;
 	[params setBefore:before];
 	[params setLimit:limit];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UserEntries.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UserEntries.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11442,14 +11484,15 @@ static Qortexapi * _qortexapi;
 	[params setBefore:before];
 	[params setLimit:limit];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/MyChatEntries.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/MyChatEntries.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11468,14 +11511,15 @@ static Qortexapi * _qortexapi;
 	[params setBefore:before];
 	[params setLimit:limit];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/MyNotificationItems.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/MyNotificationItems.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11493,14 +11537,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceMarkAllAsReadParams *params = [[AuthUserServiceMarkAllAsReadParams alloc] init];
 	[params setGroupId:groupId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/MarkAllAsRead.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/MarkAllAsRead.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11519,14 +11564,15 @@ static Qortexapi * _qortexapi;
 	[params setBefore:before];
 	[params setLimit:limit];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetWatchList.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetWatchList.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11545,14 +11591,15 @@ static Qortexapi * _qortexapi;
 	[params setEntryId:entryId];
 	[params setGroupId:groupId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/AddToWatchList.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/AddToWatchList.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11571,14 +11618,15 @@ static Qortexapi * _qortexapi;
 	[params setEntryId:entryId];
 	[params setGroupId:groupId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/StopWatching.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/StopWatching.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11590,29 +11638,30 @@ static Qortexapi * _qortexapi;
 }
 
 // --- ReadWatching ---
-- (AuthUserServiceReadWatchingResults *) ReadWatching:(NSString *)entryId groupId:(NSString *)groupId {
+- (NSError *) ReadWatching:(NSString *)entryId groupId:(NSString *)groupId {
 	
 	AuthUserServiceReadWatchingResults *results = [[AuthUserServiceReadWatchingResults alloc] init];
 	AuthUserServiceReadWatchingParams *params = [[AuthUserServiceReadWatchingParams alloc] init];
 	[params setEntryId:entryId];
 	[params setGroupId:groupId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/ReadWatching.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/ReadWatching.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- UpdateLike ---
@@ -11622,14 +11671,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceUpdateLikeParams *params = [[AuthUserServiceUpdateLikeParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateLike.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateLike.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11648,14 +11698,15 @@ static Qortexapi * _qortexapi;
 	[params setBefore:before];
 	[params setLimit:limit];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetDraftList.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetDraftList.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11674,14 +11725,15 @@ static Qortexapi * _qortexapi;
 	[params setEntryId:entryId];
 	[params setGroupId:groupId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetDraft.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetDraft.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11693,29 +11745,30 @@ static Qortexapi * _qortexapi;
 }
 
 // --- DeleteDraft ---
-- (AuthUserServiceDeleteDraftResults *) DeleteDraft:(NSString *)entryId groupId:(NSString *)groupId {
+- (NSError *) DeleteDraft:(NSString *)entryId groupId:(NSString *)groupId {
 	
 	AuthUserServiceDeleteDraftResults *results = [[AuthUserServiceDeleteDraftResults alloc] init];
 	AuthUserServiceDeleteDraftParams *params = [[AuthUserServiceDeleteDraftParams alloc] init];
 	[params setEntryId:entryId];
 	[params setGroupId:groupId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/DeleteDraft.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/DeleteDraft.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- NewGroup ---
@@ -11724,14 +11777,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceNewGroupResults *results = [[AuthUserServiceNewGroupResults alloc] init];
 	AuthUserServiceNewGroupParams *params = [[AuthUserServiceNewGroupParams alloc] init];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/NewGroup.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/NewGroup.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11749,14 +11803,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceGetGroupParams *params = [[AuthUserServiceGetGroupParams alloc] init];
 	[params setGroupId:groupId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetGroup.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetGroup.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11774,14 +11829,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceCreateGroupParams *params = [[AuthUserServiceCreateGroupParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CreateGroup.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CreateGroup.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11799,14 +11855,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceUpdateGroupParams *params = [[AuthUserServiceUpdateGroupParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateGroup.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateGroup.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11818,54 +11875,56 @@ static Qortexapi * _qortexapi;
 }
 
 // --- UpdateGroupLogo ---
-- (AuthUserServiceUpdateGroupLogoResults *) UpdateGroupLogo:(NSString *)groupId logoURL:(NSString *)logoURL {
+- (NSError *) UpdateGroupLogo:(NSString *)groupId logoURL:(NSString *)logoURL {
 	
 	AuthUserServiceUpdateGroupLogoResults *results = [[AuthUserServiceUpdateGroupLogoResults alloc] init];
 	AuthUserServiceUpdateGroupLogoParams *params = [[AuthUserServiceUpdateGroupLogoParams alloc] init];
 	[params setGroupId:groupId];
 	[params setLogoURL:logoURL];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateGroupLogo.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateGroupLogo.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- DeleteGroup ---
-- (AuthUserServiceDeleteGroupResults *) DeleteGroup:(NSString *)groupId {
+- (NSError *) DeleteGroup:(NSString *)groupId {
 	
 	AuthUserServiceDeleteGroupResults *results = [[AuthUserServiceDeleteGroupResults alloc] init];
 	AuthUserServiceDeleteGroupParams *params = [[AuthUserServiceDeleteGroupParams alloc] init];
 	[params setGroupId:groupId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/DeleteGroup.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/DeleteGroup.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- GroupBySlug ---
@@ -11875,14 +11934,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceGroupBySlugParams *params = [[AuthUserServiceGroupBySlugParams alloc] init];
 	[params setSlug:slug];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GroupBySlug.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GroupBySlug.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11900,14 +11960,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceGetAllGroupsParams *params = [[AuthUserServiceGetAllGroupsParams alloc] init];
 	[params setKeyword:keyword];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetAllGroups.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetAllGroups.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11925,14 +11986,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceGetPublicGroupsParams *params = [[AuthUserServiceGetPublicGroupsParams alloc] init];
 	[params setKeyword:keyword];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetPublicGroups.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetPublicGroups.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -11944,55 +12006,57 @@ static Qortexapi * _qortexapi;
 }
 
 // --- AddUserToGroup ---
-- (AuthUserServiceAddUserToGroupResults *) AddUserToGroup:(NSString *)groupId userId:(NSString *)userId {
+- (NSError *) AddUserToGroup:(NSString *)groupId userId:(NSString *)userId {
 	
 	AuthUserServiceAddUserToGroupResults *results = [[AuthUserServiceAddUserToGroupResults alloc] init];
 	AuthUserServiceAddUserToGroupParams *params = [[AuthUserServiceAddUserToGroupParams alloc] init];
 	[params setGroupId:groupId];
 	[params setUserId:userId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/AddUserToGroup.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/AddUserToGroup.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- RemoveUserFromGroup ---
-- (AuthUserServiceRemoveUserFromGroupResults *) RemoveUserFromGroup:(NSString *)groupId userId:(NSString *)userId {
+- (NSError *) RemoveUserFromGroup:(NSString *)groupId userId:(NSString *)userId {
 	
 	AuthUserServiceRemoveUserFromGroupResults *results = [[AuthUserServiceRemoveUserFromGroupResults alloc] init];
 	AuthUserServiceRemoveUserFromGroupParams *params = [[AuthUserServiceRemoveUserFromGroupParams alloc] init];
 	[params setGroupId:groupId];
 	[params setUserId:userId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/RemoveUserFromGroup.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/RemoveUserFromGroup.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- GetGroupHeaderItem ---
@@ -12002,14 +12066,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceGetGroupHeaderItemParams *params = [[AuthUserServiceGetGroupHeaderItemParams alloc] init];
 	[params setGroupId:groupId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetGroupHeaderItem.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetGroupHeaderItem.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12026,14 +12091,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceClassifyMyGroupsResults *results = [[AuthUserServiceClassifyMyGroupsResults alloc] init];
 	AuthUserServiceClassifyMyGroupsParams *params = [[AuthUserServiceClassifyMyGroupsParams alloc] init];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/ClassifyMyGroups.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/ClassifyMyGroups.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12053,14 +12119,15 @@ static Qortexapi * _qortexapi;
 	[params setSortKey:sortKey];
 	[params setCountPerPage:countPerPage];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/OrganizationUsers.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/OrganizationUsers.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12082,14 +12149,15 @@ static Qortexapi * _qortexapi;
 	[params setSortKey:sortKey];
 	[params setCountPerPage:countPerPage];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GroupUsers.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GroupUsers.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12107,14 +12175,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceGetUserParams *params = [[AuthUserServiceGetUserParams alloc] init];
 	[params setUserId:userId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetUser.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetUser.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12126,178 +12195,185 @@ static Qortexapi * _qortexapi;
 }
 
 // --- EnableUser ---
-- (AuthUserServiceEnableUserResults *) EnableUser:(NSString *)userId {
+- (NSError *) EnableUser:(NSString *)userId {
 	
 	AuthUserServiceEnableUserResults *results = [[AuthUserServiceEnableUserResults alloc] init];
 	AuthUserServiceEnableUserParams *params = [[AuthUserServiceEnableUserParams alloc] init];
 	[params setUserId:userId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/EnableUser.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/EnableUser.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- DisableUser ---
-- (AuthUserServiceDisableUserResults *) DisableUser:(NSString *)userId {
+- (NSError *) DisableUser:(NSString *)userId {
 	
 	AuthUserServiceDisableUserResults *results = [[AuthUserServiceDisableUserResults alloc] init];
 	AuthUserServiceDisableUserParams *params = [[AuthUserServiceDisableUserParams alloc] init];
 	[params setUserId:userId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/DisableUser.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/DisableUser.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- DeleteUser ---
-- (AuthUserServiceDeleteUserResults *) DeleteUser:(NSString *)userId {
+- (NSError *) DeleteUser:(NSString *)userId {
 	
 	AuthUserServiceDeleteUserResults *results = [[AuthUserServiceDeleteUserResults alloc] init];
 	AuthUserServiceDeleteUserParams *params = [[AuthUserServiceDeleteUserParams alloc] init];
 	[params setUserId:userId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/DeleteUser.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/DeleteUser.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- PromoteToSuperUser ---
-- (AuthUserServicePromoteToSuperUserResults *) PromoteToSuperUser:(NSString *)userId {
+- (NSError *) PromoteToSuperUser:(NSString *)userId {
 	
 	AuthUserServicePromoteToSuperUserResults *results = [[AuthUserServicePromoteToSuperUserResults alloc] init];
 	AuthUserServicePromoteToSuperUserParams *params = [[AuthUserServicePromoteToSuperUserParams alloc] init];
 	[params setUserId:userId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/PromoteToSuperUser.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/PromoteToSuperUser.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- DemoteFromSuperUser ---
-- (AuthUserServiceDemoteFromSuperUserResults *) DemoteFromSuperUser:(NSString *)userId {
+- (NSError *) DemoteFromSuperUser:(NSString *)userId {
 	
 	AuthUserServiceDemoteFromSuperUserResults *results = [[AuthUserServiceDemoteFromSuperUserResults alloc] init];
 	AuthUserServiceDemoteFromSuperUserParams *params = [[AuthUserServiceDemoteFromSuperUserParams alloc] init];
 	[params setUserId:userId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/DemoteFromSuperUser.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/DemoteFromSuperUser.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- FollowUser ---
-- (AuthUserServiceFollowUserResults *) FollowUser:(NSString *)userId {
+- (NSError *) FollowUser:(NSString *)userId {
 	
 	AuthUserServiceFollowUserResults *results = [[AuthUserServiceFollowUserResults alloc] init];
 	AuthUserServiceFollowUserParams *params = [[AuthUserServiceFollowUserParams alloc] init];
 	[params setUserId:userId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/FollowUser.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/FollowUser.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- UnfollowUser ---
-- (AuthUserServiceUnfollowUserResults *) UnfollowUser:(NSString *)userId {
+- (NSError *) UnfollowUser:(NSString *)userId {
 	
 	AuthUserServiceUnfollowUserResults *results = [[AuthUserServiceUnfollowUserResults alloc] init];
 	AuthUserServiceUnfollowUserParams *params = [[AuthUserServiceUnfollowUserParams alloc] init];
 	[params setUserId:userId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UnfollowUser.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UnfollowUser.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- MyFollowingUsers ---
@@ -12306,14 +12382,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceMyFollowingUsersResults *results = [[AuthUserServiceMyFollowingUsersResults alloc] init];
 	AuthUserServiceMyFollowingUsersParams *params = [[AuthUserServiceMyFollowingUsersParams alloc] init];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/MyFollowingUsers.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/MyFollowingUsers.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12330,14 +12407,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServicePanelStatusResults *results = [[AuthUserServicePanelStatusResults alloc] init];
 	AuthUserServicePanelStatusParams *params = [[AuthUserServicePanelStatusParams alloc] init];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/PanelStatus.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/PanelStatus.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12354,14 +12432,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServicePreferencesResults *results = [[AuthUserServicePreferencesResults alloc] init];
 	AuthUserServicePreferencesParams *params = [[AuthUserServicePreferencesParams alloc] init];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/Preferences.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/Preferences.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12379,14 +12458,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceUpdatePreferencesParams *params = [[AuthUserServiceUpdatePreferencesParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdatePreferences.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdatePreferences.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12403,14 +12483,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceAllEmbedUsersResults *results = [[AuthUserServiceAllEmbedUsersResults alloc] init];
 	AuthUserServiceAllEmbedUsersParams *params = [[AuthUserServiceAllEmbedUsersParams alloc] init];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/AllEmbedUsers.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/AllEmbedUsers.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12427,14 +12508,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceGroupEmbedUsersResults *results = [[AuthUserServiceGroupEmbedUsersResults alloc] init];
 	AuthUserServiceGroupEmbedUsersParams *params = [[AuthUserServiceGroupEmbedUsersParams alloc] init];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GroupEmbedUsers.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GroupEmbedUsers.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12452,14 +12534,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceUpdateUserProfileParams *params = [[AuthUserServiceUpdateUserProfileParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateUserProfile.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateUserProfile.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12476,14 +12559,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceMyCountResults *results = [[AuthUserServiceMyCountResults alloc] init];
 	AuthUserServiceMyCountParams *params = [[AuthUserServiceMyCountParams alloc] init];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/MyCount.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/MyCount.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12502,14 +12586,15 @@ static Qortexapi * _qortexapi;
 	[params setEntryId:entryId];
 	[params setGroupId:groupId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/ReadEntry.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/ReadEntry.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12526,14 +12611,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceGetInvitationsInfoResults *results = [[AuthUserServiceGetInvitationsInfoResults alloc] init];
 	AuthUserServiceGetInvitationsInfoParams *params = [[AuthUserServiceGetInvitationsInfoParams alloc] init];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetInvitationsInfo.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetInvitationsInfo.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12551,14 +12637,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceOrganizationsInfoParams *params = [[AuthUserServiceOrganizationsInfoParams alloc] init];
 	[params setOrgIds:orgIds];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/OrganizationsInfo.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/OrganizationsInfo.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12576,14 +12663,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceOrganizationInfoParams *params = [[AuthUserServiceOrganizationInfoParams alloc] init];
 	[params setOrgId:orgId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/OrganizationInfo.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/OrganizationInfo.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12601,14 +12689,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceSearchOrganizationsParams *params = [[AuthUserServiceSearchOrganizationsParams alloc] init];
 	[params setQuery:query];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/SearchOrganizations.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/SearchOrganizations.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12626,14 +12715,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceUpdateOrganizationParams *params = [[AuthUserServiceUpdateOrganizationParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateOrganization.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateOrganization.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12645,28 +12735,29 @@ static Qortexapi * _qortexapi;
 }
 
 // --- SwitchOrganization ---
-- (AuthUserServiceSwitchOrganizationResults *) SwitchOrganization:(NSString *)orgId {
+- (NSError *) SwitchOrganization:(NSString *)orgId {
 	
 	AuthUserServiceSwitchOrganizationResults *results = [[AuthUserServiceSwitchOrganizationResults alloc] init];
 	AuthUserServiceSwitchOrganizationParams *params = [[AuthUserServiceSwitchOrganizationParams alloc] init];
 	[params setOrgId:orgId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/SwitchOrganization.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/SwitchOrganization.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- AcceptSharedGroupRequest ---
@@ -12679,14 +12770,15 @@ static Qortexapi * _qortexapi;
 	[params setSharedGroupId:sharedGroupId];
 	[params setFromUserId:fromUserId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/AcceptSharedGroupRequest.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/AcceptSharedGroupRequest.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12707,14 +12799,15 @@ static Qortexapi * _qortexapi;
 	[params setSharedGroupIdHex:sharedGroupIdHex];
 	[params setFromUserId:fromUserId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/RejectSharedGroupRequest.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/RejectSharedGroupRequest.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12731,14 +12824,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceGetOrgSettingsResults *results = [[AuthUserServiceGetOrgSettingsResults alloc] init];
 	AuthUserServiceGetOrgSettingsParams *params = [[AuthUserServiceGetOrgSettingsParams alloc] init];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetOrgSettings.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetOrgSettings.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12750,28 +12844,29 @@ static Qortexapi * _qortexapi;
 }
 
 // --- UpdateOrgSettings ---
-- (AuthUserServiceUpdateOrgSettingsResults *) UpdateOrgSettings:(OrgSettingsInput *)orgSettingInput {
+- (NSError *) UpdateOrgSettings:(OrgSettingsInput *)orgSettingInput {
 	
 	AuthUserServiceUpdateOrgSettingsResults *results = [[AuthUserServiceUpdateOrgSettingsResults alloc] init];
 	AuthUserServiceUpdateOrgSettingsParams *params = [[AuthUserServiceUpdateOrgSettingsParams alloc] init];
 	[params setOrgSettingInput:orgSettingInput];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateOrgSettings.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateOrgSettings.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- CanCreateGroup ---
@@ -12780,14 +12875,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceCanCreateGroupResults *results = [[AuthUserServiceCanCreateGroupResults alloc] init];
 	AuthUserServiceCanCreateGroupParams *params = [[AuthUserServiceCanCreateGroupParams alloc] init];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CanCreateGroup.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CanCreateGroup.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12804,14 +12900,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceCanInvitePeopleResults *results = [[AuthUserServiceCanInvitePeopleResults alloc] init];
 	AuthUserServiceCanInvitePeopleParams *params = [[AuthUserServiceCanInvitePeopleParams alloc] init];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CanInvitePeople.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CanInvitePeople.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12829,14 +12926,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceInvitePeopleParams *params = [[AuthUserServiceInvitePeopleParams alloc] init];
 	[params setEmails:emails];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/InvitePeople.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/InvitePeople.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12848,53 +12946,55 @@ static Qortexapi * _qortexapi;
 }
 
 // --- CancelInvitation ---
-- (AuthUserServiceCancelInvitationResults *) CancelInvitation:(NSString *)email {
+- (NSError *) CancelInvitation:(NSString *)email {
 	
 	AuthUserServiceCancelInvitationResults *results = [[AuthUserServiceCancelInvitationResults alloc] init];
 	AuthUserServiceCancelInvitationParams *params = [[AuthUserServiceCancelInvitationParams alloc] init];
 	[params setEmail:email];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CancelInvitation.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CancelInvitation.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- ResendInvitation ---
-- (AuthUserServiceResendInvitationResults *) ResendInvitation:(NSString *)email {
+- (NSError *) ResendInvitation:(NSString *)email {
 	
 	AuthUserServiceResendInvitationResults *results = [[AuthUserServiceResendInvitationResults alloc] init];
 	AuthUserServiceResendInvitationParams *params = [[AuthUserServiceResendInvitationParams alloc] init];
 	[params setEmail:email];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/ResendInvitation.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/ResendInvitation.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- PrepareChangeEmail ---
@@ -12904,14 +13004,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServicePrepareChangeEmailParams *params = [[AuthUserServicePrepareChangeEmailParams alloc] init];
 	[params setNewEmail:newEmail];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/PrepareChangeEmail.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/PrepareChangeEmail.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12923,28 +13024,29 @@ static Qortexapi * _qortexapi;
 }
 
 // --- ChangeEmail ---
-- (AuthUserServiceChangeEmailResults *) ChangeEmail:(NSString *)token {
+- (NSError *) ChangeEmail:(NSString *)token {
 	
 	AuthUserServiceChangeEmailResults *results = [[AuthUserServiceChangeEmailResults alloc] init];
 	AuthUserServiceChangeEmailParams *params = [[AuthUserServiceChangeEmailParams alloc] init];
 	[params setToken:token];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/ChangeEmail.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/ChangeEmail.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- UpdateAccount ---
@@ -12954,14 +13056,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceUpdateAccountParams *params = [[AuthUserServiceUpdateAccountParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateAccount.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/UpdateAccount.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -12981,14 +13084,15 @@ static Qortexapi * _qortexapi;
 	[params setEmail:email];
 	[params setIsResend:isResend];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/SendSharingInvitation.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/SendSharingInvitation.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -13006,14 +13110,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceGetSharingInvitationItemsParams *params = [[AuthUserServiceGetSharingInvitationItemsParams alloc] init];
 	[params setGroupId:groupId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetSharingInvitationItems.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/GetSharingInvitationItems.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -13025,80 +13130,83 @@ static Qortexapi * _qortexapi;
 }
 
 // --- CancelSharing ---
-- (AuthUserServiceCancelSharingResults *) CancelSharing:(NSString *)groupId email:(NSString *)email {
+- (NSError *) CancelSharing:(NSString *)groupId email:(NSString *)email {
 	
 	AuthUserServiceCancelSharingResults *results = [[AuthUserServiceCancelSharingResults alloc] init];
 	AuthUserServiceCancelSharingParams *params = [[AuthUserServiceCancelSharingParams alloc] init];
 	[params setGroupId:groupId];
 	[params setEmail:email];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CancelSharing.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/CancelSharing.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- StopSharingGroup ---
-- (AuthUserServiceStopSharingGroupResults *) StopSharingGroup:(NSString *)GroupId toStopOrgId:(NSString *)toStopOrgId {
+- (NSError *) StopSharingGroup:(NSString *)GroupId toStopOrgId:(NSString *)toStopOrgId {
 	
 	AuthUserServiceStopSharingGroupResults *results = [[AuthUserServiceStopSharingGroupResults alloc] init];
 	AuthUserServiceStopSharingGroupParams *params = [[AuthUserServiceStopSharingGroupParams alloc] init];
 	[params setGroupId:GroupId];
 	[params setToStopOrgId:toStopOrgId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/StopSharingGroup.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/StopSharingGroup.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- LeaveSharingGroup ---
-- (AuthUserServiceLeaveSharingGroupResults *) LeaveSharingGroup:(NSString *)GroupId {
+- (NSError *) LeaveSharingGroup:(NSString *)GroupId {
 	
 	AuthUserServiceLeaveSharingGroupResults *results = [[AuthUserServiceLeaveSharingGroupResults alloc] init];
 	AuthUserServiceLeaveSharingGroupParams *params = [[AuthUserServiceLeaveSharingGroupParams alloc] init];
 	[params setGroupId:GroupId];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/LeaveSharingGroup.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/LeaveSharingGroup.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
-		return results;
+		return results.Err;
 	}
 	results = [results initWithDictionary: dict];
 	
-	return results;
+	return results.Err;
 }
 
 // --- ShareChat ---
@@ -13108,14 +13216,15 @@ static Qortexapi * _qortexapi;
 	AuthUserServiceShareChatParams *params = [[AuthUserServiceShareChatParams alloc] init];
 	[params setInput:input];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/ShareChat.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/AuthUserService/ShareChat.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];
@@ -13142,14 +13251,15 @@ static Qortexapi * _qortexapi;
 	[params setEmail:email];
 	[params setPassword:password];
 	
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/Global/GetSession.json", [[Qortexapi get] BaseURL]]];
-	if([[Qortexapi get] Verbose]) {
+	Qortexapi * _api = [Qortexapi get];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/Global/GetSession.json", [_api BaseURL]]];
+	if([_api Verbose]) {
 		NSLog(@"Requesting URL: %@", url);
 	}
 	NSError *error;
 	NSDictionary * dict = [Qortexapi request:url req:[NSDictionary dictionaryWithObjectsAndKeys: [self dictionary], @"This", [params dictionary], @"Params", nil] error:&error];
 	if(error != nil) {
-		if([[Qortexapi get] Verbose]) {
+		if([_api Verbose]) {
 			NSLog(@"Error: %@", error);
 		}
 		[results setErr:error];

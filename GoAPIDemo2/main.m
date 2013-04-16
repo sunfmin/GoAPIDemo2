@@ -10,11 +10,9 @@
 #import "qortexapi.h"
 #import "Utils.h"
 
-int main(int argc, const char * argv[])
-{
+int main(int argc, const char *argv[]) {
 
-    @autoreleasepool {
-        
+
 //        Organization * org = [Organization alloc];
 //        [org setSummary:@"Really cool org"];
 //        [org setQortexURL:@"theplant"];
@@ -37,17 +35,19 @@ int main(int argc, const char * argv[])
 //        
 //        
 //        [Utils Though:[[Entry alloc] initWithDictionary:[Utils Though:entry]]];
-        
-        [[Qortexapi get] setBaseURL:@"http://qortex.theplant-dev.com/api"];
-        [[Qortexapi get] setVerbose:YES];
 
-        Global * g = [Global alloc];
-        GlobalGetSessionResults * gsr = [g GetSession:@"sunfmin@gmail.com" password:@"nopassword"];
-        NSLog(@"Session is: %@", gsr.Session);
-        AuthUserService * serv = [g GetAuthUserService:gsr.Session];
-//        [[Qortexapi get] setBaseURL:@"http://qortex.net.theplant-dev.com/apiv2"];
-        AuthUserServiceOrganizationInfoResults* r = [serv OrganizationInfo:@"5018d345558fbe46c4000001"];
-        NSLog(@"Org Info is: %@", [r.Org dictionary]);
+    [[Qortexapi get] setBaseURL:@"http://qortex.theplant-dev.com/api"];
+    [[Qortexapi get] setVerbose:YES];
+    while (true) {
+        @autoreleasepool {
+            Global *g = [Global alloc];
+            GlobalGetSessionResults *gsr = [g GetSession:@"sunfmin@gmail.com" password:@"nopassword"];
+            NSLog(@"Session is: %@", gsr.Session);
+            AuthUserService *serv = [g GetAuthUserService:gsr.Session];
+            //        [[Qortexapi get] setBaseURL:@"http://qortex.net.theplant-dev.com/apiv2"];
+            AuthUserServiceOrganizationInfoResults *r = [serv OrganizationInfo:@"5018d345558fbe46c4000001"];
+            NSLog(@"Org Info is: %@", [r.Org dictionary]);
+        }
 
     }
     return 0;
